@@ -1,10 +1,10 @@
 /**
-* @description The given function is a anonymous self-executing function that logs
-* the message "Services are being queued on port: [port]" to the console whenever
-* it's invoked with an argument (port).
+* @description The function `services=(port) => { console.log("Services are being
+* queued on port:", port); }` logs the message "Services are being queued on port:
+* X" to the console for every value of `port` passed as an argument.
 * 
-* @param { number } port - The `port` input parameter is used to pass a single
-* argument to the function.
+* @param { any } port - The `port` input parameter is not used or assigned to anywhere
+* within the function body.
 */
 const services = (port) => {
 

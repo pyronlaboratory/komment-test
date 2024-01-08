@@ -1,13 +1,11 @@
 def server(port):
-  
   """
-  The function `server` listens for incoming requests on a specific port ( specified
-  as an argument ) and prints a message indicating that the server is listening
-  on that port.
+  The `server` function prints a message indicating that it is listening on the
+  specified port.
 
   Args:
-      port (str): The `port` input parameter specifies which port the server should
-          listen on.
+      port (int): The `port` input parameter passes a value to the function that
+          tells the function which port to listen on for incoming requests.
 
   """
   print(f"Server listening on port: {port}")
