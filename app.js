@@ -1,3 +1,3 @@
 const app = () => {
-  console.log("App is running live!");
+  console.log("App is running live..!");
 };
