@@ -1,5 +1,6 @@
 /**
-* @description This function runs the code inside its scope whenever the app is run.
+* @description This function defines a self-executing anonymous function that logs
+* the message "App is running live!" to the console.
 */
 const app = () => {
   console.log("App is running live!");
