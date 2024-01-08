@@ -1,2 +1,2 @@
 def server(port):
-  print(f"Backend services running on port #{port}")
+  print(f"Server listening on port: {port}")
