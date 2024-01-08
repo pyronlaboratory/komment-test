@@ -1,3 +1,2 @@
-def server():
-  port = 8889
+def server(port):
   print(f"Backend services running on port #{port}")
