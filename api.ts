@@ -1,13 +1,18 @@
 class Api {
-/**
-* @description This function logs the message "API is running live!" to the console.
-* 
-* @returns { void } The function does not return any value and does not print any
-* message to the console as "undefined" is being logged.
-*/
-  public static run(): void {
+  public static run1(): void {
+    console.log("API is live!");
+  }
+  public static run2(): void {
+    console.log("API is live!");
+  }
+  public static run3(): void {
     console.log("API is live!");
   }
 }
-Api.run();
+
+
+
+
+
+Api.run1();
 
