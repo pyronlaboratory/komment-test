@@ -9,10 +9,5 @@ class Api {
     console.log("API is live!");
   }
 }
-
-
-
-
-
 Api.run1();
 
