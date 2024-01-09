@@ -1,9 +1,9 @@
 /**
-* @description This function takes a single argument `port` and logs the message
-* "Services are being queued on port: " followed by the value of `port` to the console.
+* @description The function `services` takes a single argument `port`, and logs a
+* message to the console indicating that services are being queued on that port.
 * 
-* @param { number } port - The `port` input parameter passed to the function serves
-* as an argument for the `console.log()` statement inside the function.
+* @param { number } port - The `port` input parameter passes a value to the log
+* statement within the function. Specifically., it is used as an argument to console.log().
 */
 const services = (port) => {
     console.log("Services are being queued on port: ", port)
