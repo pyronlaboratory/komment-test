@@ -3,8 +3,4 @@ class Api {
     console.log("API is live (new code changes..)!");
   }
 }
-
-
-
-
 Api.run();
