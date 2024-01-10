@@ -1,9 +1,8 @@
 class Api {
 /**
-* @description This function logs the message "API is live (new code changes..)" to
-* the console.
+* @description This function logs the message "API is live (new code changes..)!".
 * 
-* @returns { void } The output of the function is:
+* @returns { void } The output of this function is:
 * 
 * "API is live (new code changes..)!"
 */
@@ -11,8 +10,4 @@ class Api {
     console.log("API is live (new code changes..)!");
   }
 }
-
-
-
-
 Api.run();
