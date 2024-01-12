@@ -1,4 +1,4 @@
-const class Api {
+const Api {
 /**
 * @description This function logs the message "API is live!" to the console.
 * 
