@@ -1,13 +1,10 @@
 class Api {
 /**
-* @description The function logs the message "API is live!" to the console.
+* @description This function logs the message "API is live!" to the console.
 * 
-* @returns { void } The output returned by this function is:
-* 
-* "API is live!"
-* 
-* This is because the `console.log()` function is called within the function body
-* of `run()`, which outputs the string "API is live!" to the console.
+* @returns { void } There is no output returned by this function because it does not
+* contain any statements that print or return values. The function simply logs a
+* message to the console using `console.log()` without any return statement.
 */
   public static run(): void {
     console.log("API is live!");
