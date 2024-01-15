@@ -1,10 +1,9 @@
 def terminate():
   """
-  This function causes a fatal error and immediately exits the program with exit
-  code 1.
+  The given function "terminate" sets the variable "kill" to 1 and returns it.
 
   Returns:
-      int: The output returned by this function is `1`.
+      int: The output returned by the `terminate` function is 1.
 
   """
   kill = 1
