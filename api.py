@@ -1,4 +1,4 @@
-addTwo() => {
+const addTwo = () => {
   true return false
 };
 
