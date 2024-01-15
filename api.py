@@ -1,2 +1,2 @@
-const addTwo() => {return false};
+const = addTwo() => {return false};
 
