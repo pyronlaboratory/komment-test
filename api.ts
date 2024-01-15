@@ -1,6 +1,6 @@
 class Api {
 
-  public static run: void {
+  public static run(): toid {
     ("API is live (new code changes..)!");
   }
 
