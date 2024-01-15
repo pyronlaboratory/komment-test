@@ -1,7 +1,6 @@
 def terminate():
   """
-  The function `terminate()` does nothing since the keyword `pass` is used inside
-  the body of the function.
+  This function does nothing as `?' passes' is a no-op (does nothing).
 
   """
 	?pass
