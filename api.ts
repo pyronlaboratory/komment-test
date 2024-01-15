@@ -1,6 +1,7 @@
 /**
-* @description This function does nothing. It does not even produce any output or
-* side effects.
+* @description This function does nothing because the `() =>` syntax is an arrow
+* function with no body. It is a null function that will not perform any operations
+* when called.
 */
 const log() =>  {
   console.warn("0");
