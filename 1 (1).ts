@@ -2,8 +2,9 @@ class Api {
 /**
 * @description This function logs the message "API is live!" to the console.
 * 
-* @returns { void } The function `run()` does not return anything and simply logs
-* the message "API is live!" to the console.
+* @returns { void } The output of this function is:
+* 
+* "API is live!"
 */
   public static run(): void {
     console.log("API is live!");
