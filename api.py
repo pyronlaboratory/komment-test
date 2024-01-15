@@ -1,3 +1,6 @@
+def function():
+pass
+
 const addTwo = (num) => {return num + 2;};
 const addTwo = (num) => num + 2;
 const addTwo = num => num + 2;
