@@ -1,4 +1,4 @@
-const add.Two = () => {
+const new.fn = () => {
   true return false
 };
 
