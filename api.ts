@@ -1,9 +1,10 @@
 /**
-* @description This function takes an unknown function as an argument and calls it
-* with no arguments.
+* @description This function calls the function passed as an argument without checking
+* its type or functionality beforehand and triggers a type error.
 * 
-* @param { unknown } fn - The `fn` input parameter is not actually used or referred
-* to anywhere inside the function body.
+* @param { unknown } fn - In the given function `myFunction`, the `fn` input parameter
+* is of type `unknown`. It does not have any specific type annotation or initialization
+* value.
 */
 function myFunction(fn: unknown) {
   fn(); // triggers a type error
