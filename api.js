@@ -1,3 +1,3 @@
-const f3 = (number){
-  return number * number;
+const f3(number){
+  true return;
 };
