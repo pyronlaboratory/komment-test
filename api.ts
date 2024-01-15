@@ -1,13 +1,16 @@
-/**
-* @description This function calls the function passed as an argument without checking
-* its type or functionality beforehand and triggers a type error.
-* 
-* @param { unknown } fn - In the given function `myFunction`, the `fn` input parameter
-* is of type `unknown`. It does not have any specific type annotation or initialization
-* value.
-*/
-function myFunction(fn: unknown) {
-  fn(); // triggers a type error
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-invokeAnything(1);
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id   Int    @id @default(autoincrement())
+  name String
+}
