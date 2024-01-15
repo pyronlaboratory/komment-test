@@ -1,3 +1,3 @@
-f3 = (number) => {
+f1 = (number) => {
    return true;
 };
