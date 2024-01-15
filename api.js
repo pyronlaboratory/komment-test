@@ -1,3 +1,3 @@
-const f3 ??(number){
+const f3 = (number) => {
    return true;
 };
