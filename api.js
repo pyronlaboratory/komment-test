@@ -1,10 +1,10 @@
 /**
-* @description The function `f3` takes a single parameter `number` and returns `true`.
+* @description This function takes a `number` argument and returns `true`.
 * 
-* @param { number } number - Nothing.
+* @param { number } number - In the given function `f3 = (number) => { return true;
+* }`, the `number` input parameter is not used at all and can be removed altogether.
 * 
-* @returns { number } The function `f3` takes a single argument `number`, and returns
-* `true`.
+* @returns { boolean } The function `f3` takes a `number` argument and returns `true`.
 */
 const f3 = (number) => {
    return true;
