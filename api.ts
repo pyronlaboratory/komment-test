@@ -1,38 +1,40 @@
 /**
-* @description The function `addTwo` takes a number `num` as an argument and returns
-* the sum of `num` and 2.
+* @description The function `addTwo` takes a single argument `num`, and returns its
+* sum with 2.
 * 
-* @param { number } num - The `num` input parameter of the `addTwo` function is the
-* value that will be added to 2 to produce the result returned by the function.
+* @param { number } num - The `num` input parameter passed to the function `addTwo`
+* receives a numerical value and returns that value plus 2.
 * 
 * @returns { number } The output returned by the `addTwo` function is `num + 2`. In
-* other words,"When we add a value with `addTwo()` it increments by 2”.
+* other words.
 */
 const addTwo = (num) => {return num + 2;};
 /**
-* @description The function `addTwo` takes a single argument `num`, and returns the
+* @description The function `addTwo` takes a number `num` as input and returns the
 * sum of `num` and 2.
 * 
-* @param { number } num - In the given function `addTwo = (num) => num + 2`, the
-* `num` input parameter is a parameter that takes a single number as an argument and
-* returns its sum with 2.
+* @param { number } num - In the function `addTwo`, the `num` input parameter is a
+* required argument that is passed to the function when it is called.
 */
 const addTwo = (num) => num + 2;
 /**
-* @description The function `addTwo` takes a single number `num`, and returns the
+* @description The `addTwo` function takes a number (`num`) as input and returns the
 * sum of `num` and 2.
 * 
-* @param { number } num - The `num` input parameter is not used at all because it
-* is undefined.
+* @param { number } num - The `num` input parameter is a variable that is being
+* passed to the function and it gets added by 2 inside the function.
 */
 const addTwo = num => num + 2;
 /**
-* @description This function adds 2 to the value passed as an argument and returns
-* the result.
+* @description The function `addTwo` takes a single argument `a`, and returns its
+* sum with 2.
 * 
-* @param { number } a - The `a` input parameter adds its value to the returned value.
+* @param { number } a - The `a` input parameter is used as a value to add 2 to.
 * 
-* @returns { number } The output returned by this function is `undefined`.
+* @returns { number } The function `addTwo` takes a single argument `a` and returns
+* its sum with 2. Since `a` is undefined initially and we are not providing any value
+* for it when calling the function (as evident from the code), the result of the
+* function will be undefined too.
 */
 const addTwo = a => {
  const newValue = a + 2;
