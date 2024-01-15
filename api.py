@@ -1,4 +1,4 @@
-const new.fn = () => {
-  true return false
+const newfn = () => {
+  true return false;
 };
 
