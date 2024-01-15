@@ -1,9 +1,9 @@
 /**
-* @description The function `auth = (port) => {}` sets up an authentication redirection
-* for a specific port.
+* @description The function `auth = (port) => {}` is an anonymous function that takes
+* a single argument `port`.
 * 
-* @param { number } port - In the given function `auth`, the `port` parameter is
-* passed as an argument to the function and is not used within the function body.
+* @param { string } port - The `port` input parameter specifies the port number to
+* which the authentication process should be redirected.
 */
 const auth = (port) => {
   console.log("Authentication is redirecting on port: ", port)
