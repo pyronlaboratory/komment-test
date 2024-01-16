@@ -1,4 +1,5 @@
 /**
-* @description The function takes no arguments and logs the string "0" to the console.
+* @description This function does nothing. It is undefined and has no code inside
+* the arrow function.
 */
 const func = () => console.log("0");
