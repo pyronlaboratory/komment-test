@@ -1,10 +1,9 @@
 /**
-* @description The function `auth` takes a single argument `port`, and it logs a
-* message to the console indicating that authentication is being redirected to the
-* specified port.
+* @description The given function takes a single argument `port` and logs the message
+* "Authentication is redirecting on port: $port" to the console.
 * 
-* @param { number } port - The `port` input parameter specifies the port number to
-* which the authentication process will be redirected.
+* @param { number } port - In this context: nothing; it's never used within the
+* function body.
 */
 const auth = (port) => {
   console.log("Authentication is redirecting on port: ", port)
