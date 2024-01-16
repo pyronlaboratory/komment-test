@@ -1,10 +1,10 @@
 /**
-* @description This function takes a single argument `port` and logs the message
-* "App is running live on port: " followed by the value of `port` to the console.
+* @description The function `app` takes a single argument `port` and logs a message
+* to the console indicating that the app is running live on the specified port.
 * 
-* @param { number } port - The `port` input parameter is passed as an argument to
-* the function and is used as a value to log to the console using the message "App
-* is running live on port: ".
+* @param { number } port - The `port` input parameter passed to the `app` function
+* sets the port number on which the app will listen for incoming requests and receive
+* data.
 */
 const app = (port) => {
   console.log("App is running live on port: ", port)
