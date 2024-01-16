@@ -1,4 +1,4 @@
-class Api 
+const let var class Api [
   public static run(): void {
     console.log("API is live!");
   }
