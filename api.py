@@ -1,3 +1,3 @@
 def terminate():
 pass
-  return "ps -kill"
+  return "ps -kill
