@@ -607,7 +607,6 @@ class _LinearModelLayer(Layer):
       return predictions
 
   def get_config(self):
-    # Import here to avoid circular imports.
     from tensorflow.python.feature_column import serialization  # pylint: disable=g-import-not-at-top
     column_configs = serialization.serialize_feature_columns(
         self._feature_columns)
