@@ -287,6 +287,39 @@ class _StateManagerImpl(StateManager):
                       trainable=True,
                       use_resource=True,
                       initializer=None):
+    """
+    This function creates a new variable (i.e., a slot to store a value) within a
+    specified layer of a TensorFlow model. It takes the name of the feature column
+    to be used for the variable and various parameters such as shape and dtype.
+    If a variable with the same name already exists for the same feature column
+    on the same scope as the current instance of the model being constructed with
+    this function then it raises a ValueError.
+
+    Args:
+        feature_column (str): The `feature_column` input parameter specifies the
+            column name of the input dataset that the variable should be created
+            for.
+        name (str): The `name` input parameter specifies the name of the variable
+            to be created.
+        shape (int): The `shape` input parameter specifies the shape of the variable
+            being created.
+        dtype (None): The `dtype` input parameter specifies the data type of the
+            variable being created.
+        trainable (bool): The `trainable` input parameter determines whether the
+            variable is trained during the optimization process. If set to `True`,
+            the variable will be updated based on the gradient information.
+        use_resource (bool): The `use_resource` input parameter specifies whether
+            the variable should be created using a resource variable or not. A
+            resource variable is a shared variable that can be accessed from
+            multiple placeholders and has its own private storage. When
+            `use_resource=True`, the function creates a resource variable.
+        initializer (str): The `initializer` parameter is used to set the initial
+            values for the variable being created.
+
+    Returns:
+        : The output returned by this function is a TensorFlow variable object.
+
+    """
     if name in self._cols_to_vars_map[feature_column]:
       raise ValueError('Variable already exists.')
 
@@ -305,14 +338,56 @@ class _StateManagerImpl(StateManager):
     return var
 
   def get_variable(self, feature_column, name):
+    """
+    This function retrieves a variable from a map based on its name and feature column.
+
+    Args:
+        feature_column (str): The `feature_column` input parameter specifies which
+            column of the dataset to look for the variable.
+        name (str): The `name` input parameter specifies the name of the variable
+            to be retrieved from the `_cols_to_vars_map`.
+
+    Returns:
+        : The output returned by this function is a `ValueError` indicating that
+        the variable does not exist.
+
+    """
     if name in self._cols_to_vars_map[feature_column]:
       return self._cols_to_vars_map[feature_column][name]
     raise ValueError('Variable does not exist.')
 
   def add_resource(self, feature_column, name, resource):
+    """
+    This function adds a resource to a map of column-to-resource associations for
+    a given feature column and name.
+
+    Args:
+        feature_column (str): The `feature_column` input parameter specifies the
+            column from which the resource is being added.
+        name (str): The `name` input parameter is a string that specifies the
+            unique identifier for the resource being added to the feature column.
+        resource (dict): The `resource` input parameter is used to set the value
+            of the `name`th resource entry for the given `feature_column`.
+
+    """
     self._cols_to_resources_map[feature_column][name] = resource
 
   def get_resource(self, feature_column, name):
+    """
+    This function takes a feature column and a name as input and returns the
+    resource associated with the given name if it exists; otherwise raises a ValueError.
+
+    Args:
+        feature_column (str): The `feature_column` input parameter specifies the
+            column of the dataset that the resource is associated with.
+        name (str): The `name` input parameter specifies the name of the resource
+            to be retrieved from the `_cols_to_resources_map`.
+
+    Returns:
+        : The output returned by this function is `ValueError('Resource does not
+        exist.')`.
+
+    """
     if name in self._cols_to_resources_map[feature_column]:
       return self._cols_to_resources_map[feature_column][name]
     raise ValueError('Resource does not exist.')
@@ -338,6 +413,20 @@ class _BaseFeaturesLayer(Layer):
   """
   def __init__(self, feature_columns, expected_column_type, trainable, name,
                **kwargs):
+    """
+    This function defines a constructor for the `BaseFeaturesLayer` class.
+
+    Args:
+        feature_columns (): The `feature_columns` input parameter specifies the
+            columns from which the layer will extract features.
+        expected_column_type (int): The `expected_column_type` input parameter
+            specifies the type of columns that should be passed to the layer.
+        trainable (bool): The `trainable` input parameter determines whether the
+            layer should be trained or not. If set to `True`, the layer's weights
+            will be adjusted during training.
+        name (str): The `name` parameter is used to set the name of the layer.
+
+    """
     super(_BaseFeaturesLayer, self).__init__(
         name=name, trainable=trainable, **kwargs)
     self._feature_columns = _normalize_feature_columns(feature_columns)
@@ -351,6 +440,15 @@ class _BaseFeaturesLayer(Layer):
                 expected_column_type, column))
 
   def build(self, _):
+    """
+    This function builds the feature columns for a ` `_BaseFeaturesLayer` object.
+
+    Args:
+        _ (None): The `_` input parameter is an unused argument and is there only
+            to satisfy the functionality signature expected by Python's built-in
+            `map()` function used within the loop.
+
+    """
     for column in self._feature_columns:
       with variable_scope._pure_variable_scope(self.name):  # pylint: disable=protected-access
         with variable_scope._pure_variable_scope(column.name):  # pylint: disable=protected-access
@@ -370,6 +468,23 @@ class _BaseFeaturesLayer(Layer):
     raise NotImplementedError('Calling an abstract method.')
 
   def compute_output_shape(self, input_shape):
+    """
+    This function computes the output shape of a TensorFlow Estimator `Estimator`
+    object based on the input shape and the variable shapes of the feature columns.
+
+    Args:
+        input_shape (int): The `input_shape` parameter is a tuple specifying the
+            shape of the input data that will be processed by the layer or model.
+            It determines the number of rows and columns of the input data. In
+            this function specifically it seems to be ignored though as no mention
+            is made of using those inputs. Instead the method is focused on computing
+            the total elements count from `feature_columns`.
+
+    Returns:
+        : The output of the `compute_output_shape` function is a tuple representing
+        the shape of the output for a given input shape.
+
+    """
     total_elements = 0
     for column in self._feature_columns:
       total_elements += column.variable_shape.num_elements()
@@ -395,6 +510,15 @@ class _BaseFeaturesLayer(Layer):
 
   def get_config(self):
     # Import here to avoid circular imports.
+    """
+    This function `get_config` returns a dictionary containing both the configuration
+    of the underlying base class and the feature column configurations.
+
+    Returns:
+        dict: The output returned by this function is a dictionary with items from
+        both `base_config` and `config`.
+
+    """
     from tensorflow.python.feature_column import serialization  # pylint: disable=g-import-not-at-top
     column_configs = serialization.serialize_feature_columns(
         self._feature_columns)
@@ -407,6 +531,25 @@ class _BaseFeaturesLayer(Layer):
   @classmethod
   def from_config(cls, config, custom_objects=None):
     # Import here to avoid circular imports.
+    """
+    This function "from_config" takes a class object "cls", a configuration dict
+    "config", and an optional list of custom objects "custom_objects". It imports
+    feature_column module temporarily to avoid circular imports.
+
+    Args:
+        cls (): The `cls` parameter is the class object that is being instantiated
+            with the configured settings from the `config` dictionary.
+        config (): The `config` input parameter is a dictionary that contains the
+            configuration for the Feature Column serialization and deserialization.
+        custom_objects (dict): The `custom_objects` input parameter is used to
+            specify a dictionary of custom objects that should be serialized and
+            deserialized along with the feature columns.
+
+    Returns:
+        : The output returned by this function is an instance of the class `cls`
+        passed as its first argument; specifically: `return cls(**config_cp)`.
+
+    """
     from tensorflow.python.feature_column import serialization  # pylint: disable=g-import-not-at-top
     config_cp = config.copy()
     config_cp['feature_columns'] = serialization.deserialize_feature_columns(
@@ -473,9 +616,32 @@ class DenseFeatures(_BaseFeaturesLayer):
 
   @property
   def _is_feature_layer(self):
+    """
+    This function checks if the current object is a feature layer (i.e., a layer
+    that contains features such as points or lines), and returns `True` if it is.
+
+    Returns:
+        bool: The output returned by the function `_is_feature_layer` is `True`.
+
+    """
     return True
 
   def _target_shape(self, input_shape, total_elements):
+    """
+    This function returns the shape of a target tensor with length `total_elements`
+    given an input tensor with shape `input_shape`.
+
+    Args:
+        input_shape (int): The `input_shape` input parameter specifies the shape
+            of the input tensor that will be passed to the function.
+        total_elements (int): The `total_elements` input parameter specifies the
+            total number of elements to be processed by the function.
+
+    Returns:
+        int: The output returned by the function `_target_shape` is a tuple of two
+        elements: `(input_shape[0], total_elements)`.
+
+    """
     return (input_shape[0], total_elements)
 
   def call(self, features, cols_to_output_tensors=None):
@@ -523,6 +689,25 @@ class _LinearModelLayer(Layer):
                trainable=True,
                name=None,
                **kwargs):
+    """
+    This function defines a class __init__ for an object called LinearModelLayer.
+    It initializes the object with various parameters such as feature_columns ,
+    units and sparse combiner.
+
+    Args:
+        feature_columns (): The `feature_columns` input parameter specifies the
+            columns of the input dataset that should be used as features for the
+            linear model layer.
+        units (int): The `units` input parameter specifies the output dimensionality
+            of the linear layer.
+        sparse_combiner (str): The `sparse_combiner` input parameter specifies how
+            to combine sparse inputs when creating the output representation.
+        trainable (bool): The `trainable` input parameter determines whether the
+            layer's weights (i.e., the learned values for the coefficients of the
+            feature columns) should be trained or not.
+        name (str): The `name` parameter is used to set a display name for the layer.
+
+    """
     super(_LinearModelLayer, self).__init__(
         name=name, trainable=trainable, **kwargs)
 
@@ -544,6 +729,19 @@ class _LinearModelLayer(Layer):
     # information to percolate down. We also use _pure_variable_scope's here
     # since we want to open up a name_scope in the `call` method while creating
     # the ops.
+    """
+    This function builds a linear model layer for TensorFlow. It creates variables
+    for the weight and bias of the layer and sets up their initializers and trainability.
+
+    Args:
+        _ (None): The `_` parameter is an invalid parameter name that serves as a
+            placeholder for the actual argument that should be passed to the
+            function. In this case it is the ` None ` value which will not be used
+            by the function and was included just to follow Python convention that
+            method definitions with a specific number of arguments should have all
+            the parameters defined including those that are not being used.
+
+    """
     with variable_scope._pure_variable_scope(self.name):  # pylint: disable=protected-access
       for column in self._feature_columns:
         with variable_scope._pure_variable_scope(column.name):  # pylint: disable=protected-access
@@ -579,6 +777,20 @@ class _LinearModelLayer(Layer):
     super(_LinearModelLayer, self).build(None)
 
   def call(self, features):
+    """
+    This function computes the weighted sum of feature columns using a Linear Model
+    and returns the prediction results.
+
+    Args:
+        features (dict): The `features` input parameter is a dictionary of feature
+            columns used to create weighted sums for the linear model.
+
+    Returns:
+        dict: The output returned by this function is `predictions`, which is a
+        tensor representing the predicted values after applying the linear
+        transformation to the input features.
+
+    """
     if not isinstance(features, dict):
       raise ValueError('We expected a dictionary here. Instead we got: {}'
                        .format(features))
@@ -607,6 +819,18 @@ class _LinearModelLayer(Layer):
       return predictions
 
   def get_config(self):
+    """
+    This function defines a get_config method for a subclass of tensorflow's
+    LinearModelLayer. It returns a dictionary containing the config options for
+    the layer.
+
+    Returns:
+        dict: The output returned by this function is a dictionary that combines
+        the contents of `config` and `base_config`, where `config` is defined
+        within the method and contains information about feature columns and units
+        of the linear model layer instance object passed to the method.
+
+    """
     from tensorflow.python.feature_column import serialization  # pylint: disable=g-import-not-at-top
     column_configs = serialization.serialize_feature_columns(
         self._feature_columns)
@@ -623,6 +847,28 @@ class _LinearModelLayer(Layer):
   @classmethod
   def from_config(cls, config, custom_objects=None):
     # Import here to avoid circular imports.
+    """
+    This function `from_config` takes a class `cls`, a configuration dictionary
+    `config`, and an optional list of custom objects `custom_objects`, and returns
+    an instance of the class with the configuration from `config` and feature
+    columns deserialized from the configuration.
+
+    Args:
+        cls (): The `cls` input parameter is a class that should be initialized
+            with the remaining configuration parameters after deseralizing feature
+            columns.
+        config (dict): The `config` input parameter is a dictionary of configuration
+            options that are used to create an instance of the class.
+        custom_objects (dict): The `custom_objects` input parameter is used to
+            specify a dictionary of custom objects that are used to deserialize
+            feature columns from the config file.
+
+    Returns:
+        : The output returned by this function is an instance of the class `cls`
+        with the `feature_columns` attribute set to the deserialized feature columns
+        and the remaining attributes set to the values specifiedin the `config` dict.
+
+    """
     from tensorflow.python.feature_column import serialization  # pylint: disable=g-import-not-at-top
     config_cp = config.copy()
     columns = serialization.deserialize_feature_columns(
@@ -765,6 +1011,14 @@ class LinearModel(training.Model):
 
   @property
   def bias(self):
+    """
+    This function returns the bias of the layer that the instance belongs to.
+
+    Returns:
+        float: The output returned by the function `bias` is the bias of the current
+        layer.
+
+    """
     return self.layer.bias
 
 
@@ -2649,6 +2903,20 @@ class FeatureTransformationCache(object):
 
     def expand_dims(input_tensor):
       # Input_tensor must have rank 1.
+      """
+      This function takes a tensor as input and returns its expanded version with
+      an additional dimension. If the input tensor is sparse. it uses `sparse_reshape`
+      to add the new dimension. otherwise.
+
+      Args:
+          input_tensor (): The `input_tensor` input parameter is the tensor that
+              should be expanded to have dimensions.
+
+      Returns:
+          : The output returned by the `expand_dims` function is a tensor with
+          rank 2.
+
+      """
       if isinstance(input_tensor, sparse_tensor_lib.SparseTensor):
         return sparse_ops.sparse_reshape(
             input_tensor, [array_ops.shape(input_tensor)[0], 1])
@@ -2775,6 +3043,13 @@ class NumericColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` returns `True`.
+
+    Returns:
+        bool: The function `_is_v2_column` will always return `True`.
+
+    """
     return True
 
   @property
@@ -2795,9 +3070,35 @@ class NumericColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function is a "dunder" (private) method of an object-oriented class that
+    takes no arguments and returns the result of calling another method called `parse_example_spec`.
+
+    Returns:
+        None: The output returned by this function is `self.parse_example_spec`,
+        which is the same as the function name.
+
+    """
     return self.parse_example_spec
 
   def _transform_input_tensor(self, input_tensor):
+    """
+    This function takes an input tensor and performs two transformations:
+    1/ It checks if the input tensor is a sparse tensor and raises a ValueError
+    if it is.
+    2/ If a normalizer function is provided (i.e., `self.normalizer_fn` is not
+    None), it applies that function to the input tensor before returning the
+    transformed tensor.
+    The transformed tensor is always of type `float32`.
+
+    Args:
+        input_tensor (): The `input_tensor` input parameter is the tensor that
+            will be transformed by the `_transform_input_tensor` function.
+
+    Returns:
+        float: The output of the function is a float32 tensor.
+
+    """
     if isinstance(input_tensor, sparse_tensor_lib.SparseTensor):
       raise ValueError(
           'The corresponding Tensor of numerical column must be a Tensor. '
@@ -2809,6 +3110,19 @@ class NumericColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes an object's key-value pairs (representing input features)
+    and transforms a single input feature tensor using a proprietary method
+    (`self._transform_input_tensor`) before returning the transformed tensor.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is a dictionary of input tensors
+            for each feature key.
+
+    Returns:
+        : The output of the function `_transform_feature` is `self._transform_input_tensor(input_tensor)`.
+
+    """
     input_tensor = inputs.get(self.key)
     return self._transform_input_tensor(input_tensor)
 
@@ -2840,6 +3154,14 @@ class NumericColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _variable_shape(self):
+    """
+    This function returns the `variable_shape` attribute of the object on which
+    it is called.
+
+    Returns:
+        : The output returned by the function `variable_shape` is `undefined`.
+
+    """
     return self.variable_shape
 
   def get_dense_tensor(self, transformation_cache, state_manager):
@@ -2861,6 +3183,25 @@ class NumericColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_dense_tensor(self, inputs, weight_collections=None, trainable=None):
+    """
+    This function retrieves the dense tensor of input `inputs` for the given
+    operation (represented by `self`). It does not accept any arguments except `inputs`.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is a dictionary of tensor
+            objects that contains the values to be passed through the function.
+        weight_collections (dict): The `weight_collections` parameter is optional
+            and not used anywhere within the function code.
+        trainable (None): The `trainable` input parameter specifies whether the
+            weights associated with the tensor should be included as a training
+            parameter or not.
+
+    Returns:
+        : Based on the code provided:
+        
+        The output returned by the `_get_dense_tensor` function is `inputs.get(self)`.
+
+    """
     del weight_collections
     del trainable
     return inputs.get(self)
@@ -2901,6 +3242,15 @@ class BucketizedColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` checks if the `FeatureColumn` object has a
+    `version` attribute set to `2`.
+
+    Returns:
+        bool: The output of the function `def _is_v2_column(self):` is `True` or
+        `False`.
+
+    """
     return (isinstance(self.source_column, FeatureColumn) and
             self.source_column._is_v2_column)  # pylint: disable=protected-access
 
@@ -2918,6 +3268,14 @@ class BucketizedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function retrieves the `example_spec` attribute from the `source_column`
+    attribute of the object and returns it.
+
+    Returns:
+        str: The output of the function `_parse_example_spec` is `None`.
+
+    """
     return self.source_column._parse_example_spec  # pylint: disable=protected-access
 
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
@@ -2946,9 +3304,31 @@ class BucketizedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _variable_shape(self):
+    """
+    This function returns the `variable_shape` attribute of the object.
+
+    Returns:
+        : The output of the function ` `_variable_shape` is `self.variable_shape`,
+        which is `undefined` because the object `self` has no attribute `variable_shape`.
+
+    """
     return self.variable_shape
 
   def _get_dense_tensor_for_input_tensor(self, input_tensor):
+    """
+    This function generates a dense tensor with ones and zeros indicating the
+    presence or absence of each class label within an input tensor.
+
+    Args:
+        input_tensor (int): The `input_tensor` parameter is the input tensor for
+            which a one-hot encoding should be computed.
+
+    Returns:
+        float: The output of this function is a dense tensor with shape
+        `(len(input_tensor), len(self.boundaries) + 1)` filled with `1.` on indices
+        matching the input tensor and `0.` elsewhere.
+
+    """
     return array_ops.one_hot(
         indices=math_ops.cast(input_tensor, dtypes.int64),
         depth=len(self.boundaries) + 1,
@@ -2963,6 +3343,26 @@ class BucketizedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_dense_tensor(self, inputs, weight_collections=None, trainable=None):
+    """
+    This function computes the dense tensor for a given input tensor using the
+    `self._get_dense_tensor_for_input_tensor()` method.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of input tensors for
+            the layer. It specifies the inputs that the layer will receive from
+            other layers or the input pipeline.
+        weight_collections (list): The `weight_collections` input parameter is an
+            optional list of tuples (group namesatter than zeroean), which specify
+            the name stereotypes that own the weight matrices for each layer.
+        trainable (None): The `trainable` parameter is optional and if set to
+            `False`, the output tensor will not be trainable (i.e., its weights
+            will be locked and not updated during training).
+
+    Returns:
+        : The output returned by this function is the dense tensor created from
+        the input tensor using `self._get_dense_tensor_for_input_tensor()`.
+
+    """
     del weight_collections
     del trainable
     input_tensor = inputs.get(self)
@@ -2978,9 +3378,32 @@ class BucketizedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the value of the instance attribute `num_buckets`
+
+    Returns:
+        int: The function `num_buckets()` returns the value of the instance variable
+        `num_buckets`, which is `undefined`.
+
+    """
     return self.num_buckets
 
   def _get_sparse_tensors_for_input_tensor(self, input_tensor):
+    """
+    This function takes an input tensor and returns a sparse tensor representation
+    of the data with buckets. It does this by first reshaping the input tensor
+    into a one-dimensional array and then applying tile operations to create buckets
+    for each dimension.
+
+    Args:
+        input_tensor (float): The `input_tensor` parameter is the tensor of data
+            that needs to be processed using bucketing.
+
+    Returns:
+        int: The output returned by this function is a `CategoricalColumn.IdWeightPair`
+        object containing a sparse tensor and an optional ID-weight pair.
+
+    """
     batch_size = array_ops.shape(input_tensor)[0]
     # By construction, source_column is always one-dimensional.
     source_dimension = self.source_column.shape[0]
@@ -3058,6 +3481,15 @@ class EmbeddingColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` checks if the categorical column of a feature
+    is version 2 or not.
+
+    Returns:
+        None: The output returned by this function is a boolean value indicating
+        whether the categorical column is a v2 column or not.
+
+    """
     return (isinstance(self.categorical_column, FeatureColumn) and
             self.categorical_column._is_v2_column)  # pylint: disable=protected-access
 
@@ -3075,6 +3507,15 @@ class EmbeddingColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function (`_parse_example_spec`) returns the parsed example spec for a
+    categorical column.
+
+    Returns:
+        str: The function `_parse_example_spec` returns the value of the
+        `categorical_column` object's `parse_example_spec` method.
+
+    """
     return self.categorical_column._parse_example_spec  # pylint: disable=protected-access
 
   def transform_feature(self, transformation_cache, state_manager):
@@ -3084,6 +3525,21 @@ class EmbeddingColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes a pandas DataFrame's `inputs` and returns the value of the
+    column specified by `self.categorical_column`. It is assumed to be a categorical
+    column.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of feature values
+            for each sample (e.g., each row or instance) that is being processed.
+            It contains the values for all features of a sample as key-value pairs.
+
+    Returns:
+        str: The output of the function `transform_feature` is the value of the
+        `categorical_column` key within the `inputs` dictionary.
+
+    """
     return inputs.get(self.categorical_column)
 
   @property
@@ -3095,6 +3551,14 @@ class EmbeddingColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _variable_shape(self):
+    """
+    This function returns the `variable_shape` attribute of the object on which
+    it is called.
+
+    Returns:
+        : The output returned by this function is `None`.
+
+    """
     return self.variable_shape
 
   def create_state(self, state_manager):
@@ -3113,6 +3577,21 @@ class EmbeddingColumn(
 
   def _get_dense_tensor_internal_helper(self, sparse_tensors,
                                         embedding_weights):
+    """
+    This function computes the embedding lookups for a set of sparse tensors using
+    a pre-trained dense tensor.
+
+    Args:
+        sparse_tensors (): The `sparse_tensors` input parameter is a dictionary
+            of sparse tensors with the same shape as the dense tensor to be embedded.
+        embedding_weights (float): The `embedding_weights` input parameter is the
+            weights of the embedding layer that maps input vectors to dense vectors.
+
+    Returns:
+        float: The output returned by the function `_get_dense_tensor_internal_helper`
+        is an embedding lookup result.
+
+    """
     sparse_ids = sparse_tensors.id_tensor
     sparse_weights = sparse_tensors.weight_tensor
 
@@ -3190,6 +3669,27 @@ class EmbeddingColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_dense_tensor(self, inputs, weight_collections=None, trainable=None):
+    """
+    This function checks if the `categorical_column` of the `DenseFeatures` object
+    is a specific type of sequence categorical column and raises an error if it is.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is passed to the private
+            `_get_sparse_tensors` method of the `categorical_column`, which returns
+            a tuple of sparse tensors for each feature group.
+        weight_collections (str): The `weight_collections` input parameter specifies
+            a list of Python tuples (e.g., `(name1.WeightParam', 'name2.WeightParam')`
+            representing weight parameters associated with layers to which dense
+            tensor will be passed) for dense tensor returned by the method.
+        trainable (bool): The `trainable` input parameter determines whether the
+            weights of the dense tensor should be considered as trainable or not.
+
+    Returns:
+        float: Based on the code provided:
+        
+        The output returned by this function is a dense tensor.
+
+    """
     if isinstance(
         self.categorical_column,
         (SequenceCategoricalColumn, fc_old._SequenceCategoricalColumn)):  # pylint: disable=protected-access
@@ -3232,6 +3732,27 @@ class EmbeddingColumn(
                                  inputs,
                                  weight_collections=None,
                                  trainable=None):
+    """
+    This function retrieves the dense tensor and sequence length from a sparse
+    tensor created by a SequenceCategoricalColumn.
+
+    Args:
+        inputs (): The `inputs` parameter is the input data that should be converted
+            into a dense tensor for training the model.
+        weight_collections (list): The `weight_collections` parameter is used to
+            specify a list of tensor aliases that should be collected as part of
+            the model's weights.
+        trainable (str): The `trainable` parameter determines whether the dense
+            tensor resulting from the categorical column should be trainable or not.
+
+    Returns:
+        int: The function `_get_sequence_dense_tensor` returns a
+        `SequenceDenseColumn.TensorSequenceLengthPair` object containing:
+        
+        	- `dense_tensor`: a dense tensor representing the embedded sequence features
+        	- `sequence_length`: the length of each sequence.
+
+    """
     if not isinstance(
         self.categorical_column,
         (SequenceCategoricalColumn, fc_old._SequenceCategoricalColumn)):  # pylint: disable=protected-access
@@ -3280,6 +3801,11 @@ class EmbeddingColumn(
 
 
 def _raise_shared_embedding_column_error():
+  """
+  This function raises a ValueError when attempting to use SharedEmbeddingColumns
+  with LinearModel or InputLayer.
+
+  """
   raise ValueError('SharedEmbeddingColumns are not supported in '
                    '`linear_model` or `input_layer`. Please use '
                    '`DenseFeatures` or `LinearModel` instead.')
@@ -3295,6 +3821,32 @@ class SharedEmbeddingColumnCreator(tracking.AutoTrackable):
                num_buckets,
                trainable,
                name='shared_embedding_column_creator'):
+    """
+    This function defines a constructor for a class that creates an embeddings
+    column for a specific dimension of data.
+
+    Args:
+        dimension (int): The `dimension` input parameter specifies the dimensionality
+            of the embedding space created by the column creator.
+        initializer (): The `initializer` input parameter specifies the initialization
+            method for the embeddings.
+        ckpt_to_load_from (str): The `ckpt_to_load_from` input parameter specifies
+            the checkpoint from which to load the pre-trained weights for the
+            embedding columns.
+        tensor_name_in_ckpt (str): The `tensor_name_in_ckpt` parameter specifies
+            the name of the tensor to load the pre-trained embedding weights from
+            within the checkpoint file.
+        num_buckets (int): The `num_buckets` input parameter specifies the number
+            of buckets that should be used for bucketing the input features when
+            creating the shared embedding column.
+        trainable (bool): The `trainable` input parameter determines whether the
+            created embedding weights should be trained or not. If `trainable` is
+            set to `True`, the embedding weights will be trained during the model's
+            training process.
+        name (str): The `name` input parameter is a string that specifies the name
+            of the variable for the shared embedding column creator.
+
+    """
     self._dimension = dimension
     self._initializer = initializer
     self._ckpt_to_load_from = ckpt_to_load_from
@@ -3306,10 +3858,46 @@ class SharedEmbeddingColumnCreator(tracking.AutoTrackable):
     self._embedding_weights = {}
 
   def __call__(self, categorical_column, combiner, max_norm):
+    """
+    This function creates a SharedEmbeddingColumn object that encodes categorical
+    data using a shared embedding model.
+
+    Args:
+        categorical_column (): The `categorical_column` input parameter specifies
+            the categorical column that should be encoded using the shared embedding.
+        combiner (str): The `combiner` parameter is used to specify how the shared
+            embedding column should be combined with other columns during the
+            feature engineering process.
+        max_norm (float): The `max_norm` input parameter determines the maximum
+            norm of the embedding vectors.
+
+    Returns:
+        : The function takes four parameters: `categorical_column`, `combiner`,
+        `max_norm`, and `self`. However because it does not return any values
+        explicitly defined within the code segment you provided. It has a `return`
+        statement but nothing is explicitly returned from the statement after the
+        `return` keyword like so:
+        ```python
+        return SharedEmbeddingColumn(categorical_column;combiner:max_norm)
+        ```
+        Instead it returns an object of type SharedEmbeddingColumn. Which takes
+        the category_column combiner and max-norm parameters from the input as
+        well as a reference to `self` that we don't know much about.
+
+    """
     return SharedEmbeddingColumn(categorical_column, self, combiner, max_norm)
 
   @property
   def embedding_weights(self):
+    """
+    This function returns a variable representing the embedding weights for a given
+    key.
+
+    Returns:
+        float: The output returned by the function `embedding_weights()` is a
+        variable stored as a TensorFlow variable.
+
+    """
     key = ops.get_default_graph()._graph_key  # pylint: disable=protected-access
     if key not in self._embedding_weights:
       embedding_shape = (self._num_buckets, self._dimension)
@@ -3331,6 +3919,13 @@ class SharedEmbeddingColumnCreator(tracking.AutoTrackable):
 
   @property
   def dimension(self):
+    """
+    This function returns the value of the instance attribute `_dimension`
+
+    Returns:
+        int: The function `dimension` will return `None`.
+
+    """
     return self._dimension
 
 
@@ -3347,6 +3942,13 @@ class SharedEmbeddingColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    The given function ` `_is_v2_column` takes no arguments and always returns `True`.
+
+    Returns:
+        bool: The output returned by the function `_is_v2_column` is `True`.
+
+    """
     return True
 
   @property
@@ -3361,6 +3963,15 @@ class SharedEmbeddingColumn(
 
   @property
   def _parse_example_spec(self):
+    """
+    This function raises an error stating that a shared embedding column is not allowed.
+
+    Returns:
+        : Based on the code provided:
+        
+        The output returned by the function is `_raise_shared_embedding_column_error()`.
+
+    """
     return _raise_shared_embedding_column_error()
 
   def transform_feature(self, transformation_cache, state_manager):
@@ -3368,6 +3979,19 @@ class SharedEmbeddingColumn(
     return transformation_cache.get(self.categorical_column, state_manager)
 
   def _transform_feature(self, inputs):
+    """
+    This function raises an error because the input feature is a shared embedding
+    column and it is not allowed to transform it.
+
+    Args:
+        inputs (): The `inputs` input parameter is not used or referred to at all
+            within the defined implementation of the `_transform_feature` function.
+
+    Returns:
+        None: The output of the function `transform_feature` is `None`, as the
+        function raises an error by calling `_raise_shared_embedding_column_error()`.
+
+    """
     return _raise_shared_embedding_column_error()
 
   @property
@@ -3377,6 +4001,14 @@ class SharedEmbeddingColumn(
 
   @property
   def _variable_shape(self):
+    """
+    This function raises an error because `_raise_shared_embedding_column_error()`
+    is called.
+
+    Returns:
+        None: The output of the function is `_raise_shared_embedding_column_error()`.
+
+    """
     return _raise_shared_embedding_column_error()
 
   def _get_dense_tensor_internal(self, transformation_cache, state_manager):
@@ -3417,6 +4049,23 @@ class SharedEmbeddingColumn(
     return self._get_dense_tensor_internal(transformation_cache, state_manager)
 
   def _get_dense_tensor(self, inputs, weight_collections=None, trainable=None):
+    """
+    This function raises an error if it is called with a shared embedding column.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is not used and has no effect
+            on the behavior of the function.
+        weight_collections (list): The `weight_collections` parameter is used to
+            specify a list of Python dicts that contain the weight matrices for
+            each feature channel.
+        trainable (bool): The `trainable` input parameter determines whether the
+            weights for this tensor should be trainable or not. If set to `None`,
+            the default is `True`, which means the weights are trainable.
+
+    Returns:
+        None: The output returned by the function `_get_dense_tensor` is `NotImplemented`.
+
+    """
     return _raise_shared_embedding_column_error()
 
   def get_sequence_dense_tensor(self, transformation_cache, state_manager):
@@ -3442,6 +4091,26 @@ class SharedEmbeddingColumn(
                                  inputs,
                                  weight_collections=None,
                                  trainable=None):
+    """
+    This function is a Python define and raises an error indicating that shared
+    embedding columns are not supported.
+
+    Args:
+        inputs (): The `inputs` parameter is not used by the function and is
+            declared as `undefined`.
+        weight_collections (None): The `weight_collections` input parameter is a
+            list of names of collections of weights that should be shared among
+            all rows of the Input tensor.
+        trainable (int): The `trainable` parameter is an optional argument that
+            specifies whether the weights for the dense tensor should be trainable
+            (i.e., updateable during training).
+
+    Returns:
+        None: Based on the function signature and the body of the function you provided:
+        
+        The output returned by `_get_sequence_dense_tensor` is `_raise_shared_embedding_column_error`.
+
+    """
     return _raise_shared_embedding_column_error()
 
   @property
@@ -3484,6 +4153,13 @@ class HashedCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    The function `_is_v2_column` returns `True`.
+
+    Returns:
+        bool: The output of the function is `True`.
+
+    """
     return True
 
   @property
@@ -3500,6 +4176,14 @@ class HashedCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function is a method of an object that returns the `parse_example_spec`
+    attribute of the object.
+
+    Returns:
+        : The output of the function `parse_example_spec` is undefined.
+
+    """
     return self.parse_example_spec
 
   def _transform_input_tensor(self, input_tensor):
@@ -3536,6 +4220,24 @@ class HashedCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes a input tensor and transforms it by doing two things:
+    1/ Converting the input tensor to a sparse input using `_to_sparse_input_and_drop_ignore_values`.
+    2/ Applying some additional transformation to the resulting sparse input using
+    `self._transform_input_tensor`.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary-like object that
+            contains the input features for the transformer. It has a key corresponding
+            to each feature key (e.g., 'word', 'POS'), and the value for each key
+            is a tensor or numpy array containing the input data for that feature.
+
+    Returns:
+        : Based on the code snippet provided:
+        
+        The output returned by the `_transform_feature` function is `self._transform_input_tensor(input_tensor)`.
+
+    """
     input_tensor = _to_sparse_input_and_drop_ignore_values(inputs.get(self.key))
     return self._transform_input_tensor(input_tensor)
 
@@ -3548,6 +4250,14 @@ class HashedCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the value of the instance variable `num_buckets` for the
+    object to which it is called.
+
+    Returns:
+        int: The function `_num_buckets` returns `self.num_buckets`.
+
+    """
     return self.num_buckets
 
   def get_sparse_tensors(self, transformation_cache, state_manager):
@@ -3559,6 +4269,27 @@ class HashedCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function returns a pair of an input tensor and its corresponding id weights
+    for a given set of inputs and a `CategoricalColumn` object.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of input tensor keys
+            to sparse tensors.
+        weight_collections (dict): The `weight_collections` input parameter is
+            optional and not used at all by the function body of `_get_sparse_tensors()`.
+        trainable (None): The `trainable` input parameter specifies whether the
+            weights of the dense layers should be trained or not. If it is set to
+            `None`, the default value will be used which is `True`, indicating
+            that all weights should be trained.
+
+    Returns:
+        tuple: Based on the code provided:
+        
+        The output of the `_get_sparse_tensors` function is a `CategoricalColumn.IdWeightPair`
+        object with the input `inputs` as the id and None as the weight.
+
+    """
     del weight_collections
     del trainable
     return CategoricalColumn.IdWeightPair(inputs.get(self), None)
@@ -3593,6 +4324,14 @@ class VocabularyFileCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function is a method of an object and it returns `True` if the column
+    being checked is a version 2 column.
+
+    Returns:
+        bool: The output returned by the function is `True`.
+
+    """
     return True
 
   @property
@@ -3609,6 +4348,14 @@ class VocabularyFileCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function is a meta-function that returns the `parse_example_spec` method
+    of the object that invokes it.
+
+    Returns:
+        : The output of the function `_parse_example_spec` is `self.parse_example_spec`.
+
+    """
     return self.parse_example_spec
 
   def _transform_input_tensor(self, input_tensor):
@@ -3647,6 +4394,20 @@ class VocabularyFileCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes an input tensor and applies two transformations:
+    1/ Converts the input tensor to a sparse representation if it's not already sparse.
+    2/ Applies the `_transform_input_tensor` function to the resulting sparse tensor.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is a dictionary containing
+            input tensors for each feature map of a data batch.
+
+    Returns:
+        : The output of the function is `self._transform_input_tensor(input_tensor)`,
+        which is a transformed version of the input tensor.
+
+    """
     input_tensor = _to_sparse_input_and_drop_ignore_values(inputs.get(self.key))
     return self._transform_input_tensor(input_tensor)
 
@@ -3659,6 +4420,13 @@ class VocabularyFileCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the number of buckets that an object has.
+
+    Returns:
+        int: The output returned by this function is `None`.
+
+    """
     return self.num_buckets
 
   def get_sparse_tensors(self, transformation_cache, state_manager):
@@ -3670,6 +4438,23 @@ class VocabularyFileCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function returns a CategoricalColumn object with an IdWeightPair containing
+    the inputs and no weights.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of input tensors for
+            the module.
+        weight_collections (dict): The `weight_collections` parameter is used to
+            specify a list of tensors that are part of the model's weights.
+        trainable (bool): The `trainable` input parameter is not used and therefore
+            can be removed from the function signature.
+
+    Returns:
+        dict: The function `_get_sparse_tensors` returns a `CategoricalColumn.IdWeightPair`
+        object with the input values as the 'id' and None as the 'weight'.
+
+    """
     del weight_collections
     del trainable
     return CategoricalColumn.IdWeightPair(inputs.get(self), None)
@@ -3705,6 +4490,13 @@ class VocabularyListCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function checks if the column is version 2.
+
+    Returns:
+        bool: The output of the function ` _is_v2_column` is `True`.
+
+    """
     return True
 
   @property
@@ -3721,6 +4513,15 @@ class VocabularyListCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function defines a method `_parse_example_spec` for the class `Object`
+    that returns the method `parse_example_spec` from the instance itself. In other
+    words.
+
+    Returns:
+        None: The output returned by this function is `self.parse_example_spec`.
+
+    """
     return self.parse_example_spec
 
   def _transform_input_tensor(self, input_tensor):
@@ -3758,6 +4559,21 @@ class VocabularyListCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes an input tensor and performs two operations on it:
+    1/ Converts the input tensor to a sparse input using `_to_sparse_input_and_drop_ignore_values()`.
+    2/ Applies some additional transformation using `_transform_input_tensor()`
+    on the resulting sparse input.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is a dictionary that contains
+            the input features for the current model instance.
+
+    Returns:
+        : The output returned by this function is `self._transform_input_tensor(input_tensor)`,
+        which is a transformed tensor based on the input `inputs`.
+
+    """
     input_tensor = _to_sparse_input_and_drop_ignore_values(inputs.get(self.key))
     return self._transform_input_tensor(input_tensor)
 
@@ -3770,6 +4586,14 @@ class VocabularyListCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the value of the instance attribute `num_buckets` of the
+    object to which it is bound.
+
+    Returns:
+        int: The function does not return any value since it is undefined.
+
+    """
     return self.num_buckets
 
   def get_sparse_tensors(self, transformation_cache, state_manager):
@@ -3781,6 +4605,27 @@ class VocabularyListCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function `_get_sparse_tensors` returns a pair of input columns and their
+    id-weight pairs for a specific class column. It takes no arguments and has
+    three `del` statements to remove unwanted inputs (`weight_collections`, `trainable`).
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of input tensors for
+            each category label.
+        weight_collections (list): The `weight_collections` input parameter is
+            optional and not used within the function body of `_get_sparse_tensors`.
+        trainable (None): The `trainable` parameter is not used at all inside this
+            function. It is passed as a default argument but it's immediately
+            dropped using `del trainable`.
+
+    Returns:
+        : Based on the code provided:
+        
+        The output returned by the function `_get_sparse_tensors` is an instance
+        of `CategoricalColumn.IdWeightPair`.
+
+    """
     del weight_collections
     del trainable
     return CategoricalColumn.IdWeightPair(inputs.get(self), None)
@@ -3815,6 +4660,13 @@ class IdentityCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function checks if a column is version 2 (V2) by returning `True`.
+
+    Returns:
+        : The output returned by this function is `True`.
+
+    """
     return True
 
   @property
@@ -3831,6 +4683,14 @@ class IdentityCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function takes the `self` object and returns its `parse_example_spec`
+    attribute or method.
+
+    Returns:
+        : The function does not return anything because it is undefined.
+
+    """
     return self.parse_example_spec
 
   def _transform_input_tensor(self, input_tensor):
@@ -3878,6 +4738,26 @@ class IdentityCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes an input `inputs` and transforms it using two separate processes:
+    1/ It converts the input from a dense format to a sparse format using `_to_sparse_input_and_drop_ignore_values`.
+    2/ It applies the `_transform_input_tensor` function to the resulting sparse
+    tensor.
+
+    Args:
+        inputs (dict): In this function context， `inputs` is a dictionary where
+            every key (?) corresponds to one of the many input columns or features
+            of the Dataframe， and each value(?!) associated with that key represents
+            a whole column of feature values all together .
+
+    Returns:
+        : Based on the code provided:
+        
+        The output returned by the function `_transform_feature` is
+        `self._transform_input_tensor(input_tensor)`, which is a tensor transformed
+        from the input tensor `input_tensor`.
+
+    """
     input_tensor = _to_sparse_input_and_drop_ignore_values(inputs.get(self.key))
     return self._transform_input_tensor(input_tensor)
 
@@ -3890,6 +4770,14 @@ class IdentityCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the value of the instance attribute `num_buckets` of the
+    object that is being queried.
+
+    Returns:
+        int: The function returns `None`.
+
+    """
     return self.num_buckets
 
   def get_sparse_tensors(self, transformation_cache, state_manager):
@@ -3901,6 +4789,27 @@ class IdentityCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function named `_get_sparse_tensors` returns a `CategoricalColumn.IdWeightPair`
+    object given input columns and it eliminates the `weight_collections` and
+    `trainable` arguments as they are not needed anymore after being passed to the
+    function since these variables were set to `None`.
+
+    Args:
+        inputs (dict): The `inputs` input parameter passed to `_get_sparse_tensors()`
+            is a dictionary of input variables for the model.
+        weight_collections (dict): The `weight_collections` input parameter is
+            optional and if passed it should be a list of tuples containing
+            (model_name: str): weight name of the form (wc_name: str).
+        trainable (None): The `trainable` input parameter specifies whether the
+            weights of the tensor should be considered trainable or not.
+
+    Returns:
+        : Based on the code snippet provided:
+        
+        The output returned by `_get_sparse_tensors` is `CategoricalColumn.IdWeightPair`.
+
+    """
     del weight_collections
     del trainable
     return CategoricalColumn.IdWeightPair(inputs.get(self), None)
@@ -3932,6 +4841,14 @@ class WeightedCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function checks whether a categorical column is of type `FeatureColumn`
+    and its `_is_v2_column` attribute is true.
+
+    Returns:
+        bool: Based on the code snippet you provided.
+
+    """
     return (isinstance(self.categorical_column, FeatureColumn) and
             self.categorical_column._is_v2_column)  # pylint: disable=protected-access
 
@@ -3955,6 +4872,15 @@ class WeightedCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function enables parsing of varian length features for a specific column.
+
+    Returns:
+        : The output returned by this function is a dictionary with the added
+        'weight' feature key containing a VarLenFeature instance with the specified
+        dtype.
+
+    """
     config = self.categorical_column._parse_example_spec  # pylint: disable=protected-access
     if self.weight_feature_key in config:
       raise ValueError('Parse config {} already exists for {}.'.format(
@@ -3971,9 +4897,31 @@ class WeightedCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function retrieves the number of buckets used by a categorical column.
+
+    Returns:
+        int: The output returned by the function ` `_num_buckets` is the number
+        of buckets present within the `categorical_column`.
+
+    """
     return self.categorical_column._num_buckets  # pylint: disable=protected-access
 
   def _transform_weight_tensor(self, weight_tensor):
+    """
+    This function transforms a weight tensor by converting it to a sparse tensor
+    if it's not already sparse and checking its dtype.
+
+    Args:
+        weight_tensor (float): The `weight_tensor` input parameter is the weight
+            tensor that is expected to be a sparse or regular Tensor with
+            floating-point values.
+
+    Returns:
+        float: The output returned by this function is a `sparse_tensor_lib.SparseTensor`
+        object.
+
+    """
     if weight_tensor is None:
       raise ValueError('Missing weights {}.'.format(self.weight_feature_key))
     weight_tensor = sparse_tensor_lib.convert_to_tensor_or_sparse_tensor(
@@ -4014,6 +4962,24 @@ class WeightedCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function `_get_sparse_tensors` returns a tuple of two tensors from the
+    `inputs` dictionary: the first tensor is the input tensor and the second tensor
+    is the id-weight pair.
+
+    Args:
+        inputs (dict): The `inputs` parameter is a dictionary of input tensors for
+            the model. It maps each input tensor to its corresponding category.
+        weight_collections (dict): The `weight_collections` input parameter is
+            used to specify a list of tensor names that represent weights or
+            activations of previous layers.
+        trainable (None): The `trainable` input parameter is not used and therefore
+            has no effect on the functionality of the function.
+
+    Returns:
+        float: The output of the function is `CategoricalColumn.IdWeightPair`.
+
+    """
     del weight_collections
     del trainable
     tensors = inputs.get(self)
@@ -4054,6 +5020,17 @@ class CrossedColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` takes a `self` parameter and checks if all
+    leaf-level keys of `self` are feature columns (i.e., columns that have not
+    been converted to sparse representation) by iterating through the key-value
+    pairs using `_collect_leaf_level_keys`.
+
+    Returns:
+        list: Based on the code provided. the output of `_is_v2_column` function
+        would be `True`.
+
+    """
     for key in _collect_leaf_level_keys(self):
       if isinstance(key, six.string_types):
         continue
@@ -4091,6 +5068,13 @@ class CrossedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function parses an example spec.
+
+    Returns:
+        : The output returned by the function is `self.parse_example_spec`.
+
+    """
     return self.parse_example_spec
 
   def transform_feature(self, transformation_cache, state_manager):
@@ -4147,6 +5131,14 @@ class CrossedColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the value of the instance variable `num_buckets` for the
+    object on which it is called.
+
+    Returns:
+        int: The output returned by the function `_num_buckets` is `None`.
+
+    """
     return self.num_buckets
 
   def get_sparse_tensors(self, transformation_cache, state_manager):
@@ -4243,6 +5235,21 @@ class IndicatorColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` checks whether the provided FeatureColumn is a
+    version 2 categorical column by checking if the underlying column is also a
+    version 2 column.
+
+    Returns:
+        bool: Based on the given code snippet; the function `_is_v2_column()` takes
+        no arguments and returns a boolean value indicating whether the input
+        `categorical_column` is a v2 column or not.
+        
+        Therefore when called with an object of type `FeatureColumn`, the function
+        will return `True` if the underlying categorical column is also a v2 column;
+        and `False` otherwise.
+
+    """
     return (isinstance(self.categorical_column, FeatureColumn) and
             self.categorical_column._is_v2_column)  # pylint: disable=protected-access
 
@@ -4252,6 +5259,22 @@ class IndicatorColumn(
     return '{}_indicator'.format(self.categorical_column.name)
 
   def _transform_id_weight_pair(self, id_weight_pair):
+    """
+    This function takes an `id_weight_pair` and returns a dense tensor representing
+    the input ID after weighting it based on the provided weight tensor. It converts
+    sparse tensors to dense tensors using `sparse_tensor_to_dense` and then applies
+    one-hot encoding to the resulting dense tensor using `array_ops.one_hot`.
+
+    Args:
+        id_weight_pair (): The `id_weight_pair` input parameter is a pair of tensors
+            representing an input example's IDs and associated weights.
+
+    Returns:
+        float: The output returned by this function is a dense tensor of shape
+        `(batch_size x number_of_classes)` representing the multi-hot representation
+        of the input IDs.
+
+    """
     id_tensor = id_weight_pair.id_tensor
     weight_tensor = id_weight_pair.weight_tensor
 
@@ -4306,6 +5329,22 @@ class IndicatorColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function `_transform_feature` takes an input tensor `inputs`, and performs
+    the following operations:
+    1/ Gets the categorical column data from the inputs using `_get_sparse_tensors`
+    (which is a protected method).
+    2/ Transforms the id-weight pair obtained from step 1 using `self._transform_id_weight_pair`.
+    The purpose of this function is to transform the input data for further processing.
+
+    Args:
+        inputs (): The `inputs` parameter is the input data to be transformed.
+
+    Returns:
+        : The output of the `_transform_feature` function is a transformed id-weight
+        pair.
+
+    """
     id_weight_pair = self.categorical_column._get_sparse_tensors(inputs)  # pylint: disable=protected-access
     return self._transform_id_weight_pair(id_weight_pair)
 
@@ -4318,6 +5357,14 @@ class IndicatorColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function returns the `ExampleSpec` object for the categorical column of
+    the object (i.e., the class or attribute name) from which it is called.
+
+    Returns:
+        dict: The function `_parse_example_spec` returns `None`.
+
+    """
     return self.categorical_column._parse_example_spec  # pylint: disable=protected-access
 
   @property
@@ -4332,6 +5379,15 @@ class IndicatorColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _variable_shape(self):
+    """
+    This function `_variable_shape` returns the shape of a tensor with dimensions
+    1 and the number of buckets (i.e., unique values)in a categorical column.
+
+    Returns:
+        int: The output returned by the function `_variable_shape` is a
+        `tensor_shape.TensorShape` object with shape `[1`, `self.categorical_column._num_buckets]`.
+
+    """
     return tensor_shape.TensorShape([1, self.categorical_column._num_buckets])  # pylint: disable=protected-access
 
   def get_dense_tensor(self, transformation_cache, state_manager):
@@ -4366,6 +5422,32 @@ class IndicatorColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_dense_tensor(self, inputs, weight_collections=None, trainable=None):
+    """
+    This function `_get_dense_tensor` is a private method of a class that checks
+    if the `categorical_column` is of type `_SequenceCategoricalColumn` and raises
+    an error if it is.
+
+    Args:
+        inputs (dict): The `inputs` input parameter is an dictionary of input
+            features for the current layer or model.
+        weight_collections (dict): The `weight_collections` parameter is not used
+            anywhere within the body of the function and its existence appears
+            only to serve as a documentation marker that it was meant to be there
+            but never actually served any practical purpose - Therefore its answer
+            would simply be:
+            
+            nothing
+        trainable (bool): The `trainable` input parameter specifies whether the
+            dense tensor generated by the feature should be trainable (i.e., its
+            weights can be updated during training). If `trainable` is `None`, the
+            default value is `True`, which means that the dense tensor will be
+            trainable by default.
+
+    Returns:
+        : The output of the function is "inputs.get(self)", which means that it
+        returns the intermediate representation of the feature created by transform_feature.
+
+    """
     del weight_collections
     del trainable
     if isinstance(
@@ -4412,6 +5494,29 @@ class IndicatorColumn(
                                  trainable=None):
     # Do nothing with weight_collections and trainable since no variables are
     # created in this function.
+    """
+    This function takes a sequence-like input `inputs` and returns an intermediate
+    representation of the input as a dense tensor with its sequence length.
+
+    Args:
+        inputs (dict): The `inputs` parameter is an dictionary-like object that
+            contains all the features presentin the dataset and can be used to
+            access those features.
+        weight_collections (): The `weight_collections` input parameter is used
+            to specify a list of collection names that will be updated with the
+            weights of the sparse tensor(s).
+        trainable (None): The `trainable` input parameter is not used anywhere
+            inside the function body.
+
+    Returns:
+        tuple: The output returned by this function is a `SequenceDenseColumn.TensorSequenceLengthPair`
+        object consisting of:
+        
+        	- `dense_tensor`: a dense tensor representing the feature value for each
+        sequence element
+        	- `sequence_length`: an integer tensor representing the length of each sequence.
+
+    """
     del weight_collections
     del trainable
     if not isinstance(
@@ -4493,6 +5598,15 @@ class SequenceCategoricalColumn(
 
   @property
   def _is_v2_column(self):
+    """
+    This function `_is_v2_column` checks whether the categorical column of a feature
+    is version 2 (v2) or not by checking if the column is an instance of `FeatureColumn`
+    and if its `_is_v2_column` attribute is True.
+
+    Returns:
+        bool: The output returned by the function is `True`.
+
+    """
     return (isinstance(self.categorical_column, FeatureColumn) and
             self.categorical_column._is_v2_column)  # pylint: disable=protected-access
 
@@ -4510,6 +5624,14 @@ class SequenceCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _parse_example_spec(self):
+    """
+    This function `_parse_example_spec` returns the `ExampleSpec` object for a
+    categorical column of a data frame based on the protected property access syntax.
+
+    Returns:
+        dict: The output of `_parse_example_spec` is `None`.
+
+    """
     return self.categorical_column._parse_example_spec  # pylint: disable=protected-access
 
   def transform_feature(self, transformation_cache, state_manager):
@@ -4520,6 +5642,21 @@ class SequenceCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _transform_feature(self, inputs):
+    """
+    This function takes `inputs` as input and returns the transformed feature using
+    the `transform_feature()` method of the `categorical_column` attribute.
+
+    Args:
+        inputs (): The `inputs` parameter is passed as an argument to the underlying
+            `_transform_feature()` method of the categorical column being used.
+
+    Returns:
+        : Based on the code provided:
+        
+        The output of the ` `_transform_feature` function is the result of calling
+        `self.categorical_column._transform_feature` on the input `inputs`.
+
+    """
     return self.categorical_column._transform_feature(inputs)  # pylint: disable=protected-access
 
   @property
@@ -4531,9 +5668,31 @@ class SequenceCategoricalColumn(
   @deprecation.deprecated(_FEATURE_COLUMN_DEPRECATION_DATE,
                           _FEATURE_COLUMN_DEPRECATION)
   def _num_buckets(self):
+    """
+    This function returns the number of buckets used by a categorical column.
+
+    Returns:
+        int: The output of the function `_num_buckets` is `self.categorical_column._num_buckets`,
+        which is the number of buckets of the categorical column.
+
+    """
     return self.categorical_column._num_buckets  # pylint: disable=protected-access
 
   def _get_sparse_tensors_helper(self, sparse_tensors):
+    """
+    This function _get_sparse_tensors_helper takes a list of sparse tensors as
+    input and returns an object with the id tensor and weight tensor reshaped to
+    have the same shape.
+
+    Args:
+        sparse_tensors (): The `sparse_tensors` input parameter is a dictionary
+            of sparse tensors representing the id and weights for each category.
+
+    Returns:
+        float: The output of this function is a `CategoricalColumn.IdWeightPair`
+        object consisting of the reshaped `id_tensor` and `weight_tensor`.
+
+    """
     id_tensor = sparse_tensors.id_tensor
     weight_tensor = sparse_tensors.weight_tensor
     # Expands third dimension, if necessary so that embeddings are not
@@ -4576,6 +5735,27 @@ class SequenceCategoricalColumn(
                           _FEATURE_COLUMN_DEPRECATION)
   def _get_sparse_tensors(self, inputs, weight_collections=None,
                           trainable=None):
+    """
+    This function `_get_sparse_tensors` takes `inputs`, `weight_collections`, and
+    `trainable` as input and returns a list of sparse tensors. It first calls the
+    protected method `__get_sparse_tensors` on the `categorical_column` attribute
+    to get the sparse tensors for the inputs.
+
+    Args:
+        inputs (str): The `inputs` input parameter is the tensor or iterable of
+            inputs to be converted to sparse tensors.
+        weight_collections (None): The `weight_collections` input parameter specifies
+            a list of Python tuples (i.e.,Weight tensor names and corresponding
+            indextensor names) that will be used to build the Sparse Tensor if it
+            is necessary to create one.
+        trainable (None): The `trainable` input parameter determines whether the
+            sparse tensors returned by the function should be marked as trainable
+            or not.
+
+    Returns:
+        : The output of the function `_get_sparse_tensors` is a tuple of sparse tensors.
+
+    """
     sparse_tensors = self.categorical_column._get_sparse_tensors(inputs)  # pylint: disable=protected-access
     return self._get_sparse_tensors_helper(sparse_tensors)
 
