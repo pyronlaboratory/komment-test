@@ -262,7 +262,6 @@ class StateManager(object):
 
 
 class _StateManagerImpl(StateManager):
-  """Manages the state of DenseFeatures and LinearLayer."""
 
   def __init__(self, layer, trainable):
     """Creates an _StateManagerImpl object.
