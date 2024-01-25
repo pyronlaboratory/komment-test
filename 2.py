@@ -1,11 +1,12 @@
 def server(port):
   """
-  This function prints a message indicating that a server is listening on a specific
-  port and ready to accept new incoming connections.
+  This function serves as an HTTP server that listens on a specified port and
+  prints a message indicating the current listening state and its ability to handle
+  multiple requests concurrently.
 
   Args:
-      port (int): The `port` input parameter specifies the port on which the server
-          should listen for incoming connections.
+      port (int): The `port` input parameter specifies the port number that the
+          server will listen on for incoming connections.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed")
