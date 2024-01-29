@@ -5,4 +5,3 @@ def terminate():
 
   """
   True
-
