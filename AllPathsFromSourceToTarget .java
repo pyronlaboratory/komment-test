@@ -30,11 +30,7 @@ public class AllPathsFromSourceToTarget {
         initAdjList();
     }
 
-    // utility method to initialise adjacency list
-    /**
-     * This function initializes an adjacency list data structure for a graph with `v`
-     * vertices. It creates an empty list for each vertex and initializes it with no elements.
-     */
+
     private void initAdjList() {
         adjList = new ArrayList[v];
 
