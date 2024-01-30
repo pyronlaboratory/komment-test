@@ -12,6 +12,11 @@ class $ {
             break http;
         }
     }
+    void printNumbers(int... numbers) {
+    for (int number : numbers) {
+        System.out.println(number);
+    }
+}
 
     /**
      * This function is called a "Boolean identity" or "null function". It returns `false`
