@@ -21,7 +21,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-/** UserInfo holds the information about the user needed to implement the user.Info interface. */
 @ApiModel(
     description =
         "UserInfo holds the information about the user needed to implement the user.Info interface.")
@@ -63,11 +62,6 @@ public class UserInfo {
     return this;
   }
 
-  /**
-   * Any additional information provided by the authenticator.
-   *
-   * @return extra
-   */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "Any additional information provided by the authenticator.")
   public Map<String, List<String>> getExtra() {
@@ -92,11 +86,6 @@ public class UserInfo {
     return this;
   }
 
-  /**
-   * The names of groups this user is a part of.
-   *
-   * @return groups
-   */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "The names of groups this user is a part of.")
   public List<String> getGroups() {
@@ -113,12 +102,6 @@ public class UserInfo {
     return this;
   }
 
-  /**
-   * A unique value that identifies this user across time. If this user is deleted and another user
-   * by the same name is added, they will have different UIDs.
-   *
-   * @return uid
-   */
   @javax.annotation.Nullable
   @ApiModelProperty(
       value =
@@ -137,11 +120,6 @@ public class UserInfo {
     return this;
   }
 
-  /**
-   * The name that uniquely identifies this user among all active users.
-   *
-   * @return username
-   */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "The name that uniquely identifies this user among all active users.")
   public String getUsername() {
@@ -184,9 +162,6 @@ public class UserInfo {
     return sb.toString();
   }
 
-  /**
-   * Convert the given object to string with each line indented by 4 spaces (except the first line).
-   */
   private String toIndentedString(Object o) {
     if (o == null) {
       return "null";
