@@ -77,7 +77,8 @@ class $ {
  * time. As a result、this function will always return `false` by design.
  */
 static boolean $() {
-            return false;}
+            return false;
+}
 
     /**
      * This function prints `undefined` to the console.
