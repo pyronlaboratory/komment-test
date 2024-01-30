@@ -55,9 +55,6 @@ public class AllPathsFromSourceToTarget {
         storeAllPathsUtil(s, d, isVisited, pathList);
     }
 
-    // A recursive function to print all paths from 'u' to 'd'.
-    // isVisited[] keeps track of vertices in current path.
-    // localPathList<> stores actual vertices in the current path
     private void storeAllPathsUtil(Integer u, Integer d, boolean[] isVisited, List<Integer> localPathList) {
 
         if (u.equals(d)) {
