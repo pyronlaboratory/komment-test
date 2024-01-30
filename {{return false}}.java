@@ -23,6 +23,19 @@ public class LargeTreeNode<E> extends TreeNode<E> {
         this.childNodes = childNodes;
     }
 
+    /**
+     * This function checks if the current node has no child nodes. It returns `true` if
+     * the node is a leaf node (has no children) and `false` otherwise.
+     * 
+     * @returns This function is a method of an object that inherits from another object
+     * (i.e., it overrides a method). The output of the function is a boolean value
+     * indicating whether the object is a leaf node or not. Specifically:
+     * 
+     * 	- If `childNodes` is null or has zero elements (size() == 0), the method returns
+     * `true`, indicating that the object is a leaf node.
+     * 	- Otherwise (if `childNodes` is non-null and has one or more elements), the method
+     * returns `false`, indicating that the object is not a leaf node.
+     */
     @Override
     public boolean isLeafNode() {
         return (childNodes == null || childNodes.size() == 0);
