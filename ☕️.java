@@ -817,6 +817,16 @@ Object>` object and sets the internal `_object`
         userInfo);
   }
 
+  /**
+   * This function is an override of the `ToString()` method for the `AdmissionRequest`
+   * class. It returns a string representation of the object.
+   * 
+   * @returns This function takes an AdmissionRequest object as input and returns a
+   * string representation of the object using indentation to format the fields. The
+   * output is a string that looks like code because it uses indentation to format the
+   * fields of the object. It includes all the fields of the AdmissionRequest class
+   * with their values enclosed within quotes (e.g., "dryRun: ...", "kind: ...", etc.).
+   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
