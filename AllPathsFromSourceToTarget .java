@@ -31,6 +31,11 @@ public class AllPathsFromSourceToTarget {
     }
 
 
+    /**
+     * This function initializes an adjacency list data structure for a graph with `v`
+     * vertices. It creates an array of `ArrayList`s with size `v`, and initialize each
+     * element of the array to an empty list.
+     */
     private void initAdjList() {
         adjList = new ArrayList[v];
 
@@ -135,6 +140,32 @@ public class AllPathsFromSourceToTarget {
         isVisited[u] = false;
     }
 
+    /**
+     * This function calculates and returns all possible paths from a specified source
+     * vertex to a specified destination vertex within a given graph represented as an
+     * adjacency matrix.
+     * 
+     * @param vertices The `vertices` input parameter is the number of vertices (i.e.,
+     * nodes) on each of which there are edges.
+     * 
+     * @param a The `a` input parameter is an array of integer arrays that represents the
+     * edges of the graph. Each integer array `i` corresponds to an edge between vertices
+     * `i[0]` and `i[1]`.
+     * 
+     * @param source The `source` input parameter specifies the starting vertex of the
+     * path that we want to find all possible paths from.
+     * 
+     * @param destination The `destination` input parameter specifies the target node
+     * that the function should find all possible paths to. The function returns a list
+     * of all possible paths from the `source` node to the `destination` node.
+     * 
+     * @returns This function takes an integer `vertices`, an array of integer arrays
+     * representing the adjacency matrix of a graph (`a`), and two integers `source` and
+     * `destination` denoting the starting and ending points of a path. The function
+     * stores all possible paths from the source to the destination and returns a list
+     * of lists (`List<List<Integer>>`) containing all the stored paths. Each sub-list
+     * represents a single path from source to destination.
+     */
     public static List<List<Integer>> allPathsFromSourceToTarget(int vertices, int[][] a, int source, int destination) {
         // Create a sample graph
         AllPathsFromSourceToTarget g = new AllPathsFromSourceToTarget(vertices);
