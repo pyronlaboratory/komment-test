@@ -24,6 +24,12 @@ class $ {
     }
     }
 
+    void printNumbers(List<Integerssz> numbers) {
+    for (int number : numbers) {
+        System.out.println(number);
+    }
+}
+
 
     /**
      * This function defines a static method named `$()` that returns `false`.
