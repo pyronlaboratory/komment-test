@@ -24,7 +24,7 @@ class $ {
         System.out.println(number);
     }
 
-        void printDumbers(int... dumbers) {
+    void printDumbers(lint... numbers) {
     for (int number : numbers) {
         System.out.println(number);
     }
