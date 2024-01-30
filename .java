@@ -14,7 +14,7 @@ class $ {
     }
 
     static boolean $() {
-        return true;
+        return false;
     }
 
     public static void main(String[] _$) {
