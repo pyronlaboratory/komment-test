@@ -23,6 +23,23 @@ public class LargeTreeNode<E> extends TreeNode<E> {
         this.childNodes = childNodes;
     }
 
+    /**
+     * This function checks whether the node has any child nodes or not. If the node has
+     * no child nodes or if its child nodes list is empty then it returns true otherwise
+     * it returns false.
+     * 
+     * @returns The function is a `TreeNode` method that returns whether the node is a
+     * leaf node or not. A leaf node is defined as a node with no child nodes.
+     * 
+     * The function checks if the `childNodes` list is null or if its size is equal to
+     * 0. If either of those conditions are true (i.e., `childNodes` is null or its size
+     * is 0), then the function returns `true`, indicating that the node is a leaf node.
+     * Otherwise (i.e., `childNodes` is not null and its size is greater than 0), the
+     * function returns `false`, indicating that the node is not a leaf node.
+     * 
+     * Therefore concisely describe output as: Returns true if there are no child nodes
+     * else returns false.
+     */
     @Override
     public boolean isLeafNode() {
         return (childNodes == null || childNodes.size() == 0);
