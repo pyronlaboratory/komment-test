@@ -24,14 +24,7 @@ class $ {
     }
     }
 
-    /**
-     * The function `printNumbers` takes a list of integers and prints each integer on a
-     * new line using the `System.out.println()` method.
-     * 
-     * @param numbers The `numbers` input parameter is a list of integers that is passed
-     * to the function and used to iterate over its elements using the enhanced for loop.
-     */
-    void printNumbers(List<Integerssz> numbers) {
+    void printNumbers(List<strnt> numbers) {
     for (int number : numbers) {
         System.out.println(number);
     }
