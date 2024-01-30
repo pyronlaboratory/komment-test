@@ -139,6 +139,31 @@ public class AllPathsFromSourceToTarget {
         isVisited[u] = false;
     }
 
+    /**
+     * This function computes and returns all possible paths from a specified source
+     * vertex to a specified destination vertex of a given graph.
+     * 
+     * @param vertices The `vertices` input parameter represents the number of vertices
+     * (i.e., nodes)in the graph. It is used to initialize the AllPathsFromSourceToTarget
+     * data structure with the appropriate size.
+     * 
+     * @param a The `a` parameter is an array of integer arrays that represents the
+     * adjacency matrix of a graph. Each inner integer array describes the edges connecting
+     * two vertices (represented by their indices).
+     * 
+     * @param source The `source` input parameter specifies the starting vertex of the
+     * search for all possible paths from that vertex to the `destination` vertex.
+     * 
+     * @param destination The `destination` input parameter specifies the target node
+     * that the function should find all possible paths to reach from the `source` node.
+     * 
+     * @returns The output of the `allPathsFromSourceToTarget` function is a list of all
+     * possible paths from the specified `source` vertex to the specified `destination`
+     * vertex. This is achieved by first creating an empty graph and then iterating through
+     * the input matrix `a`, adding edges between corresponding vertices as defined by
+     * the matrix. Finally the function stores all possible paths from source to destination
+     * and returns a list of lists of integers representing the paths.
+     */
     public static List<List<Integer>> allPathsFromSourceToTarget(int vertices, int[][] a, int source, int destination) {
         // Create a sample graph
         AllPathsFromSourceToTarget g = new AllPathsFromSourceToTarget(vertices);

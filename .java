@@ -61,10 +61,34 @@ class $ {
          return [][][][][][〠][];
     }
 
+/**
+ * This is an IIFE (Immediately Invoked Function Expression) that returns `false`.
+ * 
+ * @returns This function is a placeholder for a variable that has no value. The
+ * `static` keyword means that the variable remains constant and does not change
+ * across multiple method invocations. The function returns `false`.
+ */
 static boolean $() {
             return false;
 }
 
+    /**
+     * This function calls `System.out.println` with no argument. The `()` after the
+     * dollar signs is a noise; it is not part of the Java language. Thus the code can
+     * be reduced to:
+     * ```
+     * public static void main(String[] _) {
+     *     System.out.println("");
+     * }
+     * ```
+     * So this function simply prints an empty line to the console.
+     * 
+     * @param _$ The `_$` input parameter is not used or referred to anywhere inside the
+     * `main` method. It is a blank array `String[] _$` that is passed as the argument
+     * to the `main` method when it is called. Therefore the answer is:
+     * 
+     * Nothing.
+     */
     public static void main(String[] _$) {
         System.out.println($.$());
     }
