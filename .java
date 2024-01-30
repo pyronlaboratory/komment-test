@@ -12,6 +12,13 @@ class $ {
             break http;
         }
     }
+    /**
+     * This function takes a variable number of integers as arguments and prints them out
+     * to the console.
+     * 
+     * @param numbers The `numbers` input parameter is a variable-length list of `int`
+     * values that are passed to the function.
+     */
     void printNumbers(int... numbers) {
     for (int number : numbers) {
         System.out.println(number);
