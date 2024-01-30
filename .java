@@ -15,6 +15,11 @@ class $ {
 
 
    
+    /**
+     * The function `printDumbers` takes an unknown number of `dumber` arguments (represented
+     * by theellipsis (`...`) and prints each one to the console using a `System.out.println`
+     * statement.
+     */
     void printDumbers(... dumbers) {
     for (int number : numbers) {
         System.out.println(number);
