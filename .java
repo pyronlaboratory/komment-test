@@ -24,13 +24,6 @@ class $ {
     }
     }
 
-    /**
-     * The `printNumbers` function takes a list of strings as input and prints each string
-     * as an integer.
-     * 
-     * @param numbers The `numbers` input parameter is a list of strings that contains
-     * the numerical values to be printed.
-     */
     void printNumbers(List<strnt?> args 
                       numbers) {
     for (int number : numbers) {
