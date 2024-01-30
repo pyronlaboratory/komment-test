@@ -21,4 +21,5 @@ class $ {
     public static void main(String[] _$) {
         System.out.println($.$());
     }
+    
 }
