@@ -49,18 +49,15 @@ public class UserInfo {
   private String username;
 
   /**
-   * This function allows you to add a map of extra information to the object of type
-   * `UserInfo`. The map has string keys and lists of string values. The function simply
-   * sets the `extra` field of the `UserInfo` object to the provided map.
+   * This function sets the `extra` field of the `UserInfo` object to the map of strings
+   * and lists of strings passed as an argument.
    * 
-   * @param extra The `extra` input parameter is a Map of string key-value pairs that
-   * are stored as an additional set of information within the `UserInfo` object.
+   * @param extra The `extra` input parameter is a Map of strings to lists of strings
+   * that gets set as a field on the `UserInfo` object.
    * 
-   * @returns This function takes a `Map<String,(List<String>)>` object as an argument
-   * and returns an instance of the same type. The function does not modify or return
-   * any explicit value from the map; instead it simply assigns the map to the field
-   * `extra` of the current instance. Therefore the output returned by this function
-   * is a reference to the original map passed as an argument.
+   * @returns The output returned by this function is an empty `UserInfo` object with
+   * a single method `extra()` that returns a `Map<String,[List<String>>` object filled
+   * with empty lists (`[]`) for each key.
    */
   public UserInfo extra(Map<String, List<String>> extra) {
 
@@ -69,20 +66,22 @@ public class UserInfo {
   }
 
   /**
-   * This function allows a `UserInfo` object to add an additional item (a list of
-   * strings) to a map of extra items associated with the user.
+   * This function adds an extra item to the list of extra items associated with the
+   * current user. It takes a string key and a list of string values as input and stores
+   * the values for the specified key under the extra attribute as a list.
    * 
-   * @param key In this function `putExtraItem`, the `key` input parameter is used as
-   * a key to store the associated value (a list of strings) inside the `extra` map.
+   * @param key In this function `key` is a parameter that serves as the key for the
+   * map where the list of strings will be stored. It represents the name of the extra
+   * item that is being added to the UserInfo object.
    * 
-   * @param extraItem The `extraItem` parameter is a list of strings that is added to
-   * the `extra` map within the `UserInfo` object. It allows the method to accept
-   * multiple values for a given key.
+   * @param extraItem The `extraItem` input parameter is a list of strings that is added
+   * to the `extra` map within the `UserInfo` object. It allows the user to add multiple
+   * extra items with the same key.
    * 
-   * @returns The `putExtraItem` function takes a `String` key and a `List<String>`
-   * value as input and adds the value to the `extra` map within the `UserInfo` object.
-   * The output of the function is the updated `UserInfo` object with the added extra
-   * item.
+   * @returns The `putExtraItem()` method takes a `String` key and a list of `String`
+   * values as input and adds them to the `extra` map if it is null or overwrites the
+   * existing value for that key if it is not null. The output returned by this function
+   * is a reference to the updated `UserInfo` object.
    */
   public UserInfo putExtraItem(String key, List<String> extraItem) {
     if (this.extra == null) {
@@ -95,11 +94,14 @@ public class UserInfo {
   /**
    * This function returns the map of additional information provided by the authenticator.
    * 
-   * @returns Based on the given code snippet:
+   * @returns This function returns a `Map<String!, List<String>>` object called `extra`,
+   * which contains additional information provided by the authenticator. The value of
+   * each key-value pair is a list of strings. In other words:
    * 
-   * The `getExtra()` function returns a `Map` object containing key-value pairs where
-   * the keys are strings and the values are lists of strings. The map may contain empty
-   * lists for each key if no additional information was provided by the authenticator.
+   * Return type: `Map<String!, List<String>>`
+   * 
+   * Output: A map containing any additional information provided by the authenticator
+   * as key-value pairs.
    */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "Any additional information provided by the authenticator.")
@@ -108,29 +110,30 @@ public class UserInfo {
   }
 
   /**
-   * This function sets the `extra` field of the receiver to the map of strings and
-   * lists passed as an argument.
+   * This function sets the `extra` field of the object to the provided `Map<String(),
+   * List<String>>` map.
    * 
-   * @param extra The `extra` input parameter is a map of strings to lists of strings
-   * that is passed to the function as an argument. It allows the function to modify
-   * the contents of the `extra` attribute of the object by updating or replacing the
-   * existing value with the new value provided by the caller.
+   * @param extra The `extra` input parameter is a Map of String keys to Lists of String
+   * values that are assigned to the object's `extra` field.
    */
   public void setExtra(Map<String, List<String>> extra) {
     this.extra = extra;
   }
 
   /**
-   * The function `groups(List<String> groups)` sets the `groups` field of the `UserInfo`
-   * object to the passed `groups` list and returns the same object.
+   * This function allows a `UserInfo` object to set a list of groups for the user. It
+   * takes a list of strings representing the group names and stores them as a list of
+   * strings within the `groups` attribute of the `UserInfo` object.
    * 
-   * @param groups The `groups` parameter is a list of strings that sets the groups for
-   * the `UserInfo`. It assigns the list of groups to the `groups` field of the `UserInfo`
-   * object.
+   * @param groups The `groups` input parameter is used to set the list of groups that
+   * a `UserInfo` object belongs to.
    * 
-   * @returns The output returned by this function is a `UserInfo` object with a `groups`
-   * field that contains the list of input `String`s. In other words;  no explicit value
-   * is returned from this function - only side-effecting (changing the instance state).
+   * @returns The output of this function is a reference to the `UserInfo` object itself.
+   * The function takes a list of string group names as input and stores them into the
+   * `groups` field of the `UserInfo` object. Then it returns the updated `UserInfo`
+   * object. In other words;
+   * 
+   * ```output = UserInfo(groups: [group1/, group2/, ...]);```
    */
   public UserInfo groups(List<String> groups) {
 
@@ -139,13 +142,16 @@ public class UserInfo {
   }
 
   /**
-   * This function adds a string to the list of groups for the current user.
+   * This function adds a string 'groupsItem' to the list of groups associated with the
+   * UserInfo object.
    * 
-   * @param groupsItem The `groupsItem` input parameter is used to add a new group item
-   * to the existing list of groups associated with the UserInfo object.
+   * @param groupsItem The `groupsItem` parameter adds a single group item to the
+   * existing list of groups stored inside the `groups` attribute of the `UserInfo` object.
    * 
-   * @returns The output returned by this function is a reference to the current
-   * `UserInfo` object itself. In other words，the function returns `this`.
+   * @returns The output returned by this function is a reference to the `UserInfo`
+   * object itself. In other words. it returns the `UserInfo` instance that was passed
+   * as an argument to the method. This is called "self-referential" or "reference-style"
+   * return type.
    */
   public UserInfo addGroupsItem(String groupsItem) {
     if (this.groups == null) {
@@ -156,21 +162,11 @@ public class UserInfo {
   }
 
   /**
-   * This function returns the list of groups that the user is a part of.
+   * This function returns a list of strings representing the groups that the user is
+   * a part of.
    * 
-   * @returns Based on the code provided:
-   * 
-   * 	- The function `getGroups()` returns a `List<String>` of group names that the
-   * user is a part of.
-   * 	- The function return type is inferred to be `List<String>` since it is returning
-   * a list of strings.
-   * 	- The function is annotated with `@ApiModelProperty` to indicate that this method
-   * returns a list of group names.
-   * 	- There is no explicit return statement specified inside the method body.
-   * 
-   * Therefore the output returned by this function is an empty list `[]`, since there
-   * is no explicit return statement and no default return value is specified for the
-   * method.
+   * @returns The output returned by this function is a list of strings representing
+   * the groups that the user is a part of.
    */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "The names of groups this user is a part of.")
@@ -179,30 +175,27 @@ public class UserInfo {
   }
 
   /**
-   * This function sets the `groups` field of the object to the list of strings passed
-   * as an argument.
+   * This function sets the "groups" field of the object to the given list of strings.
    * 
-   * @param groups The `groups` input parameter is a list of strings that sets the value
-   * of the `groups` field of the object that the function operates on.
+   * @param groups The `groups` parameter is a list of strings that is being passed to
+   * the `setGroups` method. It is used to update the value of the `groups` field of
+   * the object that contains the method.
    */
   public void setGroups(List<String> groups) {
     this.groups = groups;
   }
 
   /**
-   * This function sets the value of the `uid` field of the `UserInfo` object to the
-   * passed `uid` string and returns the updated `UserInfo` object.
+   * This function sets the `uid` field of the `UserInfo` object to the given `uid`
+   * string and returns the `UserInfo` object itself.
    * 
-   * @param uid The `uid` input parameter assigns the value of the string passed as an
-   * argument to the `uid` field of the `UserInfo` object.
+   * @param uid The `uid` input parameter assigns a value to the `uid` field of the
+   * `UserInfo` object.
    * 
-   * @returns The output returned by this function is a reference to the same `UserInfo`
-   * object that was passed as an argument to the method. In other words; this method
-   * doesn't create a new instance but instead it modifies the current object. This
-   * means when you call `uid("any_value")` then `this` within the method would refer
-   * to the object on which the method is being called and assigns the value "any_value"
-   * to the `uid` field. Therefore; returning this same object as the result of the
-   * method is equivalent to returning a reference to that same object.
+   * @returns This function takes a `uid` parameter of type `String` and does not return
+   * any value. Instead it simply sets the field `uid` of the object to the value passed
+   * as argument and returns the current object reference (`this`). Therefore the output
+   * returned by this function is `null`.
    */
   public UserInfo uid(String uid) {
 
@@ -211,11 +204,12 @@ public class UserInfo {
   }
 
   /**
-   * This function returns the unique identifier (UID) of the current user.
+   * This function returns the "unique identifier" (UID) of a user.
    * 
-   * @returns Based on the annotation `@ApiModelProperty` and the function's return
-   * type `String`, the output of this function is a `String` value representing a
-   * unique identifier (UID) for the user.
+   * @returns The output of this function is a `String` value that represents a unique
+   * identifier (UID) for the user. The UID is used to identify the user across time
+   * and differentiate them from other users with the same name if they are deleted and
+   * re-added.
    */
   @javax.annotation.Nullable
   @ApiModelProperty(
@@ -226,24 +220,25 @@ public class UserInfo {
   }
 
   /**
-   * This function sets the value of the `uid` field of the object to which it is called.
+   * The function sets the value of the field "uid" to the given String "uid".
    * 
-   * @param uid The `uid` input parameter sets the value of the `uid` field of the
-   * object that the method is called on.
+   * @param uid The `uid` input parameter sets the value of the `uid` field for the
+   * object that this method is called on.
    */
   public void setUid(String uid) {
     this.uid = uid;
   }
 
   /**
-   * This function sets the `username` field of the `UserInfo` object to the passed
-   * `username` String and returns the updated `UserInfo` object.
+   * This function sets the `username` field of the `UserInfo` object to the given
+   * `username` and returns the same `UserInfo` object.
    * 
-   * @param username The `username` input parameter is a setter method that sets the
-   * value of the `username` field within the `UserInfo` object.
+   * @param username The `username` input parameter sets the value of the `username`
+   * field of the `UserInfo` object being constructed.
    * 
-   * @returns The output returned by this function is an object of type `UserInfo` with
-   * a single field `username` set to the input `String` argument `username`.
+   * @returns The output returned by this function is `UserInfo` object itself.
+   * 
+   * Concisely: the function returns a reference to the current `UserInfo` object.
    */
   public UserInfo username(String username) {
 
@@ -252,12 +247,15 @@ public class UserInfo {
   }
 
   /**
-   * This function returns the username of the user.
+   * This function returns the unique username of the user.
    * 
-   * @returns The output returned by this function is `undefined`. The reason is that
-   * the function is attempting to return a value (`username`) from a null object
-   * reference (`this`). Therefore、the output is undefined and may throw a NullPointerException
-   * if attempted to be accessed.
+   * @returns Based on the information provided:
+   * 
+   * The `getUsername()` method returns the value of the `username` field of the object.
+   * The `username` field is defined as `nullable` and is annotated with `@ApiModelProperty`,
+   * indicating that it is a property that should be exposed to external APIs. Therefore:
+   * 
+   * Output: The return value is `null` if the `username` field is not set (i.e., `null`).
    */
   @javax.annotation.Nullable
   @ApiModelProperty(value = "The name that uniquely identifies this user among all active users.")
@@ -266,36 +264,33 @@ public class UserInfo {
   }
 
   /**
-   * This function sets the value of the `username` field of the object to which it is
-   * called on to the value of the `username` parameter.
+   * The function `setUsername(String username)` sets the value of the field `username`
+   * to the given `String` value.
    * 
-   * @param username In the given function `setUsername(String username)`, the `username`
-   * input parameter assigns a new string value to the member variable `username` of
-   * the class that contains the function.
+   * @param username In this function `setUsername(String username)`, the `username`
+   * parameter assigns a new value to the `username` field of the object that this
+   * method belongs to.
    */
   public void setUsername(String username) {
     this.username = username;
   }
 
   /**
-   * This function implements the `equals()` method for the `UserInfo` class. It compares
-   * the current object with another object of the same class and returns `true` if
-   * they have the same fields and values.
+   * This function implements the `equals` method for the `UserInfo` class and compares
+   * the current object with another `UserInfo` object passed as an argument. It returns
+   * `true` if the two objects are equal (based on their attributes), and `false` otherwise.
    * 
-   * @param o In the `equals` method provided there is a single `Object o` parameter.
-   * It acts as the object to compare against for equals functionality purposes.
+   * @param o In this function implementation of the `equals` method for the `UserInfo`
+   * class:
    * 
-   * @returns The output of this function is `true` if the current object is equal to
-   * the passed object `o`, and `false` otherwise. The function checks for equality
-   * based on the values of the following properties:
+   * 	- `o` is the object to be compared with the current instance.
+   * 	- It serves as a reference to the other object that needs to be matched for equality.
    * 
-   * 	- `extra`: Compares the value of the `extra` field of both objects.
-   * 	- `groups`: Compares the value of the `groups` field of both objects.
-   * 	- `uid`: Compares the value of the `uid` field of both objects.
-   * 	- `username`: Compares the value of the `username` field of both objects.
-   * 
-   * The function returns `true` if all fields are equal between the current object and
-   * `o`, and `false` otherwise.
+   * @returns This function returns a boolean value indicating whether two `UserInfo`
+   * objects are equal. It compares the values of their attributes (`extra`, `groups`,
+   * `uid`, and `username`) using the `Objects.equals()` method. If all of the attributes
+   * are the same values for both objectsives then the function will return `true`.
+   * Otherwise it will return `false`.
    */
   @Override
   public boolean equals(Object o) {
@@ -313,14 +308,13 @@ public class UserInfo {
   }
 
   /**
-   * This function defines an override for the `hashCode()` method of a class. It takes
-   * three parameters - `extra`, `groups`, and `uid` - and returns their hash code based
-   * on the `Objects.hash()` method.
+   * This function overridden from the parent class , returns the hashcode for an object
+   * based on four attributes - extra , groups , uid and username .
    * 
-   * @returns The output of this function is an integer hash code. It is calculated
-   * using the `Objects.hash()` method and combines the hash values of four object
-   * references: `extra`, `groups`, `uid`, and `username`. The resulting hash code is
-   * returned as the value of the `hashCode()` method.
+   * @returns The output of this function is an integer value that represents the hash
+   * code of the object. The hash code is generated using the `Objects.hash()` method
+   * and combines the values of four properties (`extra`, `groups`, `uid`, and `username`)
+   * to produce a unique integer value for each object instance.
    */
   @Override
   public int hashCode() {
@@ -328,26 +322,24 @@ public class UserInfo {
   }
 
   /**
-   * This function overrides the `toString()` method for the `UserInfo` class. It returns
-   * a string representation of the object using `StringBuilder`. The string includes
-   * properties like `extra`, `groups`, `uid`, and `username` with their values indented.
+   * This function overrides the `toString()` method for the `UserInfo` class. It
+   * generates a string representation of the object by appending information about its
+   * fields (i.e., `extra`, `groups`, `uid`, and `username`) to a `StringBuilder` instance.
    * 
-   * @returns The output returned by this function is a string that represents a concise
-   * representation of an instance of the `UserInfo` class. It includes four key
-   * properties: `extra`, `groups`, `uid`, and `username`, each followed by a colon and
-   * then their respective values (as Strings).
+   * @returns This function is an override of the `toString()` method for a class called
+   * `UserInfo`. It takes a `StringBuilder` object as its argument and returns a `String`
+   * representation of the `UserInfo` object.
    * 
-   * Here is a breakdown of the output:
+   * The output returned by this function is a string that describes the properties of
+   * the `UserInfo` object. The string includes four key-value pairs:
    * 
-   * 1/ `class UserInfo {...}` - This line indicates that the output is an instance of
-   * the `UserInfo` class.
-   * 2/ `extra: [values]` - This line shows the value of the `extra` field as a list
-   * of values.
-   * 3/ `groups: [values]` - This line shows the value of the `groups` field as a list
-   * of values.
-   * 4/ `uid: integer` - This line shows the value of the `uid` field as an integer.
-   * 5/ `username: string` - This line shows the value of the `username` field as a string.
-   * 6/ `}` - This final bracket indicates the end of the output string.
+   * 	- `extra`: the value of the `extra` field
+   * 	- `groups`: the value of the `groups` field
+   * 	- `uid`: the value of the `uid` field
+   * 	- `username`: the value of the `username` field
+   * 
+   * Each key-value pair is displayed on a separate line within the string. The string
+   * ends with a closing curly brace `}`.
    */
   @Override
   public String toString() {
@@ -362,16 +354,18 @@ public class UserInfo {
   }
 
   /**
-   * This function takes an object `o` and returns its string representation with each
-   * line indented using four spaces (`\n
+   * This function takes an object as input and returns a string representation of the
+   * object with each line indented with four spaces. If the input is null(), the
+   * function returns the string "null".
    * 
-   * @param o The `o` input parameter is the object to be indented as a string.
+   * @param o The `o` parameter is the object for which the function is generating an
+   * indented string representation.
    * 
-   * @returns The function `toIndentedString` takes an object `o` as input and returns
-   * a string representation of the object with indentation. If `o` is null,"null" is
-   * returned. Otherwise the function calls `toString()` on `o` and replaces all new
-   * line characters `\n` with the concatenation of the newline character and four
-   * spaces "\n
+   * @returns This function takes an Object input and returns a String representation
+   * of it with indentation. If the input is null(), it returns "null". Otherwise,"it
+   * returnesthe string representation of the input object without any indentation(
+   * i.e., o.toString()),but replaces every occurrence of a new line (\n) characterwith
+   * the sequence "\n
    */
   private String toIndentedString(Object o) {
     if (o == null) {
