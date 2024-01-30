@@ -26,6 +26,13 @@ database_reference = db.collection("on_call")
 # gets data from cloud database and calls 5 min prior the time (from time) alloted in the database
 def search():
 
+    """
+    This function searches a database for documents where the "date" field matches
+    the current date and time; filters out documents whose "from" field is not
+    within the past hour or the next five minutes; and calls the Twilio API to
+    make a voice call to the phone number listed under "phone".
+
+    """
     calling_time = datetime.now()
     one_hours_from_now = (calling_time + timedelta(hours=1)).strftime("%H:%M:%S")
     current_date = str(strftime("%d-%m-%Y", gmtime()))
