@@ -139,48 +139,6 @@ public class AllPathsFromSourceToTarget {
         isVisited[u] = false;
     }
 
-    // Driver program
-    /**
-     * This function computes and returns all possible paths from a source vertex to a
-     * destination vertex by recursively exploring the graph represented by an array of
-     * integer arrays (a two-dimensional array).
-     * 
-     * @param vertices The `vertices` input parameter specifies the number of vertices
-     * (i.e., nodes) In the graph. It is used to size the output list of lists of integers
-     * representing the possible paths from source to destination.
-     * 
-     * @param a The `a` input parameter is an array of integers representing the edges
-     * of a graph. Each integer array represents a directed edge between two vertices
-     * with the index 0 being the source vertex and index 1 being the destination vertex.
-     * 
-     * @param source The `source` input parameter specifies the starting vertex of the
-     * search for paths from the source to the destination.
-     * 
-     * @param destination The `destination` parameter specifies the target vertex that
-     * the algorithm should find all possible paths to from the `source` vertex.
-     * 
-     * @returns This function takes a graph represented as an adjacency matrix `a` and
-     * two integers `source` and `destination`, and returns a list of all possible paths
-     * from `source` to `destination`. The output is a list of lists of integers representing
-     * the paths. For example:
-     * ```
-     * [
-     *   [0],   // Path starting at source (0)
-     *   [0],   // Path starting at vertex 1
-     *   [1],   // Path starting at vertex 2
-     *   [2],   // Path starting at vertex 3
-     *   [0],   // Path starting at vertex 4
-     *   [1],   // Path starting at vertex 5
-     *   [2],   // Path starting at vertex 6
-     *   [0],   // Path starting at vertex 7
-     *   [1],   // Path starting at vertex 8
-     *   [2]   // Path starting at vertex 9
-     * ]
-     * ```
-     * The output is a list of all possible paths from `source` to `destination`, where
-     * each path is represented as a list of integers representing the vertices visited.
-     * The list of lists of integers is returned.
-     */
     public static List<List<Integer>> allPathsFromSourceToTarget(int vertices, int[][] a, int source, int destination) {
         // Create a sample graph
         AllPathsFromSourceToTarget g = new AllPathsFromSourceToTarget(vertices);

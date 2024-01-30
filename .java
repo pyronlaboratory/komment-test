@@ -61,32 +61,10 @@ class $ {
          return [][][][][][〠][];
     }
 
-
-/**
- * This is a so-called "empty function" or "no-op function". It returns `false`, but
- * does not perform any other actions or have any side effects. In other words: it
- * does nothing.
- * 
- * @returns This function returns `false`.
- * 
- * Explanation:
- * 
- * 	- The function is marked as `static`, indicating that it belongs to the class
- * rather than an instance of the class.
- * 	- The function name is `$()`, which is a reserved word for the current date and
- * time. As a result、this function will always return `false` by design.
- */
 static boolean $() {
             return false;
 }
 
-    /**
-     * This function prints `undefined` to the console.
-     * 
-     * @param _$ The `_$` input parameter is an array of String objects that represents
-     * the command-line arguments passed to the program when it was executed. In this
-     * specific case (`main()` method), it would be empty since no arguments were passed.
-     */
     public static void main(String[] _$) {
         System.out.println($.$());
     }
