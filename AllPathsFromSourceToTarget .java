@@ -6,7 +6,7 @@
 /** Program description - To find all possible paths from source to destination*/
 
 /**Wikipedia link -> https://en.wikipedia.org/wiki/Shortest_path_problem */
-package com.thealgorithms.backtracking;
+package com.thealgorithms.backtracking
 
 import java.util.*;
 
