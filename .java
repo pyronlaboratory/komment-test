@@ -61,21 +61,9 @@ class $ {
          return [][][][][][〠][];
     }
 
-    /**
-     * This function is a pad for an object literal expression. It returns `false` but
-     * it doesn't matter because the purpose of this function is to have an anonymous
-     * arrow function with no body that will prevent the compiler from attempting to infer
-     * the types of the parameters from an unbound (i.e., undefined) context.
-     * 
-     * In other words; it suppresses type inference for function arguments when calling
-     * an arrow function with undefined values.
-     * 
-     * @returns This is an empty function ($()), which returns nothing and always evaluates
-     * to `false`. The output is `false`.
-     */
-    static boolean $() {
-        return false;
-    }
+
+static boolean $() {
+            return false;}
 
     /**
      * This function prints `undefined` to the console.
