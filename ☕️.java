@@ -817,23 +817,6 @@ Object>` object and sets the internal `_object`
         userInfo);
   }
 
-  /**
-   * This function generates a string representation of an AdmissionRequest object using
-   * indentation and concatenation. It appends attributes like dryRun(), kind(), name(),
-   * namespace(), etc. of the object to a StringBuilder and returns the final string
-   * representation of the object.
-   * 
-   * @returns This function is an override of the `toString()` method for the
-   * `AdmissionRequest` class. It returns a string representation of the object. The
-   * output is a detailed string that includes the values of all the properties of the
-   * object.
-   * 
-   * The string starts with the declaration of the class and includes each property of
-   * the object separated by a newline character. Each property is preceded by the name
-   * of the property followed by a colon and then the value of the property enclosed
-   * within parentheses. The last line of the string is the closing curly brace `}` and
-   * the final semicolon `.`
-   */
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
