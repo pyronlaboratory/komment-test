@@ -1,11 +1,5 @@
 package com.thealgorithms.audiofilters;
 
-/**
- * N-Order IIR Filter Assumes inputs are normalized to [-1, 1]
- *
- * Based on the difference equation from
- * <a href="https://en.wikipedia.org/wiki/Infinite_impulse_response">Wikipedia link</a>
- */
 public class IIRFilter {
 
     private final int order;
@@ -14,12 +8,6 @@ public class IIRFilter {
     private final double[] historyX;
     private final double[] historyY;
 
-    /**
-     * Construct an IIR Filter
-     *
-     * @param order the filter's order
-     * @throws IllegalArgumentException if order is zero or less
-     */
     public IIRFilter(int order) throws IllegalArgumentException {
         if (order < 1) {
             throw new IllegalArgumentException("order must be greater than zero");
@@ -37,14 +25,6 @@ public class IIRFilter {
         historyY = new double[order];
     }
 
-    /**
-     * Set coefficients
-     *
-     * @param aCoeffs Denominator coefficients
-     * @param bCoeffs Numerator coefficients
-     * @throws IllegalArgumentException if {@code aCoeffs} or {@code bCoeffs} is
-     * not of size {@code order}, or if {@code aCoeffs[0]} is 0.0
-     */
     public void setCoeffs(double[] aCoeffs, double[] bCoeffs) throws IllegalArgumentException {
         if (aCoeffs.length != order) {
             throw new IllegalArgumentException("aCoeffs must be of size " + order + ", got " + aCoeffs.length);
@@ -64,12 +44,6 @@ public class IIRFilter {
         }
     }
 
-    /**
-     * Process a single sample
-     *
-     * @param sample the sample to process
-     * @return the processed sample
-     */
     public double process(double sample) {
         double result = 0.0;
 
