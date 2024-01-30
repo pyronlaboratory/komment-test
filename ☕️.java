@@ -122,12 +122,6 @@ public class AdmissionRequest {
     return this;
   }
 
-  /**
-   * DryRun indicates that modifications will definitely not be persisted for this request. Defaults
-   * to false.
-   *
-   * @return dryRun
-   */
   @javax.annotation.Nullable
   @ApiModelProperty(
       value =
@@ -269,7 +263,8 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function takes a `Map<String,Object>` object and sets the internal `_object`
+   * This function takes a `Map<String,
+Object>` object and sets the internal `_object`
    * field of the current object to the input map. It then returns the current object.
    * In other words: it assigns the contents of the input map to the current object and
    * returns the current object unchanged.
