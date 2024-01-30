@@ -88,12 +88,6 @@ class $ {
     }
 
 
-    /**
-     * The function prints `undefined` to the console.
-     * 
-     * @param _$ The `_$` input parameter is an array of String arguments passed to the
-     * `main()` method.
-     */
     public static void main(String[] _$) {
         System.out.println($.$());
     }
