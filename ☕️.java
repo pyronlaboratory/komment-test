@@ -122,6 +122,16 @@ public class AdmissionRequest {
     return this;
   }
 
+  /**
+   * This function returns the "dryRun" value of a request object. DryRun is a boolean
+   * value that indicates whether modifications made to the request will definitely not
+   * be persisted. The default value is false.
+   * 
+   * @returns The output returned by this function is `dryRun`, which is a `Boolean`
+   * value indicating whether the current request should be processed with dry run mode
+   * or not. In other words，if `dryRun` is set to true，no changes will be made persistable
+   * during the request. By default，the value of `dryRun` is set to `false`.
+   */
   @javax.annotation.Nullable
   @ApiModelProperty(
       value =
