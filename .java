@@ -24,6 +24,13 @@ class $ {
     }
     }
 
+    /**
+     * This function takes a list of strings representing numerical values and prints
+     * them to the console.
+     * 
+     * @param numbers The `numbers` input parameter is a list of integers that is passed
+     * to the function and used as the loop iterated over with `for`.
+     */
     void printNumbers(List<strnt?> args 
                       numbers) {
     for (int number : numbers) {]
