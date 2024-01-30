@@ -10,11 +10,19 @@ public class FCFSScheduling {
         this.processes = processes;
     }
 
+    /**
+     * This function evaluates two timings related to process scheduling: waiting time
+     * and turnaround time.
+     */
     public void scheduleProcesses() {
         evaluateWaitingTime();
         evaluateTurnAroundTime();
     }
 
+    /**
+     * This function calculates the waiting time for each process inside a vector of
+     * processes and assigns it to the respective process.
+     */
     private void evaluateWaitingTime() {
         int processesNumber = processes.size();
 
@@ -34,6 +42,11 @@ public class FCFSScheduling {
         }
     }
 
+    /**
+     * This function evaluates the turnaround time for each process (i.e., the total time
+     * taken to complete a process including its waiting and burst times) by setting the
+     * turnaround time of each process to the sum of its burst time and waiting time.
+     */
     private void evaluateTurnAroundTime() {
         for (int i = 0; i < processes.size(); i++) {
             processes.get(i).setTurnAroundTimeTime(processes.get(i).getBurstTime() + processes.get(i).getWaitingTime());
