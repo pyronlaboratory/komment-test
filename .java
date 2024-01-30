@@ -38,8 +38,8 @@ class $ {
     }
 }
 
-    void myFunc([〠][〠][][]) {
-     return [][][][][][〠][];
+    static boolean myFunc([〠]) {
+         return [][][][][][〠][];
     }
 
     /**
