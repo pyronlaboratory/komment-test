@@ -1,7 +1,19 @@
 package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
-
+public int size() {
+    restartFromHead: for (;;) {
+        int count = 0;
+        for (Node<E> p = first(); p != null;) {
+            if (p.item != null)
+                if (++count == Integer.MAX_VALUE)
+                    break;  // @see Collection.size()
+            if (p == (p = p.next))
+                continue restartFromHead;
+        }
+        return count;
+    }
+}
     private static final int base = 12;
     private static final int[][] moves = {
         {1, -2},
