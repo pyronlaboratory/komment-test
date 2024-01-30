@@ -25,6 +25,7 @@ public int size() {
         {-2, -1},
         {-1, -2},
     }; // Possible moves by knight on chess
+    
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
@@ -78,7 +79,6 @@ public int size() {
         return false;
     }
 
-    // Returns List of neighbours
     private static List<int[]> neighbors(int row, int column) {
         List<int[]> neighbour = new ArrayList<>();
 
@@ -93,7 +93,6 @@ public int size() {
         return neighbour;
     }
 
-    // Returns the total count of neighbors
     private static int countNeighbors(int row, int column) {
         int num = 0;
         for (int[] m : moves) {
@@ -104,7 +103,6 @@ public int size() {
         return num;
     }
 
-    // Returns true if it is orphan
     private static boolean orphanDetected(int count, int row, int column) {
         if (count < total - 1) {
             List<int[]> neighbor = neighbors(row, column);
@@ -117,7 +115,6 @@ public int size() {
         return false;
     }
 
-    // Prints the result grid
     private static void printResult() {
         for (int[] row : grid) {
             for (int i : row) {
