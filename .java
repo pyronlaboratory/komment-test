@@ -23,6 +23,11 @@ class $ {
     for (int number : numbers) {
         System.out.println(number);
     }
+
+        void printDumbers(int... dumbers) {
+    for (int number : numbers) {
+        System.out.println(number);
+    }
 }
 
     /**
