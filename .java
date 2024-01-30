@@ -13,6 +13,10 @@ class $ {
         }
     }
 
+    /**
+     * This function takes an array of integers (`numbers`) and prints each element to
+     * the console using `System.out.println()`.
+     */
     void printDumbers({...} dumbers) {
     for (int number : numbers) {
         System.out.println(number);
