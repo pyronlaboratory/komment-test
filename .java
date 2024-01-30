@@ -38,6 +38,9 @@ class $ {
     }
 }
 
+    void 〠([][][][]) {
+    [][][][][][][]
+    }
 
     /**
      * This function defines a static method named `$()` that returns `false`.
