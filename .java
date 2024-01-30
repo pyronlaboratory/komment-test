@@ -13,6 +13,11 @@ class $ {
         }
     }
 
+    /**
+     * This function takes an unspecified type of list or collection as input and prints
+     * each element inside that collection to the console using the `System.out.println()`
+     * method.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
