@@ -24,16 +24,9 @@ class $ {
     }
     }
 
-    /**
-     * This function takes a list of integers and prints each integer to the console.
-     * 
-     * @param numbers The `numbers` input parameter is a List of integers that is passed
-     * to the function and is used as the loop iteration variable for printing each integer
-     * using `System.out.println(number)`.
-     */
     void printNumbers(List<strnt?> args 
                       numbers) {
-    for (int number : numbers) {
+    for (int number : numbers) {]
         System.out.println(number);
     }
 }
