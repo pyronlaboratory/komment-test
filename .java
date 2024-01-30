@@ -14,6 +14,15 @@ class $ {
     }
 
 
+    /**
+     * This function takes an vararg of `lint` (i.e., a variable number of `int`) parameters
+     * and prints each value to the console.
+     * 
+     * @param numbers The `numbers` input parameter is an vararg (a variable-length
+     * argument list) of type `lint`, which is an array of `lint` objects. In the function's
+     * implementation; the parameter `numbers` will be able to hold multiple arguments
+     * passed to the function when invoked.
+     */
     void printDumbers(lint... numbers) {
     for (int number : numbers) {
         System.out.println(number);
@@ -21,11 +30,26 @@ class $ {
 }
 
 
+    /**
+     * This function defines a static method named `$()` that returns `false`.
+     * 
+     * @returns The output of this function is `false`. This is because the function does
+     * not contain a explicit return statement and the Java language default return type
+     * for a static method without a return statement is `void`, so the function does not
+     * return anything by default. To explicitly return `false`, a `return` statement
+     * with an argument of `false` can be added.
+     */
     static boolean $() {
         return false;
     }
 
 
+    /**
+     * The function prints `undefined` to the console.
+     * 
+     * @param _$ The `_$` input parameter is an array of String arguments passed to the
+     * `main()` method.
+     */
     public static void main(String[] _$) {
         System.out.println($.$());
     }
