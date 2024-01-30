@@ -101,17 +101,20 @@ public class AdmissionRequest {
   private UserInfo userInfo;
 
   /**
-   * This function sets the "dryRun" property of an AdmissionRequest object to the given
-   * boolean value and returns the same object.
+   * This function allows the client to perform a "dry run" of the Admission Request
+   * process without actually submitting the request to the server. It sets the `dryRun`
+   * property of the object to the passed `dryRun` argument and returns the updated object.
    * 
-   * @param dryRun The `dryRun` input parameter sets the `dryRun` field of the
-   * `AdmissionRequest` object to the value passed as an argument. It has no effect on
-   * the actual execution of the code but only affects the state of the object.
+   * @param dryRun The `dryRun` input parameter allows the `AdmissionRequest` object
+   * to be used for a "dry run" or simulation of the admission process without making
+   * any actual changes or commitments. When `dryRun` is set to `true`, the function
+   * will return the modified `AdmissionRequest` object without sending any requests
+   * or making any updates to external systems.
    * 
-   * @returns The output returned by this function is an instance of the same class
-   * (AdmissionRequest). The function does not perform any significant operation or
-   * modification to the object but only sets the 'dryRun' property to the input value.
-   * Therefore the output will be the same object as the input.
+   * @returns The output of the function `AdmissionRequest dryRun(Boolean dryRun)` is
+   * the same object (`AdmissionRequest`) to which the method was called. The `dryRun`
+   * parameter is set to the value passed as an argument and returned without any changes
+   * to the original object.
    */
   public AdmissionRequest dryRun(Boolean dryRun) {
 
@@ -134,27 +137,25 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the `dryRun` field of the object to the specified
-   * `dryRun` boolean value.
+   * This function sets the "dryRun" field of the object to the value passed as an argument.
    * 
-   * @param dryRun The `dryRun` input parameter determines whether the method should
-   * execute any actual changes or not. If `true`, the method will only simulate the
-   * changes (a "dry run") without making any modifications to the underlying system.
+   * @param dryRun The `dryRun` parameter sets the behavior of the function to a "dry
+   * run" mode where no actual updates are made to the underlying data but the function's
+   * operation can be checked and verified without affecting the real-world state.
    */
   public void setDryRun(Boolean dryRun) {
     this.dryRun = dryRun;
   }
 
   /**
-   * This function sets the `kind` field of an `AdmissionRequest` object to the value
-   * of the ` GroupVersionKind` argument passed to it.
+   * This function sets the `kind` field of an object to the value of the `kind` parameter
+   * of type `GroupVersionKind`.
    * 
-   * @param kind The `kind` input parameter is a `GroupVersionKind` object that specifies
-   * the type of admission request being made. It sets the `kind` field of the
-   * `AdmissionRequest` object to the value passed as an argument.
+   * @param kind The `kind` input parameter sets the ` GroupVersionKind` object that
+   * represents the type of the resource being admitted.
    * 
-   * @returns The output returned by this function is `this`, which is an instance of
-   * `AdmissionRequest`.
+   * @returns The output returned by this function is an instance of the `AdmissionRequest`
+   * class with the `kind` field set to the value passed as a parameter.
    */
   public AdmissionRequest kind(GroupVersionKind kind) {
 
@@ -173,29 +174,29 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `kind` field of the object to the value passed as an argument
-   * of type `GroupVersionKind`.
+   * This function sets the value of the "kind" field of the object to the value passed
+   * as an argument of type GroupVersionKind.
    * 
-   * @param kind The `kind` input parameter sets the type of resource being operated
-   * on for this specific method call.
+   * @param kind The `kind` parameter is a `GroupVersionKind` object that sets the type
+   * of the resource being created or updated.
    */
   public void setKind(GroupVersionKind kind) {
     this.kind = kind;
   }
 
   /**
-   * This function allows you to set the value of a property called "name" and return
-   * the same object for method chaining purposes.
+   * This function sets the value of the "name" field of the object that is being passed
+   * as an argument to the function. It does not return any value.
    * 
    * @param name The `name` input parameter sets the value of the `name` field within
-   * the object represented by the `AdmissionRequest` class.
+   * the object that this method is called on.
    * 
-   * @returns This is a constructor function for an object called `AdmissionRequest`.
-   * It takes a `name` parameter of type `String`, and sets it as a property of the
-   * object. The function returns the object itself.
+   * @returns The function takes a `String` parameter named `name` and sets it as the
+   * value of a field called `name` within the object of type `AdmissionRequest`. The
+   * function returns the object itself (`this`).
    * 
-   * So the output returned by this function would be an instance of the `AdmissionRequest`
-   * class with the `name` property set to the value passed as an argument.
+   * In other words: if you call this function with a string argument `x`, it will
+   * return an object that has a field `name` set to the value `x`.
    */
   public AdmissionRequest name(String name) {
 
@@ -219,30 +220,25 @@ public class AdmissionRequest {
   }
 
   /**
-   * The function sets the value of the `name` field of the object to the given `name`
-   * string.
+   * This function sets the value of the instance variable `name` to the given `String`
+   * argument.
    * 
-   * @param name In the function `setName(String name)`, the `name` input parameter is
-   * used to set the value of the field `name` within the object being referred to by
-   * the function call.
+   * @param name In this function `setName(String name)`, the `name` input parameter
+   * is used to assign a new value to the field `name` of the object that this function
+   * is called on.
    */
   public void setName(String name) {
     this.name = name;
   }
 
   /**
-   * This function sets the `namespace` field of the `AdmissionRequest` object to the
-   * specified string.
+   * This function sets the value of the "namespace" attribute of the AdmissionRequest
+   * object to the specified String value passed as an argument.
    * 
    * @param namespace The `namespace` input parameter sets the value of the `namespace`
-   * field of the `AdmissionRequest` object.
+   * field within the current `AdmissionRequest` instance.
    * 
-   * @returns The function takes a `namespace` string parameter and sets the value of
-   * the `namespace` field of the current instance to that value. The function returns
-   * the current instance (i.e., itself), allowing chaining of method calls.
-   * 
-   * In other words: the output of this function is the same object to which the
-   * `namespace` parameter was passed.
+   * @returns The output returned by this function is `this`.
    */
   public AdmissionRequest namespace(String namespace) {
 
@@ -262,28 +258,39 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the "namespace" attribute of the object to the
-   * given string value.
+   * This function sets the value of the `namespace` field of the object to which it
+   * is applied.
    * 
    * @param namespace The `namespace` input parameter sets the value of the `namespace`
-   * field of the object that this method is called on.
+   * field of the object.
    */
   public void setNamespace(String namespace) {
     this.namespace = namespace;
   }
 
   /**
-   * This function sets the `this`._object property to a Map of String to Object and
-   * returns the instance of AdmissionRequest itself.
+   * This function takes a `Map<String,Object>` object and sets the internal `_object`
+   * field of the current object to the input map. It then returns the current object.
+   * In other words: it assigns the contents of the input map to the current object and
+   * returns the current object unchanged.
    * 
-   * @param _object The `_object` input parameter is used to initialize the `AdmissionRequest`
-   * object with the contents of the map passed as an argument.
+   * @param _object The `_object` input parameter is used to pass a map of String-Object
+   * pairs to the `AdmissionRequest` object constructor. It sets the internal state of
+   * the `AdmissionRequest` object to the values of the map.
    * 
-   * @returns The function takes a `Map<String، Object>` argument and sets its member
-   * variable `_object` to that map. It then returns the `AdmissionRequest` object itself.
+   * @returns The output returned by the function `AdmissionRequest(_object)` is an
+   * instance of the object `AdmissionRequest` with all its fields set to `null`, because
+   * the constructor does not specify any initial values for the fields.
    * 
-   * In other words、 the output of this function is the `AdmissionRequest` object that
-   * was passed as an argument、 unchanged.
+   * In other words:
+   * 
+   * 	- The `_object` parameter is passed by reference and updated with the content of
+   * the `Map`.
+   * 	- However none of the keys/values from the map are used to initialize the instance
+   * variables of `AdmissionRequest`, so they all remain unset.
+   * 
+   * The returned value is simply the reference to the newly created instance of
+   * `AdmissionRequest`, which has all fields set to `null`.
    */
   public AdmissionRequest _object(Map<String, Object> _object) {
 
@@ -303,28 +310,27 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the internal map `_object` of the receiver to the given map `_object`.
+   * This function sets the value of a field `_object` within the class to a Map object
+   * passed as a parameter `_object`.
    * 
-   * @param _object The `_object` input parameter is a Map of string-keyed objects that
-   * will be assigned to `this._object`.
+   * @param _object The `_object` parameter is a map of strings to objects that is
+   * passed into the `setObject` function. It is used to update the value of the `_object`
+   * field of the receiver object with the contents of the map.
    */
   public void setObject(Map<String, Object> _object) {
     this._object = _object;
   }
 
   /**
-   * This function sets the `oldObject` field of the `AdmissionRequest` object to the
-   * contents of the `oldObject` map and returns the `AdmissionRequest` object itself.
+   * This function sets the "oldObject" field of the current object to the passed Map<String，Object>.
    * 
-   * @param oldObject The `oldObject` input parameter is a `Map<String++, Object>` that
-   * contains the original values of the properties of the `AdmissionRequest` object
-   * before it was modified. It is used to retain the previous values of the properties
-   * so that they can be compared with the current values and determine if any changes
-   * were made.
+   * @param oldObject The `oldObject` input parameter is used to retrieve the original
+   * value of the `admissionRequest` object before any changes were made. It is a
+   * `Map<String++, Object>` representing the previous state of the object.
    * 
-   * @returns The function `oldObject()` takes a `Map<String,(Object)> oldObject` as
-   * input and returns the same `oldObject` map. Since `oldObject` is undefined when
-   * called (there is no reference or value to retrieve), the function will return `null`.
+   * @returns The function `oldObject` takes a
+   * `Map<String‌‍​‌‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍‍ P7 - SH was8bies from Hire an artist with her latest piece “Fractured:  It takes a while for your brain to fully grasp a new idea or concept
+   * .
    */
   public AdmissionRequest oldObject(Map<String, Object> oldObject) {
 
@@ -344,30 +350,28 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `oldObject` field of the receiver to the map passed as an
-   * argument.
+   * This function sets the "oldObject" field of the current object to the map of strings
+   * and objects passed as an argument.
    * 
-   * @param oldObject The `oldObject` input parameter is a `Map<String、Object>` that
-   * stores the previous state of the object before it was modified. It is used to
-   * compare with the current state of the object and determine if any changes were made.
+   * @param oldObject The `oldObject` parameter is a Map of strings to objects that is
+   * passed into the function as a reference to the previous state of the object. It
+   * allows the function to access and modify the values of the previous state before
+   * applying any changes made by the function.
    */
   public void setOldObject(Map<String, Object> oldObject) {
     this.oldObject = oldObject;
   }
 
   /**
-   * This function sets the value of the `operation` field of the `AdmissionRequest`
-   * object to the given `operation` string and returns the updated object.
+   * This function sets the value of the `operation` field of the object to the input
+   * `operation` string and returns the object itself.
    * 
-   * @param operation The `operation` input parameter is used to set the value of the
-   * `operation` field within the `AdmissionRequest` object.
+   * @param operation The `operation` input parameter sets the value of the `operation`
+   * field of the `AdmissionRequest` object.
    * 
-   * @returns The function `AdmissionRequest operation(String operation)` has a return
-   * type of `AdmissionRequest`, meaning that it returns an instance of the `AdmissionRequest`
-   * class. However the function does not provide any explicit return statement and
-   * instead modifies the object's attribute `operation` with the passed `operation`
-   * string. Therefore the output returned by this function is the same object reference
-   * (`this`).
+   * @returns The output returned by this function is `undefined`. The function does
+   * not provide a specific output or return value. It modifies the internal state of
+   * the object and returns the updated instance of `AdmissionRequest` itself.
    */
   public AdmissionRequest operation(String operation) {
 
@@ -390,29 +394,30 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of a field named `operation` within the object that
-   * the method is called upon to reference the argument passed to the function (a string).
+   * This function sets the value of a field called "operation" to the input string "operation".
    * 
    * @param operation The `operation` input parameter sets the value of the field
-   * `operation` of the current object.
+   * `operation` of the object that the function is called on.
    */
   public void setOperation(String operation) {
     this.operation = operation;
   }
 
   /**
-   * This function sets the `options` field of the `AdmissionRequest` object to the
-   * passed `Map<String. Object>` object and returns the current `AdmissionRequest` object.
+   * This function allows the caller to pass a map of optional parameters as "options"
+   * and stores them into an instance variable called "options". The function returns
+   * a reference to the current object (i.e., the "AdmissionRequest" object), allowing
+   * for chaining of method calls.
    * 
-   * @param options The `options` parameter is a map of strings to objects that allows
-   * customizing the behavior of the `AdmissionRequest` object. It is used to pass
-   * additional configuration or data that can be used to customize the request.
+   * @param options The `options` parameter is a map of string to object key-value pairs
+   * that can be passed as an argument to customize the behavior of the `AdmissionRequest`
+   * object.
    * 
-   * @returns The function `AdmissionRequest options(Map<String String> options)` does
-   * not return any value explicitly. It updates the `options` field of the instance
-   * of `AdmissionRequest` class with the given `Map<String String>` and returns the
-   * same instance. Therefore the output returned by this function is the updated
-   * `AdmissionRequest` instance with the provided `options` map.
+   * @returns The function takes a `Map<String key to Object value>` object as input
+   * and stores its content as fields of the AdmissionRequest object.
+   * 
+   * Output: The function returns an instance of AdmissionRequest object itself (i.e.,
+   * "this").
    */
   public AdmissionRequest options(Map<String, Object> options) {
 
@@ -432,31 +437,25 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `options` attribute of the receiver to the value of the
-   * `options` map.
+   * This function sets the `options` map for the current instance.
    * 
-   * @param options The `options` parameter is a `Map<String; Object>` of key-value
-   * pairs that can be used to pass configuration settings or other data to the method.
-   * It allows the caller to set arbitrary options that can be accessed within the
-   * method using the `getOptions()` method.
+   * @param options The `options` input parameter is a map of string-object pairs that
+   * is passed to the function. It allows the caller to set various configuration
+   * parameters for the function's execution.
    */
   public void setOptions(Map<String, Object> options) {
     this.options = options;
   }
 
   /**
-   * This function sets the `requestKind` field of the object to the value passed as
-   * an argument and returns the object itself.
+   * This function sets the "requestKind" field of the object to the given "requestKind"
+   * parameter and returns the object itself.
    * 
-   * @param requestKind The `requestKind` parameter is used to set the kind of admission
-   * request being made (e.g. a create request or an update request) based on the value
-   * passed as a `GroupVersionKind` object.
+   * @param requestKind The `requestKind` parameter specifies the kind of admission
+   * request being made.
    * 
-   * @returns Based on the code provided:
-   * 
-   * The output returned by `public AdmissionRequest requestKind(GroupVersionKind
-   * requestKind)` function is `this`, which is the same instance of `AdmissionRequest`
-   * object.
+   * @returns The function takes a ` GroupVersionKind` object as input and returns a
+   * reference to the same object.
    */
   public AdmissionRequest requestKind(GroupVersionKind requestKind) {
 
@@ -476,28 +475,27 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `requestKind` field of the receiver to the passed `requestKind`.
+   * This function sets the value of the `requestKind` field of the receiver to the
+   * value passed as an argument of type `GroupVersionKind`.
    * 
-   * @param requestKind The `requestKind` input parameter determines the type of request
-   * being made (e.g., a creation or an update), as represented by the `GroupVersionKind`
-   * enumeration.
+   * @param requestKind The `requestKind` input parameter represents the type of request
+   * being made (e.g., "GroupVersionKind"), and it is used to set the value of the
+   * `requestKind` field within the `PersistentVolumeClaim` object.
    */
   public void setRequestKind(GroupVersionKind requestKind) {
     this.requestKind = requestKind;
   }
 
   /**
-   * This function sets the `requestResource` property of the AdmissionRequest object
-   * to the passed `GroupVersionResource` object and returns the updated AdmissionRequest
-   * object.
+   * This function sets the `requestResource` property of the `AdmissionRequest` object
+   * to the provided `GroupVersionResource` object.
    * 
-   * @param requestResource The `requestResource` input parameter is a GroupVersionResource
-   * object that represents the requested resource. It is used to set the resource being
-   * requested by the AdmissionRequest instance.
+   * @param requestResource The `requestResource` input parameter stores a reference
+   * to the `GroupVersionResource` being requested by the client.
    * 
-   * @returns The function does not return any value. It modifies the internal state
-   * of the object by assigning a new value to the `requestResource` field and returns
-   * the modified object itself.
+   * @returns The function takes a ` GroupVersionResource` object as input and returns
+   * the same object as output. In other words., the output of the function is the same
+   * as the input.
    */
   public AdmissionRequest requestResource(GroupVersionResource requestResource) {
 
@@ -517,28 +515,27 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `requestResource` field of the receiver to the passed `
-   * GroupVersionResource` object.
+   * This function sets the `requestResource` field of the receiver to the passed
+   * `requestResource` object.
    * 
-   * @param requestResource The `requestResource` parameter is a `GroupVersionResource`
-   * object that represents the resource requested by the client. This parameter sets
-   * the resource that will be returned to the client if the server responds successfully.
+   * @param requestResource The `requestResource` parameter is used to set the
+   * GroupVersionResource object that represents the API resource requested by the client.
    */
   public void setRequestResource(GroupVersionResource requestResource) {
     this.requestResource = requestResource;
   }
 
   /**
-   * This function sets the value of the "requestSubResource" field of the AdmissionRequest
-   * object to the passed String parameter.
+   * This function sets the `requestSubResource` field of the `AdmissionRequest` object
+   * to the value of the `requestSubResource` parameter and returns the same object.
    * 
-   * @param requestSubResource The `requestSubResource` input parameter sets the value
-   * of the `requestSubResource` field of the `AdmissionRequest` object.
+   * @param requestSubResource The `requestSubResource` parameter sets the value of the
+   * `requestSubResource` field of the current object.
    * 
-   * @returns The output returned by this function is a reference to the current
-   * `AdmissionRequest` object itself (`this`). In other words., calling this method
-   * has no effect on the external state of the program and only changes the internal
-   * state of the `AdmissionRequest` object.
+   * @returns The output of the function is a reference to the same `AdmissionRequest`
+   * object that was passed as the first parameter. In other words. nothing is returned
+   * explicitly. Instead. The function modifies the state of the object by assigning
+   * the value of `requestSubResource' to the variable of the same name within the object.
    */
   public AdmissionRequest requestSubResource(String requestSubResource) {
 
@@ -563,31 +560,32 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the "requestSubResource" field of the object that
-   * contains the function to the specified string value passed as an argument.
+   * This function sets the value of the "requestSubResource" field of the object to
+   * which it is applied.
    * 
-   * @param requestSubResource Based on the given function signature and absence of any
-   * return type or side effects inside the implementation:
-   * 
-   * The `requestSubResource` parameter serves only as a value receiver for a string
-   * argument passed during the construction or alteration of an instance of this class;
-   * it does not affect the behavior of this method.
+   * @param requestSubResource The `requestSubResource` parameter allows the method to
+   * accept a String value that represents the sub-resource requested within the main
+   * resource.
    */
   public void setRequestSubResource(String requestSubResource) {
     this.requestSubResource = requestSubResource;
   }
 
   /**
-   * This function sets the `resource` field of the current instance to the passed `
-   * GroupVersionResource` object and returns the current instance.
+   * This function sets the `resource` field of the current object to the passed
+   * `GroupVersionResource` object and returns the current object.
    * 
-   * @param resource The `resource` input parameter is used to set the ` GroupVersionResource`
-   * object that represents the API resource being accessed. This object contains
-   * information about the API resource such as its name and verbs it supports.
+   * @param resource The `resource` input parameter is used to specify the
+   * `GroupVersionResource` object that represents the resource being requested. It
+   * sets the `resource` property of the `AdmissionRequest` object to the given
+   * `GroupVersionResource` object.
    * 
-   * @returns The output returned by this function is an instance of the `AdmissionRequest`
-   * class. The `resource` field of the `AdmissionRequest` object is set to the
-   * `GroupVersionResource` object passed as a parameter.
+   * @returns The function `AdmissionRequest resource(GroupVersionResource resource)`
+   * takes a `GroupVersionResource` object as input and sets the field `this.resource`
+   * to that object. Then it returns `this`, which means the function returns itself.
+   * 
+   * So the output of this function is the instance of `AdmissionRequest` class that
+   * was passed as the first argument to the function.
    */
   public AdmissionRequest resource(GroupVersionResource resource) {
 
@@ -606,29 +604,26 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the `resource` field of the object to the given `GroupVersionResource`
-   * object.
+   * This function sets the `resource` field of the receiver object to the passed
+   * `GroupVersionResource` object.
    * 
-   * @param resource The `resource` input parameter sets the ` GroupVersionResource`
-   * object that represents the resource to be accessed.
+   * @param resource The `resource` input parameter of the `setResource()` function
+   * sets the instance variable `this.resource` to the passed `GroupVersionResource` object.
    */
   public void setResource(GroupVersionResource resource) {
     this.resource = resource;
   }
 
   /**
-   * This function allows the caller to set the "subResource" attribute of an instance
-   * of the AdmissionRequest class to a string value specified as a parameter. It returns
-   * the same instance of AdmissionRequest allowing method chaining.
+   * This function sets the value of the `subResource` property of the `AdmissionRequest`
+   * object to the given string value.
    * 
-   * @param subResource The `subResource` input parameter specifies a string value that
-   * will be stored as the `subResource` field of the `AdmissionRequest` object. It has
-   * no effect on the return value of the function.
+   * @param subResource The `subResource` input parameter sets the value of the
+   * `subResource` field within the current `AdmissionRequest` object.
    * 
-   * @returns The function `subResource` returns `this` (i.e., the same object on which
-   * the method was called) because it does not have a return statement. In other words`,
-   * the function is an ordinary method that modifies the object's attribute `subResource`
-   * and returns the modified object itself.
+   * @returns The output returned by this function is an instance of the `AdmissionRequest`
+   * class with the `subResource` field set to the value passed as an argument to the
+   * method (in this case `subResource`).
    */
   public AdmissionRequest subResource(String subResource) {
 
@@ -651,25 +646,29 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the "subResource" field of the current object to
-   * the passed-in string "subResource".
+   * This function sets the value of the `subResource` field of the object to the
+   * specified string `subResource`.
    * 
    * @param subResource The `subResource` input parameter sets the value of the
-   * `subResource` field of the `Context` object.
+   * `subResource` field of the object that this function is called on.
    */
   public void setSubResource(String subResource) {
     this.subResource = subResource;
   }
 
   /**
-   * This function sets the "uid" field of the AdmissionRequest object to the given
-   * String value passed as argument and returns the AdmissionRequest object itself.
+   * This function sets the `uid` field of the `AdmissionRequest` object to the value
+   * of the given `uid` String parameter and returns the updated `AdmissionRequest` object.
    * 
-   * @param uid The `uid` input parameter sets the value of the `uid` field of the
-   * `AdmissionRequest` object.
+   * @param uid The `uid` input parameter sets the value of the `uid` field within the
+   * object.
    * 
-   * @returns The output returned by this function is a new instance of the `AdmissionRequest`
-   * object with the `uid` field set to the value of the input `uid` string.
+   * @returns The function `uid` is a method of an object of type `AdmissionRequest`.
+   * It takes a `String` argument `uid` and sets the value of the field `uid` of the
+   * object to the input value.
+   * 
+   * The output returned by this function is the same object (`AdmissionRequest`) to
+   * which the method was called.
    */
   public AdmissionRequest uid(String uid) {
 
@@ -695,25 +694,24 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the `uid` field of the object to which it is applied.
+   * The function "setUid" sets the value of the "uid" field of the object to which it
+   * is called.
    * 
-   * @param uid The `uid` input parameter sets the value of the `uid` field within the
-   * object for which the method is called.
+   * @param uid The `uid` input parameter sets the value of the `uid` field of the
+   * object that the method is called on.
    */
   public void setUid(String uid) {
     this.uid = uid;
   }
 
   /**
-   * This function sets the `userInfo` field of the current instance to the value passed
-   * as an argument and returns the current instance.
+   * This function sets the `userInfo` field of the `AdmissionRequest` object to the
+   * passed `UserInfo` object and returns the updated `AdmissionRequest` object.
    * 
-   * @param userInfo The `userInfo` input parameter is assigned to the `userInfo` field
-   * of the object.
+   * @param userInfo The `userInfo` input parameter sets the `userInfo` field of the
+   * current instance of the class to the value passed as an argument.
    * 
-   * @returns The output returned by this function is a reference to the `this` object
-   * itself. In other words， the function returns `this`, not any specific value or
-   * data type.
+   * @returns The output returned by this function is a reference to the `this` object.
    */
   public AdmissionRequest userInfo(UserInfo userInfo) {
 
@@ -732,11 +730,12 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function sets the value of the `userInfo` field of the object to the given
-   * `UserInfo` object.
+   * This function sets the value of the "userInfo" field of the object to the given
+   * "UserInfo" parameter.
    * 
-   * @param userInfo The `userInfo` input parameter is used to set the values of the
-   * current user's information (e.g., name and email) within the method's scope.
+   * @param userInfo The `userInfo` input parameter is used to update the values of the
+   * current instance of the `UserInfo` object with the values passed as arguments to
+   * the `setUserInfo` method.
    */
   public void setUserInfo(UserInfo userInfo) {
     this.userInfo = userInfo;
@@ -744,29 +743,20 @@ public class AdmissionRequest {
 
   /**
    * This function implements the `equals` method for the `AdmissionRequest` class. It
-   * compares the current object with another object of type `AdmissionRequest`, and
-   * returns `true` if they are equal.
+   * compares the fields of two `AdmissionRequest` objects for equality.
    * 
-   * @param o The `o` input parameter is the object to compare with the current object
-   * (i.e., `this`). It is used to determine if the current object is equal to the
-   * object passed as an argument.
+   * @param o The `o` input parameter is the object to be compared with the current
+   * object for equality. It serves as a reference to another AdmissionRequest object
+   * that is being compared for similarity with the current object.
    * 
-   * @returns This function implements the `Equals` method for the `AdmissionRequest`
-   * class. It compares the current `AdmissionRequest` object with another `AdmissionRequest`
-   * object passed as an argument. The output returned by this function is a boolean
-   * value indicating whether the two objects are equal or not. Specifically:
-   * 
-   * 	- If the current object and the passed object reference the same object (i.e.,
-   * they have the same memory address), the function returns `true`.
-   * 	- Otherwise (i.e., if the objects are different or null), the function checks
-   * whether all the fields of the two objects have the same values. If there is any
-   * difference among the fields' values or if one of the fields is `null`, the function
-   * returns `false`. Otherwise (i.e., if all fields have the same values), the function
-   * returns `true`.
-   * 
-   * In conclusion: This function compares two `AdmissionRequest` objects for equality
-   * by comparing their field values. If all field values match (including null values),
-   * the function returns `true`, otherwise it returns `false`.
+   * @returns This function is the `equals` method of an unspecified class (`
+   * AdmissionRequest`). The output returned by this function is `true` if the object
+   * being compared is identical to this object (i.e., references the same data), and
+   * `false` otherwise. In other words., it compares two objects for equality based on
+   * all their fields (fields with the name `dryRun`, `kind`, `name`, `namespace`,
+   * `_object`, `oldObject`, `operation`, `options`, `requestKind`, `requestResource`,
+   * `requestSubResource`, `resource`, `subResource`, `uid`, and `userInfo`); and returns
+   * a boolean value indicating if they are equal or not.
    */
   @Override
   public boolean equals(Object o) {
@@ -795,11 +785,13 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function implements the `hashCode` method for a custom object and computes
-   * the hash code based on various attributes such as `dryRun`, `kind`, `name`, etc.
+   * This function defines the `hashCode()` method for an object of a class that inherits
+   * from another class. It uses the `Objects.hash()` method to calculate the hash code
+   * based on several variables or fields of the object.
    * 
-   * @returns The output of this function is an integer hash code that represents the
-   * combination of all the parameters passed to it.
+   * @returns The output of this function is an integer hash code based on the selected
+   * properties of the object. It takes multiple properties as inputs and combines them
+   * using the `Objects.hash()` method to produce a unique integer hash value.
    */
   @Override
   public int hashCode() {
@@ -822,24 +814,21 @@ public class AdmissionRequest {
   }
 
   /**
-   * This function defines a `ToString` implementation for the `AdmissionRequest` class.
-   * It generates a string representation of the object using indented strings for each
-   * field.
+   * This function generates a string representation of an AdmissionRequest object using
+   * indentation and concatenation. It appends attributes like dryRun(), kind(), name(),
+   * namespace(), etc. of the object to a StringBuilder and returns the final string
+   * representation of the object.
    * 
    * @returns This function is an override of the `toString()` method for the
-   * `AdmissionRequest` class. It takes a `AdmissionRequest` object as input and returns
-   * a string representation of that object.
+   * `AdmissionRequest` class. It returns a string representation of the object. The
+   * output is a detailed string that includes the values of all the properties of the
+   * object.
    * 
-   * The output returned by this function is a string that represents the `AdmissionRequest`
-   * object and its attributes. The string includes properties such as `dryRun`, `kind`,
-   * `name`, `namespace`, `_object`, `oldObject`, `operation`, `options`, `requestKind`,
-   * `requestResource`, `requestSubResource`, `resource`, `subResource`, `uid`, and
-   * `userInfo`. Each property is represented as a key-value pair separated by a newline
-   * character (`\n`). The keys are indented with four spaces to create a more readable
-   * output.
-   * 
-   * In general terms: it is the string representation of an AdmissionRequest object
-   * that includes all its attributes.
+   * The string starts with the declaration of the class and includes each property of
+   * the object separated by a newline character. Each property is preceded by the name
+   * of the property followed by a colon and then the value of the property enclosed
+   * within parentheses. The last line of the string is the closing curly brace `}` and
+   * the final semicolon `.`
    */
   @Override
   public String toString() {
