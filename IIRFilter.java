@@ -25,6 +25,18 @@ public class IIRFilter {
         historyY = new double[order];
     }
 
+    /**
+     * This function sets the coefficients of a and b polynomials using two arrays `aCoeffs`
+     * and `bCoeffs`. It checks that the length of the input arrays match the expected
+     * order and raises an exception if there are any issues. Then it sets the coefficients
+     * of the two polynomials.
+     * 
+     * @param aCoeffs The `aCoeffs` input parameter sets the coefficients of the linear
+     * predictor for the a-components.
+     * 
+     * @param bCoeffs The `bCoeffs` input parameter sets the second set of coefficients
+     * (for the polynomial of degree `order`) for the filter.
+     */
     public void setCoeffs(double[] aCoeffs, double[] bCoeffs) throws IllegalArgumentException {
         if (aCoeffs.length != order) {
             throw new IllegalArgumentException("aCoeffs must be of size " + order + ", got " + aCoeffs.length);
@@ -44,6 +56,23 @@ public class IIRFilter {
         }
     }
 
+    /**
+     * This function performs a simple linear regression on a single input `sample` using
+     * the values stored within the arrays `historyX` and `historyY`. It calculates the
+     * output `result` using a recursively applied equation based on previous values.
+     * 
+     * @param sample The `sample` input parameter is the current input value that the
+     * function processes and uses to generate an output value. It is used as the input
+     * for the first element of the historical data arrays (`historyX` and `historyY`)
+     * and is also used as the initial value for those arrays.
+     * 
+     * @returns This function takes a single double value `sample` as input and returns
+     * a double value as output. The output is calculated by applying a set of coefficients
+     * to the previous values of two arrays `historyX` and `historyY`, feeding back the
+     * results to the array elements themselves and finally dividing the sum of the outputs
+     * by a constant value. In simpler terms: it performs a weighted sum of past values
+     * and provides the result as an output.
+     */
     public double process(double sample) {
         double result = 0.0;
 

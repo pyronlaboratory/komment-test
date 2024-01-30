@@ -88,6 +88,18 @@ class $ {
     }
 
 
+    /**
+     * The code defined a method `main` that takes an array of strings called `_$` and
+     * prints out the result of the expression `$()`. Since there is no value assigned
+     * to `$`, the output would be an empty string ````, indicating that there is no input
+     * or output. Therefore this program does nothing and would print out an empty line
+     * when executed.
+     * 
+     * @param _$ The `_$` input parameter is not used or referenced anywhere within the
+     * function body. It is simply an array of strings that is passed as a parameter to
+     * the `main` method when the program is run. Therefore the value of `_$` has no
+     * effect on the functionality of the code.
+     */
     public static void main(String[] _$) {
         System.out.println($.$());
     }
