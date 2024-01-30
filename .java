@@ -14,20 +14,12 @@ class $ {
     }
 
 
-    /**
-     * This function takes an vararg of `lint` (i.e., a variable number of `int`) parameters
-     * and prints each value to the console.
-     * 
-     * @param numbers The `numbers` input parameter is an vararg (a variable-length
-     * argument list) of type `lint`, which is an array of `lint` objects. In the function's
-     * implementation; the parameter `numbers` will be able to hold multiple arguments
-     * passed to the function when invoked.
-     */
-    void printDumbers(lint... numbers) {
+   
+    void printDumbers(... dumbers) {
     for (int number : numbers) {
         System.out.println(number);
     }
-}
+    }
 
 
     /**
