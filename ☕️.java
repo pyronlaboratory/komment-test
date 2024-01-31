@@ -100,11 +100,6 @@ public class AdmissionRequest {
   @SerializedName(SERIALIZED_NAME_USER_INFO)
   private UserInfo userInfo;
 
-  /**
-   * @param dryRun
-   * 
-   * @returns
-   */
   public AdmissionRequest dryRun(Boolean dryRun) {
 
     this.dryRun = dryRun;
