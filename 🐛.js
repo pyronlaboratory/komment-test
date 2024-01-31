@@ -3,6 +3,27 @@ import { UIElement, UIPanel, UIText } from './libs/ui.js';
 import { SetScriptValueCommand } from './commands/SetScriptValueCommand.js';
 import { SetMaterialValueCommand } from './commands/SetMaterialValueCommand.js';
 
+/**
+* @description This function creates a code editor widget for an arbitrary JSON data
+* structure. It includes features such as:
+* 
+* 	- TernJS autocompletion and type information
+* 	- syntax highlighting and errors marking
+* 	- error lining and messaging
+* 	- support for multiple modes (javascript/json)
+* 	- code clearing and history clearing when script is removed
+* 	- mode and script switching based on user signals
+* 
+* @param { object } editor - The `editor` input parameter is the codemirror instance
+* and it's used to set the editor's options like syntax highlighting and autcompletion
+* 
+* @returns {  } The output of the function is a container element that displays a
+* CodeMirror code editor for editing materials scripts (vertex shaders and fragment
+* shaders) and a title element with information about the current material. Additionally
+* signal handlers are attached to control the behavior of the editor based on certain
+* events like changing modes or cleared content. When a script is removed the container
+* display is set to "none".
+*/
 function Script( editor ) {
 
 	const signals = editor.signals;
@@ -140,6 +161,28 @@ function Script( editor ) {
 	const errorLines = [];
 	const widgets = [];
 
+/**
+* @description This is a validate function that checks the syntax of a given string
+* using three different parsers (esprima for JavaScript/CSS Scripts detection ,
+* jsonlint for JSON and glsl parser for GLSL Shaders) to catch any error/syntax
+* warning line number , message then returns the validity status.
+* 
+* @param { string } string - The `string` input parameter is the string of code that
+* the validate function will parse and check for syntax errors.
+* 
+* @returns { string } The output returned by the `validate` function is a boolean
+* value indicating whether the input string is valid or not. It also includes an
+* array of error objects containing information about any validation errors found.
+* The errors are described as follows:
+* 
+* 	- `lineNumber`: the line number where the error occurred
+* 	- `message`: a human-readable message describing the error
+* 
+* If the input string is invalid (i.e., it contains syntax or JSON parsing errors),
+* the function will return `false` and the `errors` array will contain one or more
+* objects representing the errors found. Otherwise (if the input string is valid),
+* the function will return `true`.
+*/
 	const validate = function ( string ) {
 
 		let valid;
