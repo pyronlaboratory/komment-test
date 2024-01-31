@@ -26,6 +26,13 @@ const watch = require('./watch');
 
 const reporter = createReporter();
 
+/**
+* @description
+* 
+* @param { string } src -
+* 
+* @returns { undefined }
+*/
 function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 	const rootDir = path.join(__dirname, `../../${src}`);
 	const options: ts.CompilerOptions = {};
@@ -41,6 +48,19 @@ function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 	return options;
 }
 
+/**
+* @description
+* 
+* @param { string } src -
+* 
+* @param { boolean } build -
+* 
+* @param { boolean } emitError -
+* 
+* @param {  } transpileOnly -
+* 
+* @returns {  }
+*/
 function createCompile(src: string, build: boolean, emitError: boolean, transpileOnly: boolean | { swc: boolean }) {
 	const tsb = require('./tsb') as typeof import('./tsb');
 	const sourcemaps = require('gulp-sourcemaps') as typeof import('gulp-sourcemaps');
@@ -52,19 +72,59 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 		overrideOptions.inlineSourceMap = true;
 	}
 
+/**
+* @description
+* 
+* @param {  } err -
+*/
 	const compilation = tsb.create(projectPath, overrideOptions, {
 		verbose: false,
 		transpileOnly: Boolean(transpileOnly),
 		transpileWithSwc: typeof transpileOnly !== 'boolean' && transpileOnly.swc
 	}, err => reporter(err));
 
+/**
+* @description
+* 
+* @param { undefined } token -
+* 
+* @returns {  }
+*/
 	function pipeline(token?: util.ICancellationToken) {
 		const bom = require('gulp-bom') as typeof import('gulp-bom');
 
+/**
+* @description
+* 
+* @param {  } data -
+*/
 		const tsFilter = util.filter(data => /\.ts$/.test(data.path));
+/**
+* @description
+* 
+* @param { File } f -
+*/
 		const isUtf8Test = (f: File) => /(\/|\\)test(\/|\\).*utf8/.test(f.path);
+/**
+* @description
+{/**
+* @description
+*/}
+* 
+* @param { File } f -
+*/
 		const isRuntimeJs = (f: File) => f.path.endsWith('.js') && !f.path.includes('fixtures');
+/**
+* @description
+* 
+* @param { File } f -
+*/
 		const isCSS = (f: File) => f.path.endsWith('.css') && !f.path.includes('fixtures');
+/**
+* @description
+* 
+* @param {  } data -
+*/
 		const noDeclarationsFilter = util.filter(data => !(/\.d\.ts$/.test(data.path)));
 
 		const postcss = require('gulp-postcss') as typeof import('gulp-postcss');
@@ -91,6 +151,11 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 
 		return es.duplex(input, output);
 	}
+/**
+* @description
+* 
+* @returns {  }
+*/
 	pipeline.tsProjectSrc = () => {
 		return compilation.src({ base: src });
 	};
@@ -98,8 +163,24 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 	return pipeline;
 }
 
+/**
+* @description
+* 
+* @param { string } src -
+* 
+* @param { string } out -
+* 
+* @param { boolean } swc -
+* 
+* @returns { undefined }
+*/
 export function transpileTask(src: string, out: string, swc: boolean): task.StreamTask {
 
+/**
+* @description
+* 
+* @returns {  }
+*/
 	const task = () => {
 
 		const transpile = createCompile(src, false, true, { swc });
@@ -114,8 +195,24 @@ export function transpileTask(src: string, out: string, swc: boolean): task.Stre
 	return task;
 }
 
+/**
+* @description
+* 
+* @param { string } src -
+* 
+* @param { string } out -
+* 
+* @param { boolean } build -
+* 
+* @param {  } options -
+* 
+* @returns { undefined }
+*/
 export function compileTask(src: string, out: string, build: boolean, options: { disableMangle?: boolean } = {}): task.StreamTask {
 
+/**
+* @description
+*/
 	const task = () => {
 
 		if (os.totalmem() < 4_000_000_000) {
@@ -132,8 +229,18 @@ export function compileTask(src: string, out: string, build: boolean, options: {
 		// mangle: TypeScript to TypeScript
 		let mangleStream = es.through();
 		if (build && !options.disableMangle) {
+/**
+* @description
+* 
+* @param {  } data -
+*/
 			let ts2tsMangler = new Mangler(compile.projectPath, (...data) => fancyLog(ansiColors.blue('[mangler]'), ...data), { mangleExports: true, manglePrivateFields: true });
 			const newContentsByFileName = ts2tsMangler.computeNewFileContents(new Set(['saveState']));
+/**
+* @description
+* 
+* @param {  } data -
+*/
 			mangleStream = es.through(async function write(data: File & { sourceMap?: RawSourceMap }) {
 				type TypeScriptExt = typeof ts & { normalizePath(path: string): string };
 				const tsNormalPath = (<TypeScriptExt>ts).normalizePath(data.path);
@@ -306,6 +413,11 @@ function generateApiProposalNames() {
 				'// THIS IS A GENERATED FILE. DO NOT EDIT DIRECTLY.',
 				'',
 				'export const allApiProposals = Object.freeze({',
+/**
+* @description
+* 
+* @param {  } name -
+*/
 				`${names.map(name => `\t${name}: 'https://raw.githubusercontent.com/microsoft/vscode/main/src/vscode-dts/vscode.proposed.${name}.d.ts'`).join(`,${eol}`)}`,
 				'});',
 				'export type ApiProposalName = keyof typeof allApiProposals;',
