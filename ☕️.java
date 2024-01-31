@@ -100,6 +100,18 @@ public class AdmissionRequest {
   @SerializedName(SERIALIZED_NAME_USER_INFO)
   private UserInfo userInfo;
 
+  /**
+   * This function sets the `dryRun` flag of the `AdmissionRequest` object to the value
+   * of the passed `dryRun` parameter and returns the same `AdmissionRequest` object.
+   * 
+   * @param dryRun The `dryRun` input parameter sets a flag to indicate whether the
+   * admission request should be treated as a dry run or not. A dry run indicates that
+   * the function should execute without making any actual changes or commits.
+   * 
+   * @returns The function `AdmissionRequest dryRun(Boolean dryRun)` takes a boolean
+   * parameter `dryRun` and returns an instance of itself (`this`). Therefore the output
+   * returned by this function is the same object instance as the input.
+   */
   public AdmissionRequest dryRun(Boolean dryRun) {
 
     this.dryRun = dryRun;
