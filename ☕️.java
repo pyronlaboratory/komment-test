@@ -100,22 +100,6 @@ public class AdmissionRequest {
   @SerializedName(SERIALIZED_NAME_USER_INFO)
   private UserInfo userInfo;
 
-  /**
-   * This function allows the client to perform a "dry run" of the Admission Request
-   * process without actually submitting the request to the server. It sets the `dryRun`
-   * property of the object to the passed `dryRun` argument and returns the updated object.
-   * 
-   * @param dryRun The `dryRun` input parameter allows the `AdmissionRequest` object
-   * to be used for a "dry run" or simulation of the admission process without making
-   * any actual changes or commitments. When `dryRun` is set to `true`, the function
-   * will return the modified `AdmissionRequest` object without sending any requests
-   * or making any updates to external systems.
-   * 
-   * @returns The output of the function `AdmissionRequest dryRun(Boolean dryRun)` is
-   * the same object (`AdmissionRequest`) to which the method was called. The `dryRun`
-   * parameter is set to the value passed as an argument and returned without any changes
-   * to the original object.
-   */
   public AdmissionRequest dryRun(Boolean dryRun) {
 
     this.dryRun = dryRun;
