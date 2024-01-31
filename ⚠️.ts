@@ -27,11 +27,30 @@ const watch = require('./watch');
 const reporter = createReporter();
 
 /**
-* @description
+* @description This function creates and returns a new instance of the `ts.CompilerOptions`
+* object with properties configured for TypeScript compilation based on the input
+* `src` file. It sets various options like `verbose`, `sourceMap`, `rootDir`,
+* `baseUrl`, and `sourceRoot` based on the current file and environment variables.
 * 
-* @param { string } src -
+* @param { string } src - The `src` input parameter passes the path to a TypeScript
+* source file as a string argument when calling getTypeScriptCompilerOptions function.
+* This file provides context information used throughout configuration for the type
+* script compiler option during compiling the program source files into JavaScript
 * 
-* @returns { undefined }
+* @returns { undefined } The function `getTypeScriptCompilerOptions` returns an
+* object with several properties that configure the TypeScript compiler. Here's a
+* brief description of the output:
+* 
+* 	- `options`: An object with properties such as `verbose`, `sourceMap`, `rootDir`,
+* `baseUrl`, `sourceRoot`, and `newLine`.
+* 	- `verbose`: A boolean value set to `false` by default.
+* 	- `sourceMap`: A boolean value set to `true` by default but can be toggled off
+* via an environment variable `VSCODE_NO_SOURCEMAP`.
+* 	- `rootDir`: The directory where the TypeScript source files are located.
+* 	- `baseUrl`: The directory where the TypeScript source files are located.
+* 	- `sourceRoot`: A file URI representing the root of the source files.
+* 	- `newLine`: An integer value indicating the line endings (either Unix/Linux-style
+* (0) or Windows-style (1)).
 */
 function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 	const rootDir = path.join(__dirname, `../../${src}`);
@@ -49,17 +68,55 @@ function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 }
 
 /**
-* @description
+* @description This function creates a Gulp pipeline for compiling TypeScript sources.
+* It takes options for building or transpiling only and handles source maps and
+* sourcemaps write. The function returns a duplex stream object that can be used to
+* process files.
 * 
-* @param { string } src -
+* @param { string } src - The `src` input parameter specifies the source files to
+* compile. It is a string or an array of strings representing the paths to the source
+* files relative to the root directory of the project.
 * 
-* @param { boolean } build -
+* @param { boolean } build - The `build` input parameter of the `createCompile`
+* function controls whether the TypeScript code is compiled to a JavaScript file or
+* not. When set to `true`, it compiles the TypeScript code and emits a JavaScript
+* file. When set to `false`, it only transpiles the TypeScript code without compiling
+* it.
 * 
-* @param { boolean } emitError -
+* @param { boolean } emitError - The `emitError` input parameter determines whether
+* or not error messages should be emitted to the reporter when compiling TypeScript
+* files using the `tsb` package. If set to `true`, error messages will be emitted;
+* if set to `false`, error messages will be suppressed.
 * 
-* @param {  } transpileOnly -
+* @param { boolean } transpileOnly - The `transpileOnly` input parameter determines
+* whether to only perform type transpilation (compile TypeScript source code to
+* JavaScript) without compiling the entire project. When set to `true`, the `tsb`
+* module will generate output that can be consumed directly by a bundler like Webpack
+* or Rollup without further compilation steps. When set to a boolean object with a
+* `swc` property (as shown here), it enables or disables generation of source maps
+* for the transpiled code based on the value of the `swc` property.
 * 
-* @returns {  }
+* @returns {  } The `createCompile` function returns a pipelinestream that processes
+* TypeScript source files and produces compiled JavaScript code. The output returned
+* by the function is a duplex stream object that includes the following pipes:
+* 
+* 	- `bom`: adds BOM (byte order mark) to the input stream if it's a UTF-8 file.
+* 	- `tsFilter`: filters out non-TypeScript files.
+* 	- `isUtf8Test`, `isRuntimeJs`, and `isCSS` are conditionals that manipulate the
+* pipeline based on the file extension and location.
+* 	- `postcss`: applies PostCSS transformation to CSS files.
+* 	- `util.loadSourcemaps`: loads sourcemaps for the input files.
+* 	- `compilation`: compiles the TypeScript sources using the `tsb` module.
+* 	- `noDeclarationsFilter`: removes declarations from the output if build is set
+* to false.
+* 	- `util.appendOwnPathSourceURL`: appends the own path source URL to JavaScript
+* files if they don't have one.
+* 	- `sourcemaps.write`: writes sourcemaps for the compiled JavaScript files.
+* 	- `tsFilter.restore`: restores the input stream to its original state before the
+* first `tsFilter` pipe.
+* 
+* The output stream includes the compiled JavaScript code and any generated source
+* maps.
 */
 function createCompile(src: string, build: boolean, emitError: boolean, transpileOnly: boolean | { swc: boolean }) {
 	const tsb = require('./tsb') as typeof import('./tsb');
@@ -73,9 +130,15 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 	}
 
 /**
-* @description
+* @description This function creates a TS build project at the specified `projectPath`,
+* using the provided `overrideOptions` and handling any errors with the given
+* `reporter`. It also has options to transpile only (ignoring types) or transpile
+* with SWC (a bundler).
 * 
-* @param {  } err -
+* @param { object } err - The `err` input parameter is an error reporter function
+* that takes an error object as an argument and calls it if there is any error during
+* the creation of the project. It is used to handle errors that may occur during the
+* process.
 */
 	const compilation = tsb.create(projectPath, overrideOptions, {
 		verbose: false,
@@ -84,46 +147,80 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 	}, err => reporter(err));
 
 /**
-* @description
+* @description This function defines a gulp pipeline for transpiling and compiling
+* TypeScript sources. It filters out Declaration files (.d.ts), preserves BOM for
+* test files (-/+Windows line ending), appends source maps and builds JS/CSS output
+* depending on the configuration.
 * 
-* @param { undefined } token -
+* @param { undefined } token - The `token` input parameter is an `util.ICancellationToken`
+* that allows the pipeline to be cancelled during runtime. It's used to inject a
+* cancellation token into the pipeline so that it can be intercepted and cancelled
+* by the calling function.
 * 
-* @returns {  }
+* @returns { object } This function takes an optional `token` parameter and returns
+* a duplex stream that pipes through various transformations to the input stream.
+* The output of the function is also a duplex stream that emits both a content (for
+* the processed files) and an end event (indicating the pipeline is complete).
 */
 	function pipeline(token?: util.ICancellationToken) {
 		const bom = require('gulp-bom') as typeof import('gulp-bom');
 
 /**
-* @description
+* @description The given function utilizes the `util` object's `filter()` method to
+* create a new array containing only the objects for which the `data.path` property
+* matches the regular expression `/\.ts$/.test(data.path)`. In simpler terms: it
+* selects all elements of the original `data` array whose `path` property ends with
+* `.ts`.
 * 
-* @param {  } data -
+* @param { object } data - In the provided code snippet `data` is an object that is
+* being passed as an argument to the function `util.filter()`. It represents an item
+* or a record of some sort of data that needs to be processed by the filter function.
 */
 		const tsFilter = util.filter(data => /\.ts$/.test(data.path));
 /**
-* @description
+* @description The provided JavaScript function `isUtf8Test` takes a file object `f`
+* as input and returns a boolean value indicating whether the file path contains a
+* UTF-8 encoded string. It does this by checking if the file path contains either
+* forward slash (`/`) or backslash (`\`) followed by "test" followed by either forward
+* slash or backslash again and then any sequence of Unicode codepoints that match
+* the pattern `.*utf8`.
 * 
-* @param { File } f -
+* @param { File } f - The `f` input parameter is a `File` object and is passed as
+* an argument to the function. It represents the file that needs to be tested for
+* UTF-8 encoding.
 */
 		const isUtf8Test = (f: File) => /(\/|\\)test(\/|\\).*utf8/.test(f.path);
 /**
-* @description
-{/**
-* @description
-*/}
+* @description This function `isRuntimeJs` takes a file `f` as an argument and returns
+* `true` if the file is a JavaScript file that does not reside within the "fixtures"
+* directory. It does this by checking if the file path ends with `.js` and does not
+* contain "fixtures".
 * 
-* @param { File } f -
+* @param { File } f - In the function `isRuntimeJs`, the `f` parameter is a file
+* object that is being checked to determine if it is a JavaScript file that should
+* be executed at runtime. The function returns `true` if the file is a JavaScript
+* file that does not reside within the "fixtures" directory.
 */
 		const isRuntimeJs = (f: File) => f.path.endsWith('.js') && !f.path.includes('fixtures');
 /**
-* @description
+* @description The function `isCSS` takes a file object `f` as an argument and returns
+* a boolean value indicating whether the file is a CSS file or not. It checks if the
+* file path ends with ".css" and does not include "fixtures".
 * 
-* @param { File } f -
+* @param { File } f - The `f` input parameter is a File object that is being passed
+* into the function. It represents the file that is being checked for CSS syntax.
 */
 		const isCSS = (f: File) => f.path.endsWith('.css') && !f.path.includes('fixtures');
 /**
-* @description
+* @description This function takes an array of data objects and returns a new array
+* with only the objects that do not have a `.d.ts` file extension on their `path` property.
 * 
-* @param {  } data -
+* @param { object } data - In this function call:
+* 
+* util.filter(data => (!(/\.d\.ts$/.test(data.path)))),
+* 
+* "data" is the array or object being iterated over. It contains items with paths
+* that need to be filtered.
 */
 		const noDeclarationsFilter = util.filter(data => !(/\.d\.ts$/.test(data.path)));
 
@@ -152,9 +249,12 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 		return es.duplex(input, output);
 	}
 /**
-* @description
+* @description This function sets the `src` option for the compilation pipeline to
+* the `base` directory specified by `src`.
 * 
-* @returns {  }
+* @returns { object } The function `pipeline.tsProjectSrc()` returns a `compilation.src()`
+* object with its `base` property set to the value of the `src` variable. In other
+* words ,it returns a configuration object for compiling TypeScript sources.
 */
 	pipeline.tsProjectSrc = () => {
 		return compilation.src({ base: src });
@@ -164,22 +264,56 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 }
 
 /**
-* @description
+* @description This function creates a Gulp stream task that transpiles code from
+* one source file or directory to another output file or directory. It takes three
+* arguments:
 * 
-* @param { string } src -
+* 	- `src`: The source file or directory to transpile
+* 	- `out`: The output file or directory for the transpiled code
+* 	- `swc`: (optional) If true; generate .swc files instead of standard ES5 modules.
 * 
-* @param { string } out -
+* @param { string } src - The `src` input parameter is the source code file or
+* directory to be transpiled.
 * 
-* @param { boolean } swc -
+* @param { string } out - The `out` parameter specifies the output directory for the
+* transpiled code. It is used to pipe the transpiled code to the desired output location.
 * 
-* @returns { undefined }
+* @param { boolean } swc - The `swc` input parameter tells the function to generate
+* TypeScript source maps instead of JSON files for the compiled JavaScript code.
+* 
+* @returns { undefined } This function returns a `task.StreamTask` object that
+* represents a Gulp task to transpile the code at the specified `src` path and save
+* the compiled code to the specified `out` path. The task name is generated based
+{/**
+* @description This function is a Gulp task that compiles the API proposal names for
+* the vscode-dts files and reports them to a reporter called "api-proposal-names".
+* It takes two tasks as inputs: compileApiProposalNamesTask and watchApiProposalNamesTask.
+* The compile task uses gulp.src to source all vscode-dts files and pipes them through
+* the generateApiProposalNames function. The latter function reads the content of
+* the src/vscode-dts/*.ts files using fs.readFileSync. It extracts the proposal names
+* and their paths from the type declarations found within the files and puts the
+* resulting object into a constants variable named allApiProposals. Then it emits
+* an output file that exposes the apiProposalNames as constants to be used outside
+* of the build process.
+*/}
+* on the `src` path and is returned as an attribute of the task object.
 */
 export function transpileTask(src: string, out: string, swc: boolean): task.StreamTask {
 
 /**
-* @description
+* @description This function creates a Gulp task that takes the source code from a
+* directory (`src`) and transpiles it to a output directory (`out`). It uses
+* `createCompile` to compile the code with Webpack's Swc plugin.
 * 
-* @returns {  }
+* @returns {  } The function returns a pipe stream that takes the source files from
+* `${src}/**` and transpiles them using `createCompile` with options `{ false , true
+* , { swc }}`. The resulting transpiled code is then written to `out`.
+* 
+* In other words:
+* 
+* 1/ It reads all the files under `${src}/**`
+* 2/ Transpiles the code using createCompile
+* 3/ Writes the transpiled code to `out`
 */
 	const task = () => {
 
@@ -196,22 +330,57 @@ export function transpileTask(src: string, out: string, swc: boolean): task.Stre
 }
 
 /**
-* @description
+* @description This function is a Gulp task that compiles and watches the `vscode-dts`
+* file for changes to generate API proposal names. It reads the
+* `vs/workbench/services/extensions/common/extensionsApiProposals.ts` file and
+* extracts a list of proposed APIs from it. It then generates a single
+* `vscode.proposed.*.d.ts` file with all the proposed APIs and their corresponding
+* URLs. Finally ,it watches for changes to the `vscode-dts` folder and re-runs the
+* task whenever a change is detected.
 * 
-* @param { string } src -
+* @param { string } src - The `src` input parameter is used to specify the source
+* files to be processed by the `generateApiProposalNames` stream. It takes a glob
+* pattern string and defaults to "src/vscode-dts/**", which matches all files within
+* the "src/vscode-dts" directory and its subdirectories.
 * 
-* @param { string } out -
+* @param { string } out - The `out` input parameter of the `task.define` function
+* is used to specify an output stream for the task. In this case:
 * 
-* @param { boolean } build -
+* it is being used to direct the compiled files into the "src" folder of the repository.
 * 
-* @param {  } options -
+* @param { boolean } build - The `build` input parameter is set to "watch" to enable
+* building on every file change while developing. When set to "watch," gulp will
+* re-run the specified tasks whenever a file changes and the watch stream is running.
 * 
-* @returns { undefined }
+* @param { object } options - The `options` input parameter is an object that can
+* specify several options to customize the behavior of the task. The available options
+* are:
+* 
+* 	- `reporter`: a string indicating which reporter to use for this task. If not
+* specified or set to `null`, the default reporter will be used.
+* 	- `end`: a boolean indicating whether the task should stop running when all input
+* files have been processed. By default (`false`), the task will continue running
+* even after all inputs have been processed.
+* 
+* @returns { undefined } This function is creating two Gulp tasks: 'compile-api-proposal-names'
+* and 'watch-api-proposal-names'.
+* 
+* 1/ 'compile-api-proposal-names': This task compiles the 'vscode-dts' files and
+* generates an object that contains all the available API proposal names.
+* 2/ 'watch-api-proposal-names': This task watches the 'vscode-dts' files for changes
+* and updates the API proposal names object whenever a change is detected.
+* 
+* Both tasks use Gulp to stream the files and generate the output. The
+* 'compile-api-proposal-names' task writes the output to the 'src' directory and
+* reports success using the 'apiProposalNamesReporter'. The 'watch-api-proposal-names'
+* task continuously monitors the 'vscode-dts' files and updates the output when
+* changes are detected.
 */
 export function compileTask(src: string, out: string, build: boolean, options: { disableMangle?: boolean } = {}): task.StreamTask {
 
 /**
-* @description
+* @description This function generates a Typescript interface that exposes all the
+* APIs proposed by vscode-dts into a single interface.
 */
 	const task = () => {
 
@@ -230,16 +399,33 @@ export function compileTask(src: string, out: string, build: boolean, options: {
 		let mangleStream = es.through();
 		if (build && !options.disableMangle) {
 /**
-* @description
+* @description This function creates a new instance of the Mangler plugin with the
+* following configuration options:
 * 
-* @param {  } data -
+* 	- `mangleExports`: Set to `true` to mangle exported names (i.e., renamed exports
+* when generating module code).
+* 	- `manglePrivateFields`: Set to `true` to mangle private fields within modules.
+* 
+* The function also logs information using the `fancyLog` function with an optional
+* `ansiColors.blue` formatting feature to highlight log messages with blue text.
+* 
+* @param { array } data - The `data` parameter is an optional array of items that
+* will be passed to the callback function (`fancyLog`) along with the logs generated
+* by the Mangler.
 */
 			let ts2tsMangler = new Mangler(compile.projectPath, (...data) => fancyLog(ansiColors.blue('[mangler]'), ...data), { mangleExports: true, manglePrivateFields: true });
 			const newContentsByFileName = ts2tsMangler.computeNewFileContents(new Set(['saveState']));
 /**
-* @description
+* @description This function defines two Gulp tasks for generating and watching the
+* `api-proposal-names.d.ts` file. It uses a custom stream to generate the contents
+* of the file based on the proposal names found inside the `vscode-dts` folder. The
+* task creates a reporter that logs the list of proposal names at the end of the task.
 * 
-* @param {  } data -
+* @param { object } data - In this context; 'input' specifies data that will be used
+* for pipeline stages before the 'end' event is reached by the Streams used by duplex.
+* An instance of a File object should contain a file's name and contents when passed
+* to 'data'; otherwise (no input file found), a zero-length file Buffer will be
+* generated as the contents data for a specific event 'end'.
 */
 			mangleStream = es.through(async function write(data: File & { sourceMap?: RawSourceMap }) {
 				type TypeScriptExt = typeof ts & { normalizePath(path: string): string };
@@ -414,9 +600,17 @@ function generateApiProposalNames() {
 				'',
 				'export const allApiProposals = Object.freeze({',
 /**
-* @description
+* @description The function maps each element (presumably an array of strings) to a
+* new array of strings that include a tab character followed by the original element
+* and a URL linking to a specific version of the vscode project on GitHub.
 * 
-* @param {  } name -
+* @param { string } name - In this function `names.map()`, the `name` parameter is
+* a string that represents each item from the array `names`. The parameter is passed
+* to the callback function(`function(name) => \t${name}:
+* 'https://raw.githubusercontent.com/microsoft/vscode/main/src/vscode-dts/vscode.proposed.${name}.d.ts'`)
+* inside the map method .
+* The callback function takes the name parameter and uses it to create a string that
+* includes the tab character '\t', followed by the name string with some added text
 */
 				`${names.map(name => `\t${name}: 'https://raw.githubusercontent.com/microsoft/vscode/main/src/vscode-dts/vscode.proposed.${name}.d.ts'`).join(`,${eol}`)}`,
 				'});',
