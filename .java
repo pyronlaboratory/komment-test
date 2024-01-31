@@ -13,10 +13,6 @@ class $ {
         }
     }
 
-    /**
-     * This function takes a list of integers (represented by the "dumbers" variable name)
-     * and prints each integer on a new line using `System.out.println()`.
-     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
