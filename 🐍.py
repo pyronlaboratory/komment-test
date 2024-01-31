@@ -76,26 +76,85 @@ class UserInputError(Exception):
 
 
 def is_windows():
+  """
+  The function `is_windows()` checks if the current operating system is Windows
+  by comparing the value of the `platform.system()` function with the string
+  `'Windows'`. If the two values match (i.e., the current operating system is
+  Windows), the function returns `True`; otherwise it returns `False`.
+
+  Returns:
+      bool: The output returned by the `is_windows()` function is `True`.
+
+  """
   return platform.system() == 'Windows'
 
 
 def is_linux():
+  """
+  The given function `is_linux()` checks whether the current operating system is
+  Linux by comparing the value of `platform.system()` with `'Linux'`. If the values
+  match (i.e., if the current OS is Linux), the function returns `True`, otherwise
+  it returns `False`.
+
+  Returns:
+      bool: The output returned by the `is_linux()` function is `True`.
+
+  """
   return platform.system() == 'Linux'
 
 
 def is_macos():
+  """
+  This function checks if the current operating system is macOS by comparing the
+  value of the `platform.system()` function to "Darwin". If they match; the function
+  returns True; otherwise it returns False.
+
+  Returns:
+      bool: The output returned by the function `is_macos()` is `False`.
+
+  """
   return platform.system() == 'Darwin'
 
 
 def is_ppc64le():
+  """
+  This function checks if the current machine is a ppc64le architecture.
+
+  Returns:
+      bool: The output returned by the function `is_ppc64le()` is `False`.
+
+  """
   return platform.machine() == 'ppc64le'
 
 
 def is_cygwin():
+  """
+  This function checks if the system is running under Cygwin by checking if the
+  platform name starts with "CYGWIN_NT".
+
+  Returns:
+      bool: The output returned by the given function `is_cygwin()` is `False`.
+
+  """
   return platform.system().startswith('CYGWIN_NT')
 
 
 def get_input(question):
+  """
+  This function gets user input by asking a question and returning the answer. It
+  tries to use `raw_input` first but falls back to `input` if `raw_input` is not
+  available (e.g., when running under Py3k), and handles EOFError by returning an
+  empty string.
+
+  Args:
+      question (str): The `question` parameter is passed as input to the user and
+          is used as the prompt for the user to enter their response.
+
+  Returns:
+      str: The output returned by this function is a string representing the user's
+      input to the given question.
+
+  """
   try:
     try:
       answer = raw_input(question)
@@ -139,15 +198,56 @@ def sed_in_place(filename, old, new):
 
 
 def write_to_bazelrc(line):
+  """
+  This function writes the given line to the bazelrc file.
+
+  Args:
+      line (str): The `line` input parameter is passed as a string to be written
+          to the `bazelrc` file.
+
+  """
   with open(_TF_BAZELRC, 'a') as f:
     f.write(line + '\n')
 
 
 def write_action_env_to_bazelrc(var_name, var):
+  """
+  This function writes the variable `var` with the name `var_name` to the Bazelrc
+  file with the format `'build --action_env %s="%s"'`, allowing Bazel to use that
+  variable during the build process.
+
+  Args:
+      var_name (str): The `var_name` input parameter specifies the name of the
+          environment variable to be set.
+      var (str): The `var` input parameter is used to pass the value of the
+          environment variable being set to the `bazelrc` file. It is a keyword
+          argument that is passed as the value of the `var_name` parameter.
+
+  """
   write_to_bazelrc('build --action_env %s="%s"' % (var_name, str(var)))
 
 
 def run_shell(cmd, allow_non_zero=False):
+  """
+  This function runs a shell command using `subprocess` and returns the output as
+  a string. It allows for non-zero exit codes but if allow_non_zero is false it
+  will raise an exception if there was one.
+
+  Args:
+      cmd (str): The `cmd` input parameter is the command to be executed using the
+          `subprocess` module. It takes a string or a list of strings representing
+          the command and its arguments.
+      allow_non_zero (bool): The `allow_non_zero` parameter allows the function
+          to return non-zero exit codes from the subprocess command as output.
+          Without this parameter set to True (the default is False), any non-zero
+          exit code returned by the command causes a `CalledProcessError` exception
+          to be raised.
+
+  Returns:
+      str: The output returned by this function is the command's output as a string
+      decoded from UTF-8 and stripped of any whitespace characters.
+
+  """
   if allow_non_zero:
     try:
       output = subprocess.check_output(cmd)
@@ -698,6 +798,21 @@ def create_android_ndk_rule(environ_cp):
     default_ndk_path = '%s/Android/Sdk/ndk-bundle' % environ_cp['HOME']
 
   def valid_ndk_path(path):
+    """
+    This function checks if the given path is a valid Android NDK path by checking
+    for the existence of both the `path` and the `source.properties` file within
+    that path.
+
+    Args:
+        path (str): The `path` input parameter is passed to the function as a
+            string that represents the path to an NDK directory on the file system.
+            This parameter is used to check if the specified path exists and if
+            it contains the required "source.properties" file.
+
+    Returns:
+        bool: The output returned by the `valid_ndk_path` function is `True`.
+
+    """
     return (os.path.exists(path) and
             os.path.exists(os.path.join(path, 'source.properties')))
 
@@ -725,6 +840,20 @@ def create_android_sdk_rule(environ_cp):
     default_sdk_path = '%s/Android/Sdk' % environ_cp['HOME']
 
   def valid_sdk_path(path):
+    """
+    This function checks if the given path is a valid Android SDK path by checking
+    the existence of certain directories within the path. It returns true if all
+    the required directories exist.
+
+    Args:
+        path (str): The `path` input parameter is passed to the various
+            `os.path.exists()` functions to check if a particular directory or
+            file exists at that location.
+
+    Returns:
+        bool: The output returned by this function is `False`.
+
+    """
     return (os.path.exists(path) and
             os.path.exists(os.path.join(path, 'platforms')) and
             os.path.exists(os.path.join(path, 'build-tools')))
@@ -743,6 +872,23 @@ def create_android_sdk_rule(environ_cp):
   api_levels = [x.replace('android-', '') for x in api_levels]
 
   def valid_api_level(api_level):
+    """
+    This function checks if the Android SDK platform with the specified API level
+    exists.
+
+    Args:
+        api_level (str): The `api_level` input parameter represents the Android
+            API level (e.g., "android-21", "android-26") and is used to determine
+            whether a given SDK platform exists or not.
+
+    Returns:
+        bool: The output returned by the function `valid_api_level()` is a boolean
+        value indicating whether the specified API level exists or not. The function
+        checks if the API level directory exists under the `platforms` directory
+        of the Android SDK. If the directory exists (i.e., the API level is valid),
+        then the function returns `True`, otherwise it returns `False`.
+
+    """
     return os.path.exists(
         os.path.join(android_sdk_home_path, 'platforms',
                      'android-' + api_level))
@@ -760,6 +906,20 @@ def create_android_sdk_rule(environ_cp):
   versions = sorted(os.listdir(build_tools))
 
   def valid_build_tools(version):
+    """
+    This function checks if a specific version of the Android build tools is
+    installed by checking the existence of a folder with that version's name inside
+    the Android SDK directory.
+
+    Args:
+        version (str): The `version` input parameter specifies the version of the
+            build tools that should be checked for existence.
+
+    Returns:
+        bool: The function `valid_build_tools(version)` returns `True` if the file
+        `/path/to/android/sdk/build-tools/version` exists and `False` otherwise.
+
+    """
     return os.path.exists(
         os.path.join(android_sdk_home_path, 'build-tools', version))
 
@@ -811,6 +971,21 @@ def get_ndk_api_level(environ_cp, android_ndk_home_path):
   ]
 
   def valid_api_level(api_level):
+    """
+    This function checks if the specified Android API level directory exists within
+    the NDK installation directory.
+
+    Args:
+        api_level (str): The `api_level` input parameter represents a version
+            number of the Android NDK (Native Development Kit) API that is used
+            to determine whether the given path exists or not.
+
+    Returns:
+        bool: The function returns `True` if the specified API level exists as a
+        directory under the Android NDK home path; otherwise (if the API level
+        does not exist), it returns `False`.
+
+    """
     return os.path.exists(
         os.path.join(android_ndk_home_path, 'platforms',
                      'android-' + api_level))
@@ -1186,6 +1361,21 @@ def system_specific_test_config(env):
 
 
 def set_system_libs_flag(environ_cp):
+  """
+  This function sets environment variables for the Bazel build system using values
+  from the 'environ_cp' dictionary. The variables set are:
+  	- TF_SYSTEM_LIBS (with a list of libraries)
+  	- PREFIX
+  	- LIBDIR
+  	- INCLUDEDIR
+
+  Args:
+      environ_cp (dict): The `environ_cp` input parameter is a dictionary of
+          environment variables that contains information about the current build
+          environment. It is used to set various defines and flags for the Bazel
+          build system based on the values of the environment variables.
+
+  """
   syslibs = environ_cp.get('TF_SYSTEM_LIBS', '')
   if syslibs:
     if ',' in syslibs:
@@ -1334,6 +1524,15 @@ def validate_cuda_config(environ_cp):
 
 
 def main():
+  """
+  This function pre-configures Bazel build settings for TensorFlow based on
+  environment variables and other factors. It sets up the build directories and
+  configure variables needed to support building TensorFlow. Additionally provides
+  options like MKL or AWS S3 filesystem support and NVIDIA NCCL.  The goal of the
+  function is to enable the user to perform subsequent bazel runs with specific
+  feature flags with minimal interaction
+
+  """
   global _TF_WORKSPACE_ROOT
   global _TF_BAZELRC
   global _TF_CURRENT_BAZEL_VERSION
