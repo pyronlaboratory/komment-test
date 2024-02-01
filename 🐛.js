@@ -4,6 +4,25 @@ import { SetScriptValueCommand } from './commands/SetScriptValueCommand.js';
 import { SetMaterialValueCommand } from './commands/SetMaterialValueCommand.js';
 
 
+/**
+* @description This function creates a code mirror editor for the given material
+* object's scripts (vertex shader/fragment shader), supports autocomplete with Tern
+* Server and shows error messages for validating shaders. When the user switches
+* between modes (Javascript and Glsl) or removes the script completely it updates accordingly
+* 
+* @param {  } editor - The `editor` input parameter is the container element where
+* the code editor will be rendered. It is used to set up the container element and
+* hide it by default.
+* 
+* @returns {  } The provided function returns a CodeMirror editor instance with the
+* specified options and signals connected. The function creates a CodeMirror editor
+* for each script type (JavaScript or GLSL), sets up various modes (such as "javascript"
+* or "glsl") depending on the current script being edited; adds signal handlers to
+* manage script clearing/editing/removal events; creates titles with object/script
+* information; shows/hides elements based on script mode displays etc...
+* Finally the function returns a container element holding the CodeMirror editor
+* instance and other relevant components.
+*/
 function Script( editor ) {
 
 	const signals = editor.signals;
