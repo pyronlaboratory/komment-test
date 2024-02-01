@@ -3,27 +3,7 @@ import { UIElement, UIPanel, UIText } from './libs/ui.js';
 import { SetScriptValueCommand } from './commands/SetScriptValueCommand.js';
 import { SetMaterialValueCommand } from './commands/SetMaterialValueCommand.js';
 
-/**
-* @description This function creates a code editor widget for an arbitrary JSON data
-* structure. It includes features such as:
-* 
-* 	- TernJS autocompletion and type information
-* 	- syntax highlighting and errors marking
-* 	- error lining and messaging
-* 	- support for multiple modes (javascript/json)
-* 	- code clearing and history clearing when script is removed
-* 	- mode and script switching based on user signals
-* 
-* @param { object } editor - The `editor` input parameter is the codemirror instance
-* and it's used to set the editor's options like syntax highlighting and autcompletion
-* 
-* @returns {  } The output of the function is a container element that displays a
-* CodeMirror code editor for editing materials scripts (vertex shaders and fragment
-* shaders) and a title element with information about the current material. Additionally
-* signal handlers are attached to control the behavior of the editor based on certain
-* events like changing modes or cleared content. When a script is removed the container
-* display is set to "none".
-*/
+
 function Script( editor ) {
 
 	const signals = editor.signals;
