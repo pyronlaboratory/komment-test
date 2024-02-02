@@ -26,6 +26,38 @@ const watch = require('./watch');
 
 const reporter = createReporter();
 
+/**
+* @description This function returns the TypeScript compiler options object based
+* on a given source file path and some environment variables. It sets various options
+* such as verbose output (off), source maps (on unless VSCODE_NO_SOURCEMAP is set),
+* root directory and base URL for compiling TypeScript code.
+* 
+* @param { string } src - The `src` input parameter specifies the source code file
+* that needs to be compiled using TypeScript. It is a string that contains the path
+* to the source file relative to the current working directory.
+* 
+* @returns { undefined } This function takes a string `src` as input and returns an
+* object of type `ts.CompilerOptions`. The object has several properties:
+* 
+* 	- `verbose`: a boolean indicating whether to print detailed messages during compilation.
+* 	- `sourceMap`: a boolean indicating whether to generate source maps for compiled
+* files.
+* 	- `rootDir`: the directory that contains the source files.
+* 	- `baseUrl`: the base URL for resolving module references.
+* 	- `sourceRoot`: the absolute path to the root of the source code directory.
+* 	- `newLine`: an integer indicating the type of new line characters to use (0 for
+* Windows-style and 1 for Unix-style).
+* 
+* The function sets some default values for these properties based on the location
+* of the current file and the environment variables. It returns the resulting object
+{/**
+* @description This function generates the API proposal names for the vscode project
+* by processing the extensionsApiProposals.ts file and extracting the names from it.
+* It uses a RegExp to match the proposed API name patterns and adds them to a Set.
+* Afterwardly is generate an output file with the extracted names.
+*/}
+* of `ts.CompilerOptions`.
+*/
 function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 	const rootDir = path.join(__dirname, `../../${src}`);
 	const options: ts.CompilerOptions = {};
@@ -271,6 +303,27 @@ function createCompile(src: string, build: boolean, emitError: boolean, transpil
 * of the build process.
 */}
 * on the `src` path and is returned as an attribute of the task object.
+*/
+/**
+* @description This function creates a Gulp task that transpiles the source code
+* from one directory to another using Webpack's Swc plugin. It reads all files under
+* the source directory and transcompiles them to the output directory.
+* 
+* @param { string } src - The `src` input parameter specifies the directory containing
+* the source code to be transpiled.
+* 
+* @param { string } out - The `out` input parameter specifies the output directory
+* for the transpiled code. It is the location where the compiled code will be written
+* after it has been transformed by Webpack's Swc plugin.
+* 
+* @param { boolean } swc - The `swc` input parameter tells Webpack's Swc plugin to
+* use the `swc` optimization for transpilation. It helps reduce the size of the
+* generated JavaScript code by eliminating unnecessary features and values that are
+* not supported by the target environment.
+* 
+* @returns { undefined } The function returns a pipe stream that takes the source
+* files from `${src}/**` and transpiles them using `createCompile` with options `{
+* false , true , { swc }}`. The resulting transpiled code is then written to `out`.
 */
 export function transpileTask(src: string, out: string, swc: boolean): task.StreamTask {
 
