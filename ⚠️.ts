@@ -26,32 +26,6 @@ const watch = require('./watch');
 
 const reporter = createReporter();
 
-/**
-* @description This function creates and returns a new instance of the `ts.CompilerOptions`
-* object with properties configured for TypeScript compilation based on the input
-* `src` file. It sets various options like `verbose`, `sourceMap`, `rootDir`,
-* `baseUrl`, and `sourceRoot` based on the current file and environment variables.
-* 
-* @param { string } src - The `src` input parameter passes the path to a TypeScript
-* source file as a string argument when calling getTypeScriptCompilerOptions function.
-* This file provides context information used throughout configuration for the type
-* script compiler option during compiling the program source files into JavaScript
-* 
-* @returns { undefined } The function `getTypeScriptCompilerOptions` returns an
-* object with several properties that configure the TypeScript compiler. Here's a
-* brief description of the output:
-* 
-* 	- `options`: An object with properties such as `verbose`, `sourceMap`, `rootDir`,
-* `baseUrl`, `sourceRoot`, and `newLine`.
-* 	- `verbose`: A boolean value set to `false` by default.
-* 	- `sourceMap`: A boolean value set to `true` by default but can be toggled off
-* via an environment variable `VSCODE_NO_SOURCEMAP`.
-* 	- `rootDir`: The directory where the TypeScript source files are located.
-* 	- `baseUrl`: The directory where the TypeScript source files are located.
-* 	- `sourceRoot`: A file URI representing the root of the source files.
-* 	- `newLine`: An integer value indicating the line endings (either Unix/Linux-style
-* (0) or Windows-style (1)).
-*/
 function getTypeScriptCompilerOptions(src: string): ts.CompilerOptions {
 	const rootDir = path.join(__dirname, `../../${src}`);
 	const options: ts.CompilerOptions = {};
