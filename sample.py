@@ -1,4 +1,13 @@
 def create_deployment_object():
+    """
+    This function creates a Kubernetes deployment object named "deploy-nginx" with
+    one replica of an nginx container.
+
+    Returns:
+        : The output of the function is a `V1Deployment` object representing a
+        Kubernetes deployment with the name "deploy-nginx".
+
+    """
     container = client.V1Container(
         name="nginx-sample",
         image="nginx",
