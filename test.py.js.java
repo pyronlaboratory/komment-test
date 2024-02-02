@@ -9,7 +9,6 @@ public class FCFSScheduling {
     FCFSScheduling(final List<ProcessDetails> processes) {
         this.processes = processes;
     }
-
     public void scheduleProcesses() {
         evaluateWaitingTime();
         evaluateTurnAroundTime();
