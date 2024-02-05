@@ -81,23 +81,6 @@ def matrix_subtraction(matrix_a: List, matrix_b: List):
  
  
 def split_matrix(a: List,) -> Tuple[List, List, List, List]:
-    """
-    The provided function `split_matrix` takes a list `a` of matrices as input and
-    returns a four-element tuple of sub-matrices: `top_left`, `top_right`, `bot_left`,
-    and `bot_right`. If the input matrix has odd length or uneven elements within
-    each row/column (checked using modulo operator), it raises an exception.
-    Otherwise. the function splits the matrix into four quadrants by iterating
-    over the rows and columns and selecting the appropriate elements.
-
-    Args:
-        a (List): The function takes an argument `a`, which is a list of lists
-            that represents the matrix to be split.
-
-    Returns:
-        Tuple[List, List, List, List]: The output of the function is a tuple
-        containing four lists: `top_left`, `top_right`, `bot_left`, and `bot_right`.
-
-    """
     if len(a) % 2 != 0 or len(a[0]) % 2 != 0:
         raise Exception("Odd matrices are not supported!")
  
