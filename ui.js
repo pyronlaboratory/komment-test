@@ -1,15 +1,15 @@
 /**
- * @description Creates a new timer list with the given msecs and unrefed status. The
- * created timer is wrapped with TimerWrap and added to the list. If unrefed is true
- * the timer is unreferenced.
+ * @description Creates a new linked list for TimersList and sets the timer's properties
+ * such as nextTick and unrefed.
  * 
- * @param { number } msecs - Start. The `msecs` input parameter passes the time
- * measured with milliseconds into the constructor and allows it to be used later for
- * start().
+ * @param { number } msecs - Starts the timer.
  * 
- * @param { boolean } unrefed - Based on the given information unrefed is a Boolean
- * parameter which is an optional input argument. It when set to true theTimerWrap
- * instance that is returned is "unreffed"
+ * @param { boolean } unrefed - Based on the value provided for "unrefed", the input
+ * parameter "unrefed" enables or disables the timer's ability to automatically re-run
+ * when it is set up using the method "start." The parameter unrefed that has a value
+ * of true causes the TimerWrap to refrain from rescheduling on subsequent timer tick
+ * iterations; if set to false(default), no such restrictions are placed on how
+ * frequently and consistently it may reset and run.
  */
 function TimersList(msecs, unrefed) {
   this._idleNext = this; // Create the list with the linkedlist properties to
