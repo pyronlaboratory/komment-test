@@ -60,11 +60,8 @@ export class AppSyncStack extends TerraformStack {
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
-    // Construct the AWS Provider - this is updated in the awsConfig.ts file
-    // @ahmed: Why is this needed?
     new AwsProvider(this, "AwsConfig", { region: DEPLOYMENT_REGION });
 
-    // Construct the AppSync API based on the Schema file
     this.api = new AppsyncGraphqlApi(this, `${DEPLOYMENT_PREFIX}GraphqlApi`, {
       name: `${DEPLOYMENT_PREFIX}GraphqlApi`,
       authenticationType: "API_KEY",
@@ -74,7 +71,6 @@ export class AppSyncStack extends TerraformStack {
       ),
     });
 
-    // @ahmed: Don't you want to save it to a constant? how are you using it?
     new TerraformOutput(this, `${this.api}Output`, {
       value: this.api.id,
     });
@@ -103,7 +99,6 @@ export class AppSyncStack extends TerraformStack {
       else if (type === "Resolver") resolvers[key] = res;
     }
 
-    // @ahmed: where are you using this?
     new TerraformOutput(this, `${stackName}TableArn`, {
       value: this.table.arn,
     });
@@ -121,7 +116,6 @@ export class AppSyncStack extends TerraformStack {
       });
     }
 
-    // @ahmed same question as other outputs here
     new TerraformOutput(this, "iamRoleArn", {
       value: this.role.arn,
     });
