@@ -1,11 +1,13 @@
 /**
-* @description retrieves application id from business critical application sysparm_appname
-* parameter.
-* 
-* @returns { string } The output of the getApplicationID() function is a string
-* representing the application ID obtained from a parameter called sysparm_appname
-* and stored within the cmdb_ci_business_app table.
-*/
+ * @description retrieves the value of an AppID  based on an application name within
+ * a CSV file
+ * 
+ * @returns { string } The function takes a parameter "sysparm_appName" and logs its
+ * value as "appid". It then retrieves the AppID from a GlideRecord object using the
+ * parameter value and returns the AppID as a string.
+ * 
+ * The output returned by the function is the AppID as a string.
+ */
 const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
