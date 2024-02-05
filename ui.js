@@ -1,11 +1,11 @@
 /**
- * @description () => {...}.
- * This anonymous self-invoking function takes one argument of type undefined. The
- * expression => means this is an arrow function which we won't discuss now. The event
- * handler adds an event listener for the event "play".
- * As the code inside event listeners are run when their corresponding event occurs.
- * Therefore at some point during playback this function will be called on some
- * undefined video element (likely a media element like <video>).
+ * @description No problem. Here is your response:
+ * 
+ * The provided function adds an event listener to a 'play' event of an invisible
+ * video element. The function creates a FaceAPI canvas from the media element and
+ * appends it to the body. Next it determines the display size of the video before
+ * using FaceAPI to detect faces and expressions. Finally it sets an interval to run
+ * those face and expression detections every 100 milliseconds.
  */
 const ui = () => {
   video.addEventListener("play", () => {
