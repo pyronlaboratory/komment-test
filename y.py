@@ -1,4 +1,30 @@
 def fit(self, x_train, y_train, epochs, learning_rate):
+  """
+  The given function fits the given model to training data.
+
+  Args:
+      x_train (): Here's the answer to your request:
+          
+          The `x_train` input parameter is used as the input for each iteration
+          of the training process.
+          
+          How's that? Is there anything else I can help with?
+      y_train (float): Here's the concise answer to your question:
+          
+          The `y_train` input parameter is the true labels or correct outputs that
+          the neural network should attempt to mimic during the training process.
+      epochs (int): Here is a concise answer to your question:
+          
+          The number of times the model iterates through the entire dataset to
+          update the model's parameters before terminating the training process.
+      learning_rate (float): Of course. Here's the answer directly:
+          
+          Learning rate sets the steepness of gradient descent used to update
+          weights and biases during backpropagation. The higher the value of
+          learning_rate inputs to this function; the quicker weights are updated
+          toward an optimal solution during training.
+
+  """
   samples = len(x_train)
   for i in range(epochs):
     err = 0
