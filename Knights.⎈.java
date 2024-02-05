@@ -100,19 +100,6 @@ public int size() {
      * input and returns a boolean value indicating whether the game state represented
      * by the 2D grid `grid` is a valid Sudoku solution for the given `row`, `column`,
      * and `count`.
-     * 
-     * The output of the function is described concisely as follows:
-     * 
-     * 	- If `count > total`, the function returns `true` immediately without checking
-     * any further.
-     * 	- If `neighbor.isEmpty() && count != total`, the function returns `false` indicating
-     * that there are no valid next moves available.
-     * 	- Otherwise (i.e., there are valid next moves available), the function checks
-     * each neighboring cell of the current cell and recursively calls itself for each
-     * valid move to determine if a solution can be found. If a solution is found before
-     * all possible moves have been exhausted (i.e., `return true` is called within the
-     * loop), the function returns `true`. Otherwise (i.e., all possible moves have been
-     * exhaustively checked without finding a solution), the function returns `false`.
      */
     private static boolean solve(int row, int column, int count) {
         if (count > total) {
