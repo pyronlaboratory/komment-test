@@ -1,5 +1,11 @@
     @pytest.mark.task(taskno=2)
     def test_get_change(self):
+        """
+        Here's the answer to your request:
+        Test the 'get_change' method with multiple scenarios and expected outcomes
+        using self-tests.
+
+        """
         test_data = [(463000, 5000), (1250, 120), (15000, 1380)]
         result_data = [458000, 1130, 13620]
 
