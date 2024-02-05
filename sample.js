@@ -1,10 +1,9 @@
 /**
-* @description The `newGeneration` function takes an array of `cells` as input and
-* does nothing (i.e., it is a no-operation function).
+* @description The `newGeneration` function takes an input of cells and performs an
+* unspecified action on those cells.
 * 
-* @param { array } cells - The `cells` input parameter is not used anywhere inside
-* the `newGeneration()` function. Therefore it is undefined and has no effect on the
-* function's behavior.
+* @param { array } cells - cells is passed as an input parameter and it is processed
+* by the function
 */
 export function newGeneration(cells) {
 }
