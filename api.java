@@ -1,3 +1,11 @@
+/**
+ * The given function writes an API for a set of methods using their grouping keys
+ * and types.
+ * 
+ * @param groupedMethods Here is a concise answer:
+ * 
+ * groupedMethods supplies a Multimap of Strings to MethodSpec collections
+ */
 private void writeApi(Multimap<String, MethodSpec> groupedMethods) {
   Map<String, ClassName> groups = new HashMap<>();
 
@@ -13,6 +21,20 @@ private void writeApi(Multimap<String, MethodSpec> groupedMethods) {
   write(topClass);
 }
 
+/**
+ * Collects method from elements annotated with @Operator and checks if the methods
+ * are deprecated. If not deprecated then it collects the methods for further processing.
+ * 
+ * @param roundEnv roundEnvironment provides the elements annotated with @Operator
+ * and any error messages can be thrown regarding element kinds.
+ * 
+ * @param groupedMethods GROUPEDMETHODS COLLECTS METHOD SPECIFICATIONS.
+ * 
+ * @param annotation The `annotation` parameter is the TypeElement annotated with @Operator.
+ * 
+ * @returns Collects op-methods. Returns a boolean value indicating whether all of
+ * the methods have been processed without an error.
+ */
 private boolean collectOpsMethods(
     RoundEnvironment roundEnv,
     Multimap<String, MethodSpec> groupedMethods,
