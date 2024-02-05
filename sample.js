@@ -16,7 +16,7 @@
 * evaluated based on their current state and the states of their neighboring cells
 * using a set of rules similar to Conway's Game of Life.
 */
-export function newGeneration(cells) {
+function newGeneration(cells) {
   const nextGeneration = []
   for (let i = 0; i < cells.length; i++) {
     const nextGenerationRow = []
