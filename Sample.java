@@ -5,6 +5,13 @@ import java.util.function.Predicate;
 
 public class LambdaDemo {
 
+    /**
+     * Main calls Runnable and Binary Operation run methods; it applies predicates to the
+     * list of strings for stream(); it invokes the forEach() on lists using consumer and
+     * prints to Upper Case or System.out .println(all strings).
+     * 
+     * @param args The `args` input parameter is not used within the provided code fragment.
+     */
     public static void main(String[] args) {
         Runnable hello = () -> System.out.println("Hello, Lambda!");
         hello.run();
