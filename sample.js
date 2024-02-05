@@ -1,3 +1,19 @@
+/**
+* @description searches an array for a specified element using a recursive algorithm.
+* 
+* @param { array } arr - Array contents are searched by the function provided here
+* as the "arr" parameter.
+* 
+* @param { array } x - searched element
+* 
+* @param { number } start - START THE SEARCH.
+* 
+* @param { number } end - End stops the search.
+* 
+* @returns { array } The function searches for a target element x within an array
+* arr using binary search. It returns true if x is found within arr; otherwise it
+* returns false.
+*/
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
