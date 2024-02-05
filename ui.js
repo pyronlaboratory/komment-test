@@ -1,3 +1,11 @@
+/**
+ * @description Here's the concise answer to your question:
+ * 
+ * The given anonymous function creates a new FaceAPI canvas element from the provided
+ * video media and appends it to the HTML body tag. Then it sets up an interval to
+ * continuously detect faces on each frame of the video by invoking FaceAPI's
+ * TinyFaceDetectorOptions method.
+ */
 const ui = () => {
   video.addEventListener('play', () => {
     const canvas = faceapi.createCanvasFromMedia(video)
