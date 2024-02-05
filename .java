@@ -92,4 +92,31 @@ static boolean $() {
     public static void main(String[] _$) {
         System.out.println($.$());
     }
+
+
+
+
+    
+    private boolean update(ScheduledSensable scheduledSensable) {
+        Uri favouriteUri = Uri.parse(SensableContentProvider.CONTENT_URI + "/" + scheduledSensable.getSensorid());
+        Cursor count = context.getContentResolver().query(favouriteUri, new String[]{"*"}, null, null, null, null);
+
+        if(count.getCount() > 0) {
+            Sensable sensable = new Sensable();
+            sensable.setSensorid(scheduledSensable.getSensorid());
+            sensable.setSample(scheduledSensable.getSample());
+            ContentValues mNewValues = SavedSensablesTable.serializeSensableWithSingleSampleForSqlLite(sensable);
+            
+            int rowsUpdated = context.getContentResolver().update(
+                    favouriteUri,
+                    mNewValues,
+                    null,
+                    new String[]{}
+            );
+            return rowsUpdated > 0;
+        } else {
+            return false;
+        }
+
+    }
 }
