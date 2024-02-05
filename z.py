@@ -113,6 +113,11 @@ dataset = dataset.shuffle(local_seed)
 
 
 def data_generator():
+    """
+    Generates a generator that yields a pair of tuples: question and list of
+    normalized aliases for each item.
+
+    """
     for i in range(len(dataset)):
         yield dataset[i]["question"], [item for item in dataset[i]["answer"]["normalized_aliases"]]
 
@@ -122,6 +127,25 @@ gen = iter(gen)
 
 
 def generate_data(n):
+    """
+    The function generate_data takes an integer n as input and performs the following
+    operations:
+    It creates two lists: tasks and answers
+    It iterates through n iterations using next(gen) to obtain each iteration's
+    question and answer
+    It appends each question and answer to their respective list
+    It returns both lists.
+
+    Args:
+        n (int): N represents the number of questions and answers to generate. The
+            function returns two lists: one with n query strings and another with
+            their respective answer strings.
+
+    Returns:
+        list: The output returned by this function is a list of questions and their
+        corresponding answers.
+
+    """
     tasks, answers = [], []
     for i in range(n):
         q, a = next(gen)
@@ -159,6 +183,19 @@ text_env = TextEnvironment(
 
 
 def print_trainable_parameters(model):
+    """
+    Print trainable parameters.
+    The function iterates over a model's named parameters to compute and print the
+    number of trainable and all parameters as well as their ratio.
+
+    Args:
+        model (): OK. Here is the answer to your question.
+            
+            The input parameter 'model' is iterated over using a loop and its
+            parameters are inspected to determine the total number of trainable
+            parameters and all parameters.
+
+    """
     trainable_params = 0
     all_param = 0
     for _, param in model.named_parameters():
