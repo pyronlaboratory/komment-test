@@ -1,17 +1,3 @@
-/**
- * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"). You
- * may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- *     http://aws.amazon.com/apache2.0/
- *
- * or in the "license" file accompanying this file. This file is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
- * ANY KIND, either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
- */
 import { signOut } from "../common.js";
 import { parseJwtPayload, setTimeoutWallClock } from "../util.js";
 import { signInWithLink, requestSignInLink } from "../magic-link.js";
@@ -47,7 +33,6 @@ const PasswordlessContext = React.createContext<UsePasswordless | undefined>(
   undefined
 );
 
-/** React hook that provides convenient access to the Passwordless lib's features */
 export function usePasswordless() {
   const context = useContext(PasswordlessContext);
   if (!context) {
@@ -62,7 +47,6 @@ const LocalUserCacheContext = React.createContext<
   UseLocalUserCache | undefined
 >(undefined);
 
-/** React hook that stores and gives access to the last 10 signed in users (from your configured storage) */
 export function useLocalUserCache() {
   const context = useContext(LocalUserCacheContext);
   if (!context) {
@@ -100,13 +84,9 @@ const LocalUserCacheContextProvider = (props: {
   );
 };
 
-/** A FIDO2 credential (e.g. Face ID or Touch), with convenient methods for updating and deleting */
 type Fido2Credential = StoredCredential & {
-  /** Update the friendly name of the credential */
   update: (update: { friendlyName: string }) => Promise<void>;
-  /** Delete the credential */
   delete: () => Promise<void>;
-  /** The credential is currently being updated or deleted */
   busy: boolean;
 };
 
