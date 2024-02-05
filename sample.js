@@ -1,29 +1,18 @@
 /**
-* @description The function `newGeneration` takes an array of arrays (representing
-* the current generation of cells) and generates the next generation of cells based
-* on the number of living neighbors each cell has. Cells that are alive and have a
-* certain number of living neighbors (2 or 3) are kept alive and assigned a value
-* of 1. Otherwise they are declared dead and assigned a value of 0.
+* @description The function newGeneration(cells) creates a new generation of living
+* cells based on the current generation and their neighbors. It returns an array of
+* rows where each row is composed of living (1) or dead (0) cells.
 * 
-* @param { array } cells - The `cells` input parameter is an array of arrays
-* representing the current generation of cells. Each sub-array within the main `cells`
-* array represents a single cell and contains two values (0 or 1) representing its
-* current state (alive or dead). The function uses this input to generate the next
-* generation of cells based on the rules of Conway's Game of Life.
+* @param { array } cells - Here's the answer:
 * 
-* @returns { array } The function `newGeneration` takes a 2D array of cells as input
-* and returns a new generation of cells based on the previous one. The output is a
-* new 2D array with the same dimensions as the input array. Each element of the new
-* array represents the state of a single cell (alive or dead) based on the number
-* of living neighbors it has.
+* Cells are used as the input to this function and are iterated upon using a "for"
+* loop with two nested loops. The generated next generation is then returned as an
+* array of rows where each row has the same length as the cells parameter.
 * 
-* In brief:
-* 
-* 	- If a cell is alive and has 2 or 3 living neighbors (excluding the cell itself),
-* it remains alive.
-* 	- If a cell is dead and has 3 living neighbors (including the cell itself), it
-* becomes alive.
-* 	- All other cells become dead or remain dead.
+* @returns { array } The output returned by this function is an array of rows
+* representing the next generation of a two-dimensional grid of living cells where
+* alive cells have a value of 1 and dead cells have a value of 0 based on the neighbor
+* count.
 */
 export function newGeneration(cells) {
   const nextGeneration = []
