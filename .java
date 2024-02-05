@@ -97,6 +97,18 @@ static boolean $() {
 
 
     
+    /**
+     * The function updates the count of a given sensable id  with the given sample value
+     * or creates a new row if the ID is not already present. It returns true if the count
+     * has been updated successfully or false otherwise.
+     * 
+     * @param scheduledSensable scheduleSensable provides the sensor data that needs to
+     * be updated or inserted into the favorites table if it does not exist already.
+     * 
+     * @returns The function updates a sensor value record into the favorite table based
+     * on a matching sensorid. If any rows were updated the function returns true but if
+     * no rows were updated the function returns false.
+     */
     private boolean update(ScheduledSensable scheduledSensable) {
         Uri favouriteUri = Uri.parse(SensableContentProvider.CONTENT_URI + "/" + scheduledSensable.getSensorid());
         Cursor count = context.getContentResolver().query(favouriteUri, new String[]{"*"}, null, null, null, null);
