@@ -1,4 +1,12 @@
 def test_get_change(self):
+    """
+    The given function is a tester for the 'get_change' function that takes two
+    parameters (budget and exchange value) and checks their expected output by
+    calling get change using those values. The function then asserts whether the
+    returned output matches the predicted outcome of
+    leaving the given budget with the predicted result from exchange
+
+    """
     test_data = [(463000, 5000), (1250, 120), (15000, 1380)]
     result_data = [458000, 1130, 13620]
 
