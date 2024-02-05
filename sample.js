@@ -1,3 +1,14 @@
+getApplicationID: function () {
+  var appID = "";
+  gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
+  var grAppID = new GlideRecord("cmdb_ci_business_app");
+  if (grAppID.get(this.getParameter("sysparm_appname"))) {
+    appID = grAppID.number.toString();
+    gs.log("appid: " + appID, "pipeline");
+  }
+ return appID;
+}
+
 /**
 * @description This function implements a simple iterative cellular automaton ruleset
 * where living cells (value of 1) survive with 2-3 living neighbors and die otherwise.
