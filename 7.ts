@@ -232,7 +232,6 @@ export class AppSyncStack extends TerraformStack {
       offset = 2;
     }
 
-    // TODO: declare top level config
     template[3 + offset] = "ACCOUNT_ID_CONFIG";
     template[5 + offset] = "KOMMENT_ROLE_NAME_CONFIG";
 
