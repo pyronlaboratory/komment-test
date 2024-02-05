@@ -1,21 +1,20 @@
 /**
-* @description The function newGeneration takes an array of arrays representing a
-* population of cells as input and returns an updated generation of the same population
-* based on the rules of a simple life-like cellular automata. The function calculates
-* the number of living neighbors for each cell and updates its state based on those
-* neighbors.
+* @description This function implements a simple iterative cellular automaton ruleset
+* where living cells (value of 1) survive with 2-3 living neighbors and die otherwise.
+* Dead cells turn into living cells if all eight adjacent cells are living. The
+* function takes an array of arrays representing the initial grid of cells and returns
+* the next generation of cells.
 * 
-* @param { array } cells - Certainly. Here is the answer to your question:
+* @param { array } cells - The `cells` input parameter is an array of arrays
+* representing a 2D grid of binary cells (0s and 1s). The function takes this array
+* as input and generates the next generation of the grid based on the current one.
 * 
-* The `cells` input parameter provides a two-dimensional array of integer values
-* that represents the state of the Game of Life world to be evolved by the function.
-* Each integer value indicates whether the cell is alive (1) or dead (0). The function
-* processes each cell's state and the states of its neighbors to determine the next
-* generation of cells.
-* 
-* @returns { array } The output returned by this function is an array of rows
-* consisting solely of two elements with a value of 1 or 0 only if the neighbouring
-* cell conditions are met; otherwise all cells will have a value of 0.
+* @returns { array } The output returned by this function is an array of arrays
+* representing the next generation of a binary cellular automaton. Each element of
+* the output array represents a single row of the grid and contains Boolean values
+* (0 or 1) indicating whether each cell is alive (1) or dead (0). The cells are
+* evaluated based on their current state and the states of their neighboring cells
+* using a set of rules similar to Conway's Game of Life.
 */
 export function newGeneration(cells) {
   const nextGeneration = []
