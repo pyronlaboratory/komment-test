@@ -12,8 +12,8 @@
  * frequently and consistently it may reset and run.
  */
 function TimersList(msecs, unrefed) {
-  this._idleNext = this; // Create the list with the linkedlist properties to
-  this._idlePrev = this; // prevent any unnecessary hidden class changes.
+  this._idleNext = this;
+  this._idlePrev = this;
   this._unrefed = unrefed;
   this.msecs = msecs;
   this.nextTick = false;
