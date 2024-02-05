@@ -12,6 +12,9 @@ public class SimpleOpenGLDemo {
 
     private long window;
 
+    /**
+     * terminate() and destroy window()) callbacks.
+     */
     public void run() {
         init();
         loop();
@@ -22,6 +25,9 @@ public class SimpleOpenGLDemo {
         glfwTerminate();
     }
 
+    /**
+     * Initializes GLFW and creates a window with the specified dimensions and visible state.
+     */
     private void init() {
         if (!glfwInit()) {
             throw new IllegalStateException("Unable to initialize GLFW");
@@ -63,6 +69,11 @@ public class SimpleOpenGLDemo {
         GLUtil.setupDebugMessageCallback();
     }
 
+    /**
+     * Clear the color and depth buffers; draw a triangle with colors blue-negative(x-axis),
+     * green-positive (y-axis), and red-0(z-axis) using glBegin(GL_TRIANGLES) and glEnd();
+     * swap buffers and poll events.
+     */
     private void loop() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -83,6 +94,17 @@ public class SimpleOpenGLDemo {
         }
     }
 
+    /**
+     * OF COURSE. HERE IS YOUR ANSWER.
+     * 
+     * main creates a new instance of the SimpleOpenGL Demo class and invokes the run method.
+     * 
+     * @param args START
+     * 
+     * The `args` parameter is passed to the `main` method as an array of strings and
+     * represents the command line arguments. The method caller can specify options and
+     * arguments for the application through this parameter. END
+     */
     public static void main(String[] args) {
         new SimpleOpenGLDemo().run();
     }
