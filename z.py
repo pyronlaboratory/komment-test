@@ -114,8 +114,9 @@ dataset = dataset.shuffle(local_seed)
 
 def data_generator():
     """
-    Generates a generator that yields a pair of tuples: question and list of
-    normalized aliases for each item.
+    Generates a data generator using loop over elements of a list called dataset
+    and yeilds each element of question along with each item of the list formed
+    by iterating answer field's alias normalization
 
     """
     for i in range(len(dataset)):
@@ -128,22 +129,16 @@ gen = iter(gen)
 
 def generate_data(n):
     """
-    The function generate_data takes an integer n as input and performs the following
-    operations:
-    It creates two lists: tasks and answers
-    It iterates through n iterations using next(gen) to obtain each iteration's
-    question and answer
-    It appends each question and answer to their respective list
-    It returns both lists.
+    Generates lists of questions and their corresponding answers from an iterable
+    object `gen`, with the length of the lists being determined by the parameter
+    `n`.
 
     Args:
-        n (int): N represents the number of questions and answers to generate. The
-            function returns two lists: one with n query strings and another with
-            their respective answer strings.
+        n (int): n specifies the number of items to generate.
 
     Returns:
-        list: The output returned by this function is a list of questions and their
-        corresponding answers.
+        list: The function returns a list of lists containing task and answer. The
+        length of both list depends on value provided as input.
 
     """
     tasks, answers = [], []
@@ -184,16 +179,13 @@ text_env = TextEnvironment(
 
 def print_trainable_parameters(model):
     """
-    Print trainable parameters.
-    The function iterates over a model's named parameters to compute and print the
-    number of trainable and all parameters as well as their ratio.
+    Counts the number of trainable parameters and computes percentage of trainable
+    parameters.
 
     Args:
-        model (): OK. Here is the answer to your question.
-            
-            The input parameter 'model' is iterated over using a loop and its
-            parameters are inspected to determine the total number of trainable
-            parameters and all parameters.
+        model (): The model input parameter is iterated over and its named parameters
+            are inspected to calculate and print out information regarding trainable
+            and total parameters of the model.
 
     """
     trainable_params = 0
