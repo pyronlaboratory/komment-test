@@ -34,12 +34,13 @@ const PasswordlessContext = React.createContext<UsePasswordless | undefined>(
 );
 
 /**
-* @description Returns a context object for passwordless login if the
-* PasswordlessContextProvider has been provided above it. Throws an error if the
-* provider is missing.
-* 
-* @returns { object } Context object.
-*/
+ * @description Returns the context if the PasswordlessContext is provided; throws
+ * an error otherwise
+ * 
+ * @returns { object } The output of the given function is the `PasswordlessContext`
+ * object when it exists. otherwise the function throws an error stating that the
+ * `PasswordlessContextProvider` must be added above this consumer component.
+ */
 export function usePasswordless() {
   const context = useContext(PasswordlessContext);
   if (!context) {
@@ -55,13 +56,15 @@ const LocalUserCacheContext = React.createContext<
 >(undefined);
 
 /**
-* @description RETURN_CONTEXT: The function uses the 'useContext' hook to retrieve
-* the value of the LocalUserCacheContext and checks if it exists before throwing an
-* error message if it doesn't exist. If the LocalUserCacheContext is found to exist
-* then the function returns the LocalUserCacheContext.
-* 
-* @returns {  } The exported function useLocalUserCache returns the context object.
-*/
+ * @description Retrieves the Local User Cache Context and returns it if it exists.
+ * Otherwise throws an error stating that the LocalUserCache must be enabled within
+ * a PasswordlessContextProvider component.
+ * 
+ * @returns {  } The output of the function is a Local User Cache Context object. If
+ * no such object exists for the application when calling the exported useLocalUserCache(),
+ * an error message that says the user cache has to be enabled on PasswordlessContextProvider
+ * before usage gets returned.
+ */
 export function useLocalUserCache() {
   const context = useContext(LocalUserCacheContext);
   if (!context) {
@@ -73,16 +76,19 @@ export function useLocalUserCache() {
 }
 
 /**
-* @description Provides a context provider for passwordless authentication that wraps
-* the component with a local user cache context provider if enabled.
-* 
-* @param {  } props - Passes the component's child nodes.
-* 
-* @returns {  } The PasswordlessContextProvider component returns a div element with
-* children from the prop provided. It is enclosed by PasswordlessContext and
-* LocalUserCacheContextProvider to facilitate easy management of local user caching
-* when needed.
-*/
+ * @description Creates a React context provider for passwordless authentication and
+ * caches the user locally if enabled. Provides the children prop with a
+ * PasswordlessContext.Provider containing either the cached local user or the direct
+ * children component if no caching is enabled.
+ * 
+ * @param { boolean } props - The `props` input parameter passes a JavaScript object
+ * to the `PasswordlessContextProvider` component when it is being rendered. This
+ * object has two properties: "children" and "enableLocalUserCache?"
+ * 
+ * @returns { Component } The PasswordlessContextProvider component returns a Provider
+ * component with a value of _usePasswordless(), and nested Children component provided
+ * by the props.
+ */
 export const PasswordlessContextProvider = (props: {
   children: React.ReactNode;
   enableLocalUserCache?: boolean;
@@ -101,17 +107,13 @@ export const PasswordlessContextProvider = (props: {
 };
 
 /**
-* @description Providerizes a local user cache for React components by creating a
-* Context.Provider component that wraps props.children and passes its return value
-* to useLocalUserCache().
-* 
-* @param { object } props - Here is your response:
-* 
-* children: React.ReactNode;
-* 
-* @returns { object } Output is a react element of type object with properties of
-* React.ReactNode and value of undefined.
-*/
+ * @description Providers a LocalUserCacheContext to the children of the component
+ * 
+ * @param {  } props - The `props` input parameter is the value passed to the functional
+ * component that was provided at the time of the call and its type is `React.ReactNode`.
+ * 
+ * @returns {  } Provides a LocalUserCacheContext to its children.
+ */
 const LocalUserCacheContextProvider = (props: {
   children: React.ReactNode;
 }) => {
@@ -131,61 +133,49 @@ type Fido2Credential = StoredCredential & {
 type UsePasswordless = ReturnType<typeof _usePasswordless>;
 
 /**
-* @description The provided export function "useAwaitableState" accepts type "T" and
-* creates an object consisting of the following elements:
-* - An awaitable Promise which when resolved sets awaited state value.
-* - A reject element that captures error objects that occur during Promise resolution
-* and displays it to the console when not properly resolved
-* - Resolve function
-* - Reject function
-* 
-* @param { T } state - The state parameter sets the value of the `awaited` state and
-* triggers recalculation if it differs from the previous value.
-* 
-* @returns { object } The function returns an object with the following properties:
-* 
-* - `awaitable`: a Promise of type T
-* - `resolve`: a function that takes the value of type T and resolves the promise
-* - `reject`: a function that takes an error reason of type Error and rejects the promise
-* - `awaited`: the currently awaited value or undefined
-* 
-* The `awaitable` property is a Reference to the most current Promise.
-*/
+ * @description Provides an awaitable state with resolving and rejecting functionality.
+ * It returns an object containing the awaitable promise along with methods to resolve
+ * or reject the promise and retrieve the awaited value.
+ * 
+ * @param { T } state - The `state` input parameter is used as the initial value for
+ * the `awaited` state variable within the hook.
+ * 
+ * @returns { Promise } The function returns an object with four properties: 'awaitable',
+ * 'resolve', 'reject', and 'awaited'. 'awaitable' is a () => Promise<T>; 'resolve'
+ * and 'reject' are (value/reason: T) => void; 'awaited' is { value: T };
+ */
 export function useAwaitableState<T>(state: T) {
   const resolve = useRef<(value: T) => void>();
   const reject = useRef<(reason: Error) => void>();
   const awaitable = useRef<Promise<T>>();
   const [awaited, setAwaited] = useState<{ value: T }>();
 /**
-* @description sets the current awaitable promise to a new one with resolver and
-* rejecter methods as their properties
-*/
+ * @description Initialize a new promise with provided callback functions for resolution
+ * and rejection. Set an initial result through `then` and renew the promise on
+ * finalization via `renewPromise`.
+ */
   const renewPromise = useCallback(() => {
 /**
-* @description ((_resolve/_reject) ⇒ { _resolve.current= _reject.current= _});
-* 
-* @param {  } _resolve - RESOLVE: Provides current functionality of the resolved
-* promise for further use and setup for return.
-* 
-* @param {  } _reject - Here's a concise response directly answering your question
-* with zero deviations:
-* 
-* The `_reject` input parameter sets its current value to `_reject`.
-*/
+ * @description The function updates the current properties of two variables (_resolve
+ * and _reject) to the given values (_resolves and _rejections).
+ * 
+ * @param {  } _resolve - Of course. The input parameter `_resolve` here sets
+ * `resolve.current` equal to the `_resolve`.
+ * 
+ * @param {  } _reject - REJECTS THE PROMISE: The underscore before `_reject` indicates
+ * that it is a rejected promise that is being passed into the function.
+ */
 /**
-* @description Function takes two functions(_resolve and _reject), updates the current
-* state of these functions to be able to await a return value from it later. If any
-* value is returned it then returns this value to its waiting handler or sets up the
-* rejected status if reject returns anything.
-* 
-* @param {  } value - The `value` input parameter sets `setAwaited()`'s input property
-* to its current value.
-* 
-* @returns { string } The function takes two input functions `_resolve` and `_reject`,
-* sets their current values to `resolve.current` and `reject.current`, respectively.
-* It then returns a promise that resolves with the value returned by calling
-* `setAwaited()` with argument `value`, and simultaneously returns that value.
-*/
+ * @description RESOLVE.CURRENT AND REJECT.CURRENT ARE SET TO THE VALUES OF _RESOLVE
+ * AND _REJECT BY THIS FUNCTION WHICH IS THEN RETURNED BY SETAUDATED
+ * 
+ * @param { any } value - In the given function callback(resolve/reject) returns
+ * 'value' to then function.
+ * 
+ * @returns { any } The function takes two values as input and assigns them to the
+ * current properties of a pair of promises - `resolve` and `reject`. It then returns
+ * a promise that resolves to the value of the `value` parameter.
+ */
     awaitable.current = new Promise<T>((_resolve, _reject) => {
       resolve.current = _resolve;
       reject.current = _reject;
@@ -198,36 +188,32 @@ export function useAwaitableState<T>(state: T) {
   }, []);
   useEffect(renewPromise, [renewPromise]);
 /**
-* @description SETS AWAITED TO UNDEFINED USING STATE AS PARAMETER.
-*/
+ * @description Setting Awaits Undefined
+ * =====================
+ */
   useEffect(() => setAwaited(undefined), [state]);
   return {
 /**
-* @description This function makes a read call on the result property of whatever
-* value is held by the current (i.e., outer) promise to obtain the current awaitable
-* (the value to be waited on) and return a new awaitable for that promise with an
-* invocation that throws away that promise (therefore being the same effect as if
-* it were called with () and nothing more would be done to delay propagation). This
-* will make synchronously or asynchronously with the same effects what the immediately
-* previous statement of await xxx() would accomplish (i.e., whether inside of
-* xxx(()=>Promise1) => wait() or whatever else has to happen to ultimately cause it
-* to throw a resolved/rejected event on awaiter). This behavior continues for all
-* nesting levels.
-*/
+ * @description Calling awaitable() returns the current value of the awaitable object.
+ */
     awaitable: () => awaitable.current!,
 /**
-* @description Resolve.current(state): Invokes the current resolve method with state
-* as argument; the return value is unspecified
-*/
+ * @description Here is the answer I can provide as you requested:
+ * 
+ * resolve() enables access to and modification of the current state by accepting an
+ * argument state to be passed and returning it.
+ */
     resolve: () => resolve.current!(state),
 /**
-* @description Rejects the value with the specified error reason.
-* 
-* @param { Error } reason - Here is the answer to your question.
-* 
-* The `reason` input parameter supplies an error message when invoking the `reject()`
-* function.
-*/
+ * @description Reject takes an object with a single property 'reason' and sends that
+ * property as the current reason to whatever reject method is passed to it when called.
+ * 
+ * @param { Error } reason - Of course. Here is your answer to this specific question.
+ * The only change I have made was to capitalize the word "Error" per your specification:
+ * 
+ * The reason input parameter provides the error details for a reject function return
+ * value of reject.current(reason).
+ */
     reject: (reason: Error) => reject.current!(reason),
     awaited,
   };
