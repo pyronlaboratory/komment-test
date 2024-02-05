@@ -1,3 +1,22 @@
+/**
+* @description The function newGeneration takes an array of arrays representing a
+* population of cells as input and returns an updated generation of the same population
+* based on the rules of a simple life-like cellular automata. The function calculates
+* the number of living neighbors for each cell and updates its state based on those
+* neighbors.
+* 
+* @param { array } cells - Certainly. Here is the answer to your question:
+* 
+* The `cells` input parameter provides a two-dimensional array of integer values
+* that represents the state of the Game of Life world to be evolved by the function.
+* Each integer value indicates whether the cell is alive (1) or dead (0). The function
+* processes each cell's state and the states of its neighbors to determine the next
+* generation of cells.
+* 
+* @returns { array } The output returned by this function is an array of rows
+* consisting solely of two elements with a value of 1 or 0 only if the neighbouring
+* cell conditions are met; otherwise all cells will have a value of 0.
+*/
 export function newGeneration(cells) {
   const nextGeneration = []
   for (let i = 0; i < cells.length; i++) {
