@@ -353,9 +353,7 @@ export class AppSyncStack extends TerraformStack {
  *     • Validates an input object and console logs a resulting JSON string.
  *     • Then constructs an AWS IamPolicy based on those inputs.
  * 
- * @param { string } key - Okay. Here is the answer:
- * 
- * The `key` input parameter provides a unique identifier for a resource.
+ * @param { string } key - provides a unique identifier for a resource.
  * 
  * @param { any } props - The `props` input parameter defines an object with
  * PolicyDocument that contains policy statements and resources relevant to a service
