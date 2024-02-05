@@ -4,18 +4,21 @@ from typing import List, Tuple
 
 def default_matrix_multiplication(a: List, b: List) -> List:
     """
-    Calculates the matrix multiplication of two 2x2 matrices using given lists for
-    each element. Raises an Exception if input matrices are not 2x2. Returns a
-    List with the matrix elements.
+    Provides a default matrix multiplication implementation given two lists
+    representing the matrices' dimensions.
 
     Args:
-        a (List): Verb: Accepts
-            
-            Parameter `a`: Provides the first list of a matrix for multiplication.
-        b (List): Processes elements of the input List b
+        a (List): The `a` input parameter provides two lists as matrix elements
+            for multiplication.
+        b (List): The `b` input parameter provides a list of another matrix that
+            is used as the second operand for multiplication with the first matrix
+            given as `a`.
 
     Returns:
-        List: Output: A list containing two lists of integers.
+        List: Returns: [ [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1]
+        + a[0][1] * b[1][1]],
+                        [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1]
+        + a[1][1] * b[1][1]] ]
 
     """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
@@ -29,21 +32,21 @@ def default_matrix_multiplication(a: List, b: List) -> List:
 
 def matrix_addition(matrix_a: List, matrix_b: List):
     """
-    ADDS MATRICES.
-    The function matrix_addition takes two lists representing matrices as input
-    and returns a list of lists representing the added matrices. It loops through
-    each row of both matrices and adds corresponding elements.
+    The function matrix_addition takes two lists of lists ( matrices) and returns
+    a new list of lists. It appends each element of the first matrix to each element
+    of the second matrix by row.
 
     Args:
-        matrix_a (List): Provides the first matrix to add.
-        matrix_b (List): No problem; here's your answer:
+        matrix_a (List): Here is the concise answer you requested:
             
-            Adds a second matrix to be added element-wise to the first.
+            matrix_a is a List that serves as the first operand for matrix addition.
+        matrix_b (List): THE SECOND MATRIX IS ADDED TO THE FIRST MATRIX ROW BY ROW
+            USING THE COLUMN-WISE ADDITION IN THIS DEFINED FUNCTION.
 
     Returns:
-        list: The function returns a list of lists. Each sub-list within the outer
-        list represents a row of the result matrix and consists of summed elements
-        from corresponding rows of input matrices A and B.
+        list: The function returns a list of lists representing the result of
+        adding two matrices. Each sublist within the larger list contains the sum
+        of the corresponding elements of the input matrices.
 
     """
     return [
@@ -54,22 +57,21 @@ def matrix_addition(matrix_a: List, matrix_b: List):
  
 def matrix_subtraction(matrix_a: List, matrix_b: List):
     """
-    The function matrix_subtraction takes two lists as input and returns a list
-    of lists representing the difference of each row of matrix A and matrix B.
+    The given function takes two lists as input and returns a list of lists
+    representing the element-wise subtraction of the matrices. It does so by
+    iterating over each row of both inputs and computing the differences of
+    corresponding elements.
 
     Args:
-        matrix_a (List): OK. Here is your answer:
+        matrix_a (List): PROVIDES THE FIRST MATRIX AS AN INPUT PARAMETER.
+        matrix_b (List): Of course. Here is your response:
             
-            The matrix_a parameter is a list of lists where each sub-list represents
-            a row and each integer within each sub-list represents a column.
-        matrix_b (List): The `matrix_b` parameter is subtracted element-wise from
-            the corresponding elements of `matrix_a`.
+            The `matrix_b` input parameter is subtracted from each element of `matrix_a`.
 
     Returns:
-        list: The output of this function is a list of lists. Each inner list
-        consists of every element at each respective position within every row of
-        the original two input matrices minus the corresponding element from the
-        opposing matrix's respective position.
+        list: The output returned by this function is a list of lists. Each sub-list
+        contains the differences between corresponding elements of matrices A and
+        B.
 
     """
     return [
@@ -80,19 +82,20 @@ def matrix_subtraction(matrix_a: List, matrix_b: List):
  
 def split_matrix(a: List,) -> Tuple[List, List, List, List]:
     """
-    The function splits a given list of matrices into four separate lists: top-left
-    (symmetric), top-right ( symmertic), bottom-left (asymmetric), and bottom-right
-    (asymmetric) matrices.
+    The provided function `split_matrix` takes a list `a` of matrices as input and
+    returns a four-element tuple of sub-matrices: `top_left`, `top_right`, `bot_left`,
+    and `bot_right`. If the input matrix has odd length or uneven elements within
+    each row/column (checked using modulo operator), it raises an exception.
+    Otherwise. the function splits the matrix into four quadrants by iterating
+    over the rows and columns and selecting the appropriate elements.
 
     Args:
-        a (List): Here is your documentation answer:
-            
-            INPUT PARAMETER `a`: a list to be split into multiple lists of varying
-            lengths
+        a (List): The function takes an argument `a`, which is a list of lists
+            that represents the matrix to be split.
 
     Returns:
-        Tuple[List, List, List, List]: The function returns a tuple of four lists:
-        (top_left(), top_right(), bot_left(), and bot_right()).
+        Tuple[List, List, List, List]: The output of the function is a tuple
+        containing four lists: `top_left`, `top_right`, `bot_left`, and `bot_right`.
 
     """
     if len(a) % 2 != 0 or len(a[0]) % 2 != 0:
@@ -114,18 +117,15 @@ def split_matrix(a: List,) -> Tuple[List, List, List, List]:
  
 def matrix_dimensions(matrix: List) -> Tuple[int, int]:
     """
-    Provides the rows and columns of a matrix based on its 2D list representation
-    as an integer tuple.
+    The function matrix_dimensions takes a list as input and returns a tuple
+    containing the length of the list and the length of each element of the list.
 
     Args:
-        matrix (List): MATRIX IS GIVEN AS INPUT TO THE FUNCTION.
+        matrix (List): Accepts a list as its sole input.
 
     Returns:
-        Tuple[int, int]: The output of the given function is a tuple containing
-        two elements representing the number of rows and the number of columns
-        present matrix . That is:
-        
-        (num_rows , num_cols)
+        Tuple[int, int]: The function returns a tuple containing two integers: the
+        row count and column count of the input matrix.
 
     """
     return len(matrix), len(matrix[0])
@@ -133,13 +133,11 @@ def matrix_dimensions(matrix: List) -> Tuple[int, int]:
  
 def print_matrix(matrix: List) -> None:
     """
-    Print Matrix
-    -----------------
-    Prints elements of the input list.
+    Prints each element of the matrix provided as a list of values.
 
     Args:
-        matrix (List): The `matrix` input parameter provides a list of elements
-            to be printed.
+        matrix (List): The `matrix` input parameter takes a list as an argument
+            and loops through each element of that list using the range() function.
 
     """
     for i in range(len(matrix)):
@@ -148,19 +146,23 @@ def print_matrix(matrix: List) -> None:
  
 def actual_strassen(matrix_a: List, matrix_b: List) -> List:
     """
-    The given function actual_strassen takes two lists as input and returns a list
-    of lists. It divides the matrices into four quadrants using splits and recursively
-    calls itself on each quadrant. After reconstructing the new matrix from these
-    quadrants it returns it.
+    The given function takes two matrices as input and applies the Strassen matrix
+    multiplication algorithm to multiply them. It returns a new matrix that
+    represents the result of the multiplication.
 
     Args:
-        matrix_a (List): The `matrix_a` input parameter is one of two matrix lists
-            being operated on by the Strassen algorithm to calculate matrix multiplication.
-        matrix_b (List): The `matrix_b` parameter is the other matrix being
-            multiplied alongside matrix `a`.
+        matrix_a (List): Of course. Here is the answer to your question:
+            
+            The `matrix_a` input parameter represents the first matrix used for multiplication.
+        matrix_b (List): No problem; here is the answer to your question.
+            
+            The `matrix_b` input parameter represents a matrix that will be used
+            along with `matrix_a` as the other operand for matrix multiplication
+            and additions.
 
     Returns:
-        List: The function returns a list of matrices.
+        List: The output returned by this function is a list of lists representing
+        the matrix.
 
     """
     if matrix_dimensions(matrix_a) == (2, 2):
@@ -193,26 +195,25 @@ def actual_strassen(matrix_a: List, matrix_b: List) -> List:
  
 def strassen(matrix1: List, matrix2: List) -> List:
     """
-    This function strassen multiplies two matrices. If the matrices have different
-    dimensions or size zero or one it raises an exception. It then checks whether
-    the two matrix can be squared and makes them as close as possible square by
-    adding zeros if needed; afterwards , it runs the actual Strassen multiplication
-    function.
+    The given function 'strassen' takes two lists 'matrix1' and 'matrix2' representing
+    matrices of unknown dimension and checks the dimensions for validity before
+    multiplying them using the actual strassen algorithm.  It returns a single
+    list representing the matrix product after removing extra zero elements added
+    during computation
 
     Args:
-        matrix1 (List): The `matrix1` input parameter is passed as the first operand
-            for multiplication by `strassen`, which should have a square 2D list
-            representing a matrix.
-        matrix2 (List): In the `strassen` function given here ,the input
-            `matrix2`parameter is a second list of integers to be multiplied . It
-            is used alongside `matrix1`to perform the matrix multiplication using
-            Strassen's algorithm .The `matrix2`parameter is checked for its
-            dimensions relative to `matrix1`,and an exception is raised if the
-            matrices are not compatible for multiplication.
+        matrix1 (List): Of course. Here is your response with a length under 100
+            words without any repeated text:
+            
+            The input matrix1 to the function serves as one of the two operands
+            to be multiplied using Strassen's algorithm. It is used alongside
+            matrix2 as an iterative part of the multiplication process and contains
+            values to be productized along with the other input.
+        matrix2 (List): The second input parameter matrix2 ( List -> List ) is
+            used as a second operand to multiply by Strassen's algorithm.
 
     Returns:
-        List: The output of this function is a matrix after applying actual
-        Strassen's multiplication on two input matrices.
+        List: The output returned by this function is a list of matrices.
 
     """
     if matrix_dimensions(matrix1)[1] != matrix_dimensions(matrix2)[0]:
