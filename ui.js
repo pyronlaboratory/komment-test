@@ -1,7 +1,20 @@
+function TimersList(msecs, unrefed) {
+  this._idleNext = this; // Create the list with the linkedlist properties to
+  this._idlePrev = this; // prevent any unnecessary hidden class changes.
+  this._unrefed = unrefed;
+  this.msecs = msecs;
+  this.nextTick = false;
+
+  const timer = this._timer = new TimerWrap();
+  timer._list = this;
+
+  if (unrefed === true)
+    timer.unref();
+  timer.start(msecs);
+}
+
 /**
- * @description No problem. Here is your response:
- * 
- * The provided function adds an event listener to a 'play' event of an invisible
+ * @description Adds an event listener to a 'play' event of an invisible
  * video element. The function creates a FaceAPI canvas from the media element and
  * appends it to the body. Next it determines the display size of the video before
  * using FaceAPI to detect faces and expressions. Finally it sets an interval to run
