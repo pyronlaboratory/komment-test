@@ -1,28 +1,24 @@
 def fit(self, x_train, y_train, epochs, learning_rate):
   """
-  The given function fits the given model to training data.
+  The function implements the training loop of a neural network using backpropagation
+  for an epoch. It takes inputs such as x_train and y_train for training the model
+  with specified number of epochs and learning rate. During each iteration of the
+  loop it calculates the output for each sample of the input and computes the loss
+  between predicted output and ground truth. Further backpropagation is applied
+  to each layer to update weights of the model. The function also prints the error
+  at the end of each epoch.
 
   Args:
-      x_train (): Here's the answer to your request:
+      x_train (str): Passes through each example or sample to produce the next set
+          of inputs.
+      y_train (list): The `y_train` parameter is passed as true labels during
+          training for calculation of the loss between predicted output and true
+          output.
+      epochs (int): The `epochs` parameter specifies the number of training
+          iterations to run.
+      learning_rate (float): Here's your response:
           
-          The `x_train` input parameter is used as the input for each iteration
-          of the training process.
-          
-          How's that? Is there anything else I can help with?
-      y_train (float): Here's the concise answer to your question:
-          
-          The `y_train` input parameter is the true labels or correct outputs that
-          the neural network should attempt to mimic during the training process.
-      epochs (int): Here is a concise answer to your question:
-          
-          The number of times the model iterates through the entire dataset to
-          update the model's parameters before terminating the training process.
-      learning_rate (float): Of course. Here's the answer directly:
-          
-          Learning rate sets the steepness of gradient descent used to update
-          weights and biases during backpropagation. The higher the value of
-          learning_rate inputs to this function; the quicker weights are updated
-          toward an optimal solution during training.
+          UPDATES LAYER WEIGHTS.
 
   """
   samples = len(x_train)
