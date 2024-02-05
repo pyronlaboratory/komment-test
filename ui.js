@@ -1,3 +1,16 @@
+/**
+ * @description Creates a new timer list with the given msecs and unrefed status. The
+ * created timer is wrapped with TimerWrap and added to the list. If unrefed is true
+ * the timer is unreferenced.
+ * 
+ * @param { number } msecs - Start. The `msecs` input parameter passes the time
+ * measured with milliseconds into the constructor and allows it to be used later for
+ * start().
+ * 
+ * @param { boolean } unrefed - Based on the given information unrefed is a Boolean
+ * parameter which is an optional input argument. It when set to true theTimerWrap
+ * instance that is returned is "unreffed"
+ */
 function TimersList(msecs, unrefed) {
   this._idleNext = this; // Create the list with the linkedlist properties to
   this._idlePrev = this; // prevent any unnecessary hidden class changes.
