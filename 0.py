@@ -82,18 +82,19 @@ def matrix_subtraction(matrix_a: List, matrix_b: List):
  
 def split_matrix(a: List,) -> Tuple[List, List, List, List]:
     """
-    The provided function `split_matrix` takes an input list `a` and splits it
-    into four separate lists: `top_left`, `top_right`, `bot_left`, and `bot_right`.
-    These lists are constructed by splitting the original list into two halves and
-    then each half into two sub-halves. The function raises an exception if the
-    input matrix is odd or has any non-square element.
+    Given an even-length list of lists (i.e., a matrix), split it into four
+    evenly-divided lists: two of size half the length of the original matrix and
+    two of size the remaining half of the original matrix.
 
     Args:
-        a (List): The input `a` is a list and it gets split into 4 lists as output.
+        a (List): The function takes a single input parameter named `a`, which is
+            a list.
 
     Returns:
-        Tuple[List, List, List, List]: The function split_matrix takes a list as
-        an argument and returns a tuple of four lists.
+        Tuple[List, List, List, List]: Here is the answer to your question:
+        
+        Output: a tuple of four lists -- top left corner (1st matrix), 2nd row
+        (2nd matrix), bottom right corner (3rd matrix), and the 4th column (4th matrix)
 
     """
     if len(a) % 2 != 0 or len(a[0]) % 2 != 0:
