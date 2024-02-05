@@ -1,17 +1,17 @@
-def add(img):
-    """
-    def add(img):
-    Draws a text “99” using the Arial font at the bottom-left corner of the image
-    with red color and saves the modified image as ‘result.jpg’.
+def handleGlobalQuery(self, query):
+  rank_items = []
+  s = query.string.strip()
+  if s:
+    if s.startswith('#'):  # remove hash
+      s = s[1:]
+      if any([len(s) == l for l in [3, 6, 8, 9, 12]]) and all(c in hexdigits for c in s):
+        rank_items.append(
+          RankItem(
+            StandardItem(
+              id=md_id,
+              text=s,
+              subtext="The color for this code.",
+              iconUrls=[f"gen:?background=%23{s}"],
+            ), 1))
 
-    Args:
-        img (): THE INPUT PARAMETER 'IMG' IS PASSING THE IMAGE TO BE WORKED ON TO
-            THIS FUNCTION.
-
-    """
-    draw = ImageDraw.Draw(img)
-    myfont = ImageFont.truetype('C:/windows/fonts/Arial.ttf', size=40)
-    fillcolor = "#ff0000"
-    width, height = img.size
-    draw.text((width-40, 0), '99', font=myfont, fill=fillcolor)
-    img.save('result.jpg','jpeg')
+        return rank_items
