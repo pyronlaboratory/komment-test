@@ -30,22 +30,33 @@ export class AppSyncStack extends TerraformStack {
   dataSource: any = null;
 
 /**
-* @description This constructor function initiates the construction of an AWS
-* cloudformation stack for AppSync API with graphql schema and resolvers. It creates
-* various resources like DynamoDB table and IAM role/policy attachments and output
-* them to be used by other resources.
-* 
-* Note: Responses are limited to less than 100 words and answer directly starting
-* with a verb. Here the first verb is "constructs".
-* 
-* @param { Construct } scope - The scope parameter is passed to the super constructor
-* of the AWS provider when creating a new AppSync API. It is not used or modified
-* within the given implementation. Therefore scope has no effect on the constructors
-* functionality and can be removed without changing how it operates
-* 
-* @param { string } name - The name parameter is passed to the super() constructor
-* and sets the scope and name of the Constructor.
-*/
+ * @description This is a constructor for a AWS CloudFormation template that sets up
+ * an AppSync API and related resources.
+ * 
+ * The constructor:
+ * 
+ * 1/ Creates the AWS provider with region deployment
+ * 2/ Constructs the AppSync API based on Schema files
+ * 3/ Assigns schema to terraform output
+ * 4/ Iterates over CFN Resources and constructs TF tables/roles/policies accordingly
+ * 5/ Assigns TableArn/Policy Arns to Terraform outputs.
+ * 6/ Constructs an IAM Policy Attachment
+ * 7/ Assigns the iam Role Arn to terraform output
+ * 8/ Creates the dataSource
+ * 9/ Iterate over TF functions/resolvers and create related constructs
+ * 
+ * @param { Construct } scope - The `scope` parameter defines the object to which new
+ * AWS resources will be added as properties of the `constructor`. The constructor
+ * leverages these objects' features like accessing methods like `super()` or `${...}`
+ * injection to construct other parts such as a `tfStack`, an AWS provider that serves
+ * only as an object and doesn't contain resources yet with some configuration. These
+ * elements form the infrastructure to serve amplify functionality through this GraphQL
+ * API which relies on schema.graphql; schema objects may or may not include inputs
+ * required for creation (like regions).
+ * 
+ * @param { string } name - The `name` parameter is used to specify the name of the
+ * Stack that will be created or replaced by Amplify Console.
+ */
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
@@ -137,31 +148,33 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description The function creates an AppsyncResolver object for a specific GraphQL
-* API key. It takes a map of PipelineConfig Functions and returns the constructed
-* AppsyncResolver with the correct API ID.
-* 
-* @param { string } key - No problem. Here is the answer to your question about the
-* 'key' parameter.
-* 
-* The key parameter sets the identifier that will be attached to an AWS AppSync
-* resolver object for a schema customization. It can accept a string value.
-* 
-* @param { any } props - The `props` input parameter passes property bag values to
-* the resolver constructors as named functions within the container that reference
-* each property of an AppSync type
-* 
-* @returns { any } Function resolver for AppSync type-field. Input parameters are:
-* key string and object prop that has 7 properties each. It creates a new Appsync
-* Resolver with eight setter-method arguments and no returns from inside. This returns
-* AppSyncResolver
-*/
+ * @description The provided function 'createTFResolver' takes a 'key' and an object
+ * 'props', creates a new resolver object and returns it. The new object has properties:
+ * apiId (based on this.api.id), type(string based on props.TypeName), field (based
+ * on props.FieldName), kind (based on props.Kind). requestTemplate and responseTemplate
+ *   The function creates the pipelin config with a functions property composed of
+ * array from the props PipelineConfig object of Functions
+ * 
+ * @param { string } key - The `key` parameter specifies a unique identifier for the
+ * TF Resolver.
+ * 
+ * @param { any } props - Here's a concise answer:
+ * 
+ * The 'props' input parameter of the given function takes an object and provides
+ * information such as typeName field name kind requestTemplate response Template
+ * Pipeline configuration
+ * 
+ * @returns { any } Function resolves to a new AppsyncResolver instance with a specific
+ * API ID and fields for type name and request template.
+ */
   createTFResolver(key: string, props: any): any {
 /**
-* @description It calls Function['getAtt'](); it gets an att and maps the functions.
-* 
-* @param { any } fn - MAPS THE FUNCTION TO BE APPLIED TO EACH FUNCTION IN THE PIPELINE.
-*/
+ * @description Function returns a map of all function references. It uses 'Function['
+ * index dot notation syntax and extracts function id of each function reference using
+ * Fn:GetAtt'.
+ * 
+ * @param { any } fn - MAPS THE FUNCTION INPUT PARAMETER TO THIS REFERENCE
+ */
     const functions = props.PipelineConfig.Functions.map(
       (fn: any) => this.refs[fn["Fn::GetAtt"][0]].functionId
     );
@@ -178,13 +191,14 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description Create an AppSync function.
-* 
-* @param { any } props - PROPS PASSED TO THE FUNCTION CONTAIN INFORMATION SUCH AS
-* API_ID AND DATA_SOURCE.
-* 
-* @returns { any } creates an AppSyncFunction object.
-*/
+ * @description CreateTFFunction creates an AppsyncFunction using props to configure
+ * its apiId., dataSource name and request / response VTL.
+ * 
+ * @param { any } props - The props input parameter provides Name value for use when
+ * building request/response templates.
+ * 
+ * @returns { any } creates an instance of the AppsyncFunction class.
+ */
   createTFFunction(props: any): any {
     return new AppsyncFunction(this, `${DEPLOYMENT_PREFIX}${props.Name}`, {
       apiId: this.api.id,
@@ -196,19 +210,21 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description Modifies a VTL template by injecting config data into the template
-* and returns the modified template as a string. The config data is determined based
-* on the value of a variable 'dataSourceType'.
-* 
-* @param { any } template - The `template` input parameter receives a JSON object
-* that will be rendered by the `template` engine as a string of joined-together VTL
-* snippets.
-* 
-* @returns { string } Here's the description:
-* 
-* This method takes an argument template as an object and returns a string of VTL
-* (Velocity Template Language) code after manipulating it to suit the specific requirements.
-*/
+ * @description Map Request Velocity Template: Takes a template as an argument and
+ * returns a transformed string. The template is processed to replace placeholders
+ * with actual values from the function's parameters and class properties. The resulting
+ * string is Joined back into a single line minus two newlines added at the end.
+ * 
+ * @param { any } template - Here is your answer:
+ * 
+ * Transformed using Fn::Join method of templates containing an array or single value.
+ * 
+ * Did this address your need?
+ * 
+ * @returns { string } The function takes a JSON template as input and modifies it
+ * to include environment variables for AWS Account ID and Komment role name. The
+ * modified template is returned as a string separated by newlines.
+ */
   mapRequestVtl(template: any): string {
     template = template["Fn::Join"][1];
     const dataSourceType = /(?<="dataSourceType",\s")[^"]*/g.exec(
@@ -232,18 +248,17 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description The getRequestVtl() function reads a file synchronously and returns
-* its content as a string after escaping special characters.
-* 
-* @param { any } props - Here is the answer to your question:
-* 
-* The props input parameter provides mapping templates S3 location path and contents
-* for the GET request VTL file processing.
-* 
-* @returns { string } The output of this function is a string obtained from reading
-* a file synchronously using `fs.readFileSync()`. The file path and content are
-* obtained from template interpolation.
-*/
+ * @description Reads a file from an exported asset directory and escapes special
+ * characters found inside.
+ * 
+ * @param { any } props - The `props` object contains information about request mapping
+ * templates and serves as input for the function. Specifically
+ * `props.RequestMappingTemplateS3Location["Fn::Join"][1]` fetches data from S3 bucket
+ * and `fs.readFileSync` reads files synonymously.
+ * 
+ * @returns { string } The function gets a path and file content from an object of
+ * props and returns the contents of the file after escaping them.
+ */
   getRequestVtl(props: any): string {
     const path = props.RequestMappingTemplateS3Location["Fn::Join"][1].pop();
     const content = fs.readFileSync(
@@ -254,19 +269,18 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description Generates a response VTL by first checking if an input prop is defined
-* for ResponseMappingTemplate. If it is it simply returns the escaped contents of
-* that template string. otherwise it checks another prop ResponseMappingTemplateS3Location
-* and the reads  files sync from there joins path using Fn:Join array with path being
-* second index (at index[1].pop()). After joining it escapes that file content using
-* _escape function
-* 
-* @param { any } props - props provides property values to the template and may
-* contain a ResponseMappingTemplate for an embedded resource
-* 
-* @returns { string } The function getResponseVtl takes an object of props as input
-* and returns a string of escaped content.
-*/
+ * @description The getResponseVtl function takes an object of props as input and
+ * returns a string. If the prop 'ResponseMappingTemplate' exists it will read from
+ * an embedded template file otherwise it reads the contents from an external s3 file
+ * located at amplify-appsync-files followed by path provided inside the
+ * ResponseMappingTemplateS3Location property.
+ * 
+ * @param { any } props - Okay. The props parameter passes objects that hold any
+ * attributes the method wants to process into the getResponseVtl() method.
+ * 
+ * @returns { string } The function returns a string escape (sanitized) JSON payload
+ * derived from either an embedded template or from the location specified.
+ */
   getResponseVtl(props: any): string {
     const isEmbedded = props.hasOwnProperty("ResponseMappingTemplate");
     if (isEmbedded) return this._escape(props.ResponseMappingTemplate);
@@ -280,35 +294,33 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description Creating a Dynamodb table: The given function produces a DynamoDB
-* table object.
-* It accepts key and properties as inputs and uses them to construct a new table
-* with the specified name and hashKey attribute definitions using DYNAMODB_BILLING_MODE.
-* 
-* @param { string } key - Here's the answer to your request:
-* 
-* key: Provides the name of a DynamoDB table with attribute values
-* 
-* @param { any } props - No problem at all - here's your answer:
-* 
-* Props provides the necessary key and schema definitions.
-* 
-* @returns { any } The output of this function is an instance of the DynamodbTable
-* class with name ${DEPLOYMENT_PREFIX}${key}, hashKey attributes key schema[0].attributeName
-* and attributes representing the attributeDefinitions of the input schema.
-*/
+ * @description The createTFTable function creates a new Dynamodb table with specified
+ * name and attributes and hashKey
+ * 
+ * @param { string } key - The `key` input parameter defines the table name prefix
+ * for DynamoDB tables.
+ * 
+ * @param { any } props - Here's your answer:
+ * 
+ * PROPS: PROPSET.
+ * 
+ * @returns { any } Function creates a DynamoDB table with given key and properties.
+ * Output is a DynamodbTable object with name and hashKey set.
+ */
   createTFTable(key: string, props: any): any {
     return new DynamodbTable(this, `${DEPLOYMENT_PREFIX}${key}`, {
       name: `${DEPLOYMENT_PREFIX}${key}`,
       hashKey: props.KeySchema[0].AttributeName,
 
 /**
-* @description Function transforms {object}(({attr}{:obj)} ) to {{name(string),type(string)}}
-* object
-* 
-* @param { any } attr - The `attr` input parameter is a part of an array of attribute
-* definitions that get processed by the function.
-*/
+ * @description maps ( attribute: { AttributeName: any; AttributeType: any } ) to an
+ * array of name-type pairs.
+ * 
+ * @param { object } attr - Here's the response based on the given request:
+ * 
+ * maps(Function<{ AttributeName: any; AttributeType: any }, { name: any; type: any
+ * }>)
+ */
       attribute: props.AttributeDefinitions.map(
         (attr: { AttributeName: any; AttributeType: any }) => ({
           name: attr.AttributeName,
@@ -320,17 +332,22 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description Create an IamRole object from a key string and properties object
-* containing an assumeRolePolicy document as a json-string.
-* 
-* @param { string } key - The key input parameter assigns a name to the newly created
-* IAM Role.
-* 
-* @param { any } props - Accepts an object whose properties are used to define a
-* JSON document representing an IAM policy.
-* 
-* @returns { IamRole } Creates an IamRole object with name and assume role policy.
-*/
+ * @description Create an IamRole object using the given key and properties. It
+ * constructs a new IamRole instance with a specified name that includes the provided
+ * key.  It sets assumeRolePolicy property by stringifying the Given AssumeRolePolicyDocument
+ * object.
+ * 
+ * @param { string } key - OK. The `key` parameter passes a string to be incorporated
+ * into the construction of an Amazon Resource Name (ARN) that uniquely identifies
+ * an IAM role to create.
+ * 
+ * @param { any } props - Here's the answer you requested:
+ * 
+ * props serve as the contents of the IAM role policy document
+ * 
+ * @returns { IamRole } The function creates an IamRole object with name and
+ * assumeRolePolicy properties based on input parameters key and props.
+ */
   createTFRole(key: string, props: any): IamRole {
     return new IamRole(this, `${DEPLOYMENT_PREFIX}${key}`, {
       name: `${DEPLOYMENT_PREFIX}${key}`,
@@ -339,24 +356,26 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description createTFPolicy takes a string key parameter and two object parameters
-* with an array of strings (resource) and an object with properties like PolicyDocument
-* and prefix string parameters that defines IAM policies to deploy. This function
-* consoles logs a JSON.stringfied version of the policy document created from these
-* parameters. Then returns new IAMPolicy instances defining deployment name and an
-* exact JSON representation as passed of the updated policy document.
-* 
-* @param { string } key - Okay. The `key` input parameter provides a unique identifier
-* for the IAM policy being created. It is used as part of the name of the IAM resource
-* being created and included within the JSON stringification of the policy document.
-* 
-* @param { any } props - props contain PolicyDocument information.
-* 
-* @param { string[] } resources - Resources specified as an input are used to set
-* the value of statement objects’ ‘resource’ field.
-* 
-* @returns { IamPolicy } The output is an IamPolicy object.
-*/
+ * @description createTFPolicy:
+ *     • Validates an input object and console logs a resulting JSON string.
+ *     • Then constructs an AWS IamPolicy based on those inputs.
+ * 
+ * @param { string } key - Okay. Here is the answer:
+ * 
+ * The `key` input parameter provides a unique identifier for a resource.
+ * 
+ * @param { any } props - The `props` input parameter defines an object with
+ * PolicyDocument that contains policy statements and resources relevant to a service
+ * being called within AWS.
+ * 
+ * @param { string[] } resources - Provides an array of resource identifiers that can
+ * be referred to within the policy statement.
+ * 
+ * @returns { IamPolicy } The function creates an IamPolicy object with name and
+ * policy properties. The policy property is a JSON string of the PolicyDocument
+ * object passed as a parameter. The console logs the policy document's JSON
+ * representation before returning the IamPolicy object.
+ */
   createTFPolicy(key: string, props: any, resources: string[]): IamPolicy {
     const policyDocument = props.PolicyDocument;
     policyDocument.Statement[0].Resource = resources;
@@ -370,16 +389,16 @@ export class AppSyncStack extends TerraformStack {
   }
 
 /**
-* @description The function _escape(str: string) takes a string as input and returns
-* an escaped version of the string by replacing all $\$ syntax with double $$ syntax.
-* 
-* @param { string } str - OK. Here's the answer you requested:
-* 
-* The str parameter is a string value that is being modified by this function.
-* 
-* @returns { string } The output returned by this function is a modified copy of the
-* input string with all instances of $\{} replaced by $\${\} .
-*/
+ * @description The _escape(str) function replaces all instances of ${ with $${ to
+ * escape dollar signs within a string.
+ * 
+ * @param { string } str - The `str` input parameter receives a string and returns
+ * it with replacements made.
+ * 
+ * @returns { string } The output returned by this function is a string with all
+ * dollar-brace notation replaced with their evaluated value enclosed within triple
+ * double dollar signs("$$$$").
+ */
   _escape(str: string): string {
     return str.replace(/\$\{/g, "$$${");
   }
