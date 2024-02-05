@@ -1,5 +1,11 @@
 @pytest.mark.task(taskno=2)
 def test_get_change(self):
+    """
+    This unit test function takes a list of pairs of tuples as input and executes
+    the "get_change" function on each pair with different parameters and asserts
+    that the result is close to the expected value.
+
+    """
     test_data = [(463000, 5000), (1250, 120), (15000, 1380)]
     result_data = [458000, 1130, 13620]
 
