@@ -16,22 +16,28 @@ from django.conf import settings
 
 def cors_handler(application: ASGI3Application) -> ASGI3Application:
     """
-    The given function is a CORS handler that wraps another ASGI application and
-    handles CORS preflight requests. It determines the origin of the request and
-    adds appropriate CORS headers if the origin is allowed.
+    This function is a CORS handler that processes preflight requests and sets the
+    appropriate headers for allowed origins. It determines the origin of the request
+    and checks if it's among the allowed origins; if so ,it adds the CORS headers
+    to the response and allows the application to proceed with processing the request.
 
     Args:
-        application (ASGI3Application): The `application` input parameter is passed
-            to the `await application(scope ...)` line of code inside the `if
-            scope["method"] == "OPTIONS":` block. Here it is used as a callback
-            function which will be called with the same `Scope` and `ASGIReceiveCallable`
-            object used to call this handler. The return value of this callback
-            function will then be passed as the response body and end the response
-            cycle.
+        application (ASGI3Application): The `application` parameter is the ASGI
+            application to wrap with CORS handling. The wrapped application is
+            passed to the CORS handler as an argument and receives the `Scope`,
+            `Receive`, and `Send` events from the CORS handler.
 
     Returns:
-        ASGI3Application: The output of this function is an ASGI receiver function
-        that handles CORS prefllight requests.
+        ASGI3Application: The function cors_handler takes an application and returns
+        a new ASGI application that handles CORS preflight requests. Here's a
+        concise explanation of what the function does:
+        
+        1/ Determines the origin of the request from the headers.
+        2/ Checks if the origin is allowed by checking against a list of allowed
+        origins.
+        3/ Adds appropriate CORS headers to the response if the origin matches an
+        allowed origin.
+        4/ Forwardes the request to the application and returns the response.
 
     """
     async def cors_wrapper(
@@ -39,29 +45,31 @@ def cors_handler(application: ASGI3Application) -> ASGI3Application:
     ) -> None:
         # handle CORS preflight requests
         """
-        The function cors_wrapper wraps an ASGI application with CORS handling for
-        preflight requests. It determines the origin of the request and adds
-        appropriate CORS headers if the origin is allowed. If the origin is not
-        allowed it responds with a 400 error. The function takes three arguments:
-        scope which contains information about the request such as the headers and
-        the method , receive which is called with each message received from the
-        application and send which sends a response event back to the client
+        This function takes a scope and an ASGI receive and send callable as
+        arguments and serves CORS preflight responses for graphql requests that
+        originate from other domains than the allowed ones
 
         Args:
-            scope (Scope): The `scope` input parameter of the function contains
-                information about the incoming request such as request method
-                request headers and the body and specifies which ASGI application
-                should be called to handle the request.
-            receive (ASGIReceiveCallable): The `receive` parameter is passed to
-                the `send` function whenever an HTTP request is received. It takes
-                an ASGI Receive Event and passes it along to the handler function
-                to be processed.
-            send (ASGISendCallable): The `send` parameter is an ASGI coroutine
-                that receives events of type `http.response.*`, and is called once
-                for each event. It is used to send a response to the client. In
-                this function specifically `send` is used to set headers based on
-                Origin Header received during options method and vary header sent
-                by the server to make further API calls to origin domain work successfully
+            scope (Scope): The `scope` input parameter provides information about
+                the incoming request. It includes headers and other metadata related
+                to the request. The function uses some of this information -
+                specifically the 'Origin' header- to determine whether the request
+                should be handled with CORS. If the Origin header is present and
+                matches one of the allowed origins set up admin configuration ,
+                then appropriate CORS heads are added to the response . otherwise
+                tjje request  is not processed with  CORS.
+            receive (ASGIReceiveCallable): The `receive` parameter is called for
+                every incoming request event to the ASGI application. It takes an
+                `ASGIRecieveEvent` object and returns a promise that resolves with
+                a modified event or void. The `async def cors_wrapper` function
+                captures and modifies the incoming event to handle CORS requests.
+                The receive input's return promise resolves with the original event
+                passed through the handler or a new `HTTPResponseStartEvent` to
+                start an HTTP response with modifications as part of handling CORS
+                preflight requests
+            send (ASGISendCallable): The `send` parameter is an ASGI SendCallable.
+                It is passed the events emitted by the ASGI application and sends
+                them on to the next hop.
 
         """
         if scope["type"] != "http":
@@ -116,14 +124,17 @@ def cors_handler(application: ASGI3Application) -> ASGI3Application:
 
             async def send_with_origin(message: ASGISendEvent) -> None:
                 """
-                Sends a modified HTTP response event with headers that include
-                "access-control-allow-credentials", "access-control-allow-origin"
-                and "vary". The origin match is checked and the vary header is
-                updated accordingly.
+                Sets headers for sending a response based on the given event
+                ASGISendEvent object's message header data to enable access control.
+                  Origin matching based on request_origin variable allows specific
+                response header adding as vary parameter to specify headers that
+                must be presented again
 
                 Args:
-                    message (ASGISendEvent): The `message` input parameter is
-                        passed to the function and its type is `ASGISendEvent`.
+                    message (ASGISendEvent): The `message` parameter is an
+                        `ASGISendEvent` object that contains information about the
+                        HTTP request. The function modifies this object by adding
+                        or modifying headers and then sends it on to the next component.
 
                 """
                 if message["type"] == "http.response.start":
