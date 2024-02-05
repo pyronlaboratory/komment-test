@@ -1,4 +1,4 @@
-getApplicationID: function () {
+const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
   var grAppID = new GlideRecord("cmdb_ci_business_app");
