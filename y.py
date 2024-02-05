@@ -1,8 +1,7 @@
 class Network:
 	def __init__(self):
 		"""
-		Initializes an instance of the class by initializing an empty list of layers and
-		setting loss and loss_prime to None.
+		Initializes the instance variables `layers`, `loss`, and `loss_prime`.
 
 		"""
 		self.layers = []
@@ -12,10 +11,10 @@ class Network:
 	# add layer to network
 	def add(self, layer):
 		"""
-		The function adds a layer to the end of the list of layers contained by the object.
+		Adds a new layer to the end of a list called self.layers.
 
 		Args:
-		    layer (): The layer input parameter is appended to the self.layers list.
+		    layer (): The layer input parameter is appended to the instance attribute layers.
 
 		"""
 		self.layers.append(layer)
@@ -23,14 +22,15 @@ class Network:
 	# set loss to use
 	def use(self, loss, loss_prime):
 		"""
-		Accepts two arguments: 'loss' and 'loss_prime' as instance variables called
-		'self.loss' and 'self.loss_prime'.
+		Here's the verbs you requested. I am unable to change wording:
+		sets self.loss equal to loss and sets self.loss_prime
+		equal to loss_prime
 
 		Args:
-		    loss (): The `loss` input parameter assigns the value of the loss to the
-		        instance variable `self.loss`.
-		    loss_prime (float): The `loss_prime` input parameter sets the primary loss
-		        value for the `use()` method.
+		    loss (float): SETS. The `loss` input parameter sets the value of the `loss`
+		        attribute of the object.
+		    loss_prime (): The `loss_prime` parameter is assigned to the `self.loss_prime`
+		        attribute.
 
 		"""
 		self.loss = loss
@@ -40,40 +40,16 @@ class Network:
 	def predict(self, input_data):
 		# sample dimension first
 		"""
-		Here is the answer to your question.
-		This function takes an input object 'input_data' and then proceeds to:
-		1/) Extract sample size information.
-		2/) Iterate through the input samples by index 'i'.
-		3/) Perform Forward Propagation on the current input for all layers using
-		respective layer objects 'layer.'
-		4/) Save resulting output as part of a larger list called 'result'.
-		5/) Return entirety of list 'result'
+		This function predicts outputs for multiple input samples simultaneously by
+		running a neural network over each sample and returning a list of outputs.
 
 		Args:
-		    input_data (): Here is a response to that. It directly and precisely answers
-		        your questions by using the guidelines that you have given it. Your
-		        comments are included at the bottom of my answer for reference as you requested:
-		        
-		        Define the predict function.
-		        • What does the input_data parameter do?
-		             This function has a single input argument called "input_data" with
-		        no return type. The parameter input_data of type Any will be used to
-		        create a list called result that will consist of values having the
-		        identical type as input_data. A brief explanation follows: Forward
-		        propagation on all provided examples will use each component (e.g.,
-		        weights) once for each instance to calculate its outcome and return an
-		        array of NumPy arrays with shape sample_size X number_of_neurons [3].
-		        When it is completed using a for loop over all input samples i through
-		        range(samples), we call this result-building technique running the network
-		        over all examples.
-		        
-		        References:
+		    input_data (): The `input_data` input parameter is passed over the network
+		        multiple times as each forward propagation occurs.
 
 		Returns:
-		    dict: The output returned by the given function is a list of outputs. Each
-		    output represents the activation values for all layers after running the
-		    forward propagation starting from the input data and progressing through all
-		    the layers of the network.
+		    list: The function returns a list of output values produced by the network
+		    over all input samples.
 
 		"""
 		samples = len(input_data)
@@ -93,22 +69,22 @@ class Network:
 	def fit(self, x_train, y_train, epochs, learning_rate):
 		# sample dimension first
 		"""
-		This function fits a neural network on the given training data for a specified
-		number of epochs using the given learning rate. It computes the average error
-		on all samples after each epoch and prints it.
+		The given function implements the training process of a neural network with an
+		input layer that takes training data X and Y simultaneously using the forward-backward
+		propagation algorithm.
+		It first prints the training progress information every epoch using the computed
+		error and loops for an instance number (sample size) for both training inputs X
+		& Y.
+		In other words; this function trains a neural network.
 
 		Args:
-		    x_train (float): X-train serves as input to the model for training purpose
-		        and passes through all its layers for forward propagation
-		    y_train (float): Here is the answer to your question:
-		        
-		        The `y_train` input parameter passes the correct output for a given input
-		        x.
-		    epochs (int): Here's the answer you requested:
-		        
-		        epochs controls the number of iterations to perform during training.
-		    learning_rate (float): The `learning_rate` parameter is used to control the
-		        step size of each gradient descent update.
+		    x_train (): The `x_train` input parameter is the training dataset.
+		    y_train (float): The `y_train` input parameter is used to compute the loss
+		        during backpropagation and display the error for each training sample.
+		    epochs (int): The `epochs` input parameter controls how many training
+		        iterations are performed. During each iteration the network's weights
+		        are updated after computing the loss.
+		    learning_rate (float): Learning rate determines step-size for backward propagation.
 
 		"""
 		samples = len(x_train)
