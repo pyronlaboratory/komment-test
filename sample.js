@@ -1,3 +1,11 @@
+/**
+* @description retrieves application id from business critical application sysparm_appname
+* parameter.
+* 
+* @returns { string } The output of the getApplicationID() function is a string
+* representing the application ID obtained from a parameter called sysparm_appname
+* and stored within the cmdb_ci_business_app table.
+*/
 const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
