@@ -27,7 +27,7 @@ function TimersList(msecs, unrefed) {
 }
 
 
-function Video(){
+function Vid(){
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
