@@ -1,24 +1,4 @@
-/**
- * @description searches an array for a value starting at the beginning and continues
- * until it finds the value or it is proven that the value cannot be found
- * 
- * @param { array } arr - Here's a crisp concise answer directly answering the question:
- * 
- * Arr serves as an array of comparable values that define search boundaries for
- * values "x".
- * 
- * @param {  } x - X is the element to be searched for within the array of integers.
- * 
- * @param { integer } start - The `start` input parameter specifies the left endpoint
- * of the search interval and is used to begin searching for the specified value.
- * 
- * @param { integer } end - End sets the limit of the search to be performed before
- * a potential recursive call.
- * 
- * @returns { boolean } Function takes an array of integers and a target integer as
- * inputs and searches for the target integer within the array. The output is a boolean
- * value indicating whether or not the target integer was found within the input array.
- */
+
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
