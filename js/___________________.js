@@ -1,8 +1,4 @@
 
-/**
- * @description The provided function `foo()` performs no explicit actions or return
- * values as it is an empty function.
- */
 function foo() {
 }
 
