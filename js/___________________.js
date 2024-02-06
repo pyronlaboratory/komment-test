@@ -1,6 +1,4 @@
-/**
- * @description foo() performs no operations.
- */
+
 function foo() {
 }
 
