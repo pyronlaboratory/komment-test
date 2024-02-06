@@ -1,2 +1,10 @@
-const func = () => console.log("0");
+function foo() {
+}
 
+function foo() {
+    return;
+}
+
+function foo() {
+    return undefined;
+}
