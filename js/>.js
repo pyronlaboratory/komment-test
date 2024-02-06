@@ -47,6 +47,11 @@ jQuery.fn = jQuery.prototype = {
 	length: 0,
 
 
+/**
+* @description
+* 
+* @returns {  }
+*/
 	toArray: function() {
 		return slice.call( this );
 	},
