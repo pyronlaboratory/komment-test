@@ -61,6 +61,15 @@ function Script( editor ) {
 	const title = new UIText().setColor( '#fff' );
 	header.add( title );
 
+	/**
+	 * @description Creating an SVG element with specified dimensions and adding a Path
+	 * element with the given d attribute value and white stroke. The return value is the
+	 * created SVG element.
+	 * 
+	 * @returns {  } The output returned by this function is an SVG element with a specified
+	 * width and height and containing a path element with a specific d attribute value
+	 * and stroke attribute value.
+	 */
 	const buttonSVG = ( function () {
 
 		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
@@ -358,36 +367,76 @@ function Script( editor ) {
 	} );
 
 	codemirror.setOption( 'extraKeys', {
+		/**
+		 * @description The function completes the request on the server.
+		 * 
+		 * @param { object } cm - The input parameter `cm` is completed by the `server`.
+		 */
 		'Ctrl-Space': function ( cm ) {
 
 			server.complete( cm );
 
 		},
+		/**
+		 * @description Displays server information on the client side.
+		 * 
+		 * @param { object } cm - The input parameter `cm` serves to trigger the `server.showType()`
+		 * method and is thereby necessary for proper functionality.
+		 */
 		'Ctrl-I': function ( cm ) {
 
 			server.showType( cm );
 
 		},
+		/**
+		 * @description Displays documentation.
+		 * 
+		 * @param {  } cm - The `cm` input parameter calls the server.showDocs function with
+		 * the passed value.
+		 */
 		'Ctrl-O': function ( cm ) {
 
 			server.showDocs( cm );
 
 		},
+		/**
+		 * @description Jumps to a definition for the specified code module (cm).
+		 * 
+		 * @param { object } cm - The input `cm` jumps to the definition of a server.
+		 */
 		'Alt-.': function ( cm ) {
 
 			server.jumpToDef( cm );
 
 		},
+		/**
+		 * @description The function causes the server to jump backward using the method jumpBack().
+		 * 
+		 * @param { object } cm - The `cm` input parameter calls the server function to jump
+		 * back.
+		 */
 		'Alt-,': function ( cm ) {
 
 			server.jumpBack( cm );
 
 		},
+		/**
+		 * @description The given function renames a cloud material (cm) by calling the
+		 * server.rename() method and passing cm as an argument.
+		 * 
+		 * @param {  } cm - cm is renamed by the server within this function.
+		 */
 		'Ctrl-Q': function ( cm ) {
 
 			server.rename( cm );
 
 		},
+		/**
+		 * @description Selects name of server using the given context manager.
+		 * 
+		 * @param { object } cm - The `cm` input parameter is passed to the `selectName()`
+		 * method of the `server` object.
+		 */
 		'Ctrl-.': function ( cm ) {
 
 			server.selectName( cm );
