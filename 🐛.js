@@ -367,36 +367,83 @@ function Script( editor ) {
 	} );
 
 	codemirror.setOption( 'extraKeys', {
+		/**
+		 * @description The provided JavaScript function completes a server for the given
+		 * content management (CM) context.
+		 * 
+		 * @param {  } cm - The `cm` input parameter is passed to the `server.complete()`
+		 * method to signal that the current multipart/form-data request has been processed
+		 * completely.
+		 */
 		'Ctrl-Space': function ( cm ) {
 
 			server.complete( cm );
 
 		},
+		/**
+		 * @description DISPLAYS TYPE ON SERVER
+		 * 
+		 * This function takes a variable called `cm`, then it displays the value of that
+		 * variable on the server by using the `showType()` function with the same variable
+		 * as an argument.
+		 * 
+		 * @param { object } cm - The input parameter `cm` serves as a context object that
+		 * contains metadata such as command names for internal use by the framework. The
+		 * function shows type based on this input.
+		 */
 		'Ctrl-I': function ( cm ) {
 
 			server.showType( cm );
 
 		},
+		/**
+		 * @description Display documentation pages for the specified context menu (cm).
+		 * 
+		 * @param { object } cm - The input `cm` parameter provides the server with show
+		 * documentation functionality.
+		 */
 		'Ctrl-O': function ( cm ) {
 
 			server.showDocs( cm );
 
 		},
+		/**
+		 * @description The function jumps to the definition of the current module (cm).
+		 * 
+		 * @param {  } cm - The `cm` input parameter jumps the server to the definition of
+		 * the current module.
+		 */
 		'Alt-.': function ( cm ) {
 
 			server.jumpToDef( cm );
 
 		},
+		/**
+		 * @description The function jumps the server back.
+		 * 
+		 * @param { object } cm - The input parameter `cm` jumps the server backward.
+		 */
 		'Alt-,': function ( cm ) {
 
 			server.jumpBack( cm );
 
 		},
+		/**
+		 * @description Renames the server using the content map provided as an argument.
+		 * 
+		 * @param { object } cm - The input parameter `cm` is renamed by the server inside
+		 * the provided function.
+		 */
 		'Ctrl-Q': function ( cm ) {
 
 			server.rename( cm );
 
 		},
+		/**
+		 * @description The given function performs the action of selecting a name on a server.
+		 * 
+		 * @param {  } cm - The `cm` input parameter retrieves the selected name.
+		 */
 		'Ctrl-.': function ( cm ) {
 
 			server.selectName( cm );
