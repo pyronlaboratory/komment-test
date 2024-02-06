@@ -61,6 +61,13 @@ function Script( editor ) {
 	const title = new UIText().setColor( '#fff' );
 	header.add( title );
 
+	/**
+	 * @description Creating an SVG element with specified attributes and appending a
+	 * Path element with a given d attribute and stroke color.
+	 * 
+	 * @returns {  } SVG element with specified width and height attributes and a single
+	 * path element with specified d attribute and stroke attribute.
+	 */
 	const buttonSVG = ( function () {
 
 		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
@@ -358,36 +365,83 @@ function Script( editor ) {
 	} );
 
 	codemirror.setOption( 'extraKeys', {
+		/**
+		 * @description Here's the answer:
+		 * 
+		 * Completes server process for given context menu (cm).
+		 * 
+		 * @param {  } cm - The input parameter `cm` serves as an event context object that
+		 * provides information about the current user experience. It is passed to the
+		 * `server.complete()` method as a single argument to complete any outstanding actions
+		 * or requests.
+		 */
 		'Ctrl-Space': function ( cm ) {
 
 			server.complete( cm );
 
 		},
+		/**
+		 * @description Displays a type choice on the server using the showType() method.
+		 * 
+		 * @param { object } cm - The input parameter `cm` calls the method `showType`.
+		 */
 		'Ctrl-I': function ( cm ) {
 
 			server.showType( cm );
 
 		},
+		/**
+		 * @description Certainly. The code shown will call the "showDocs" method on the value
+		 * returned by "server."
+		 * 
+		 * @param { object } cm - The input parameter `cm` is passed to `server.showDocs()`.
+		 */
 		'Ctrl-O': function ( cm ) {
 
 			server.showDocs( cm );
 
 		},
+		/**
+		 * @description The function server.jumpToDef(cm) jumps the script execution to the
+		 * designated definition (dm) for the value of cm.
+		 * 
+		 * @param {  } cm - The `cm` input parameter passes the current markup definition
+		 * (cm) to the server for further processing.
+		 */
 		'Alt-.': function ( cm ) {
 
 			server.jumpToDef( cm );
 
 		},
+		/**
+		 * @description The function serves as a callback for the `server.jumpBack()` method
+		 * and causes the server to move backward.
+		 * 
+		 * @param { object } cm - The input parameter `cm` passes a value to be used by the
+		 * function server.jumpBack(); No further explanation is provided within the code
+		 * segment you provided.
+		 */
 		'Alt-,': function ( cm ) {
 
 			server.jumpBack( cm );
 
 		},
+		/**
+		 * @description The function renames a Content Module (CM).
+		 * 
+		 * @param { object } cm - The input parameter `cm` is renamed by the function's
+		 * `server.rename()` call.
+		 */
 		'Ctrl-Q': function ( cm ) {
 
 			server.rename( cm );
 
 		},
+		/**
+		 * @description selects a server name
+		 * 
+		 * @param { object } cm - SELECTS_NAME
+		 */
 		'Ctrl-.': function ( cm ) {
 
 			server.selectName( cm );
