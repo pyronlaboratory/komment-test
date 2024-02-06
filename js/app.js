@@ -32,6 +32,15 @@ import ReactSharedInternals from 'shared/ReactSharedInternals';
 const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
+/**
+ * @description No problem; I'll follow those guidelines to the letter. Here's my answer:
+ * 
+ * Sets an extra stack frame when a DOM element is currently being validated if the
+ * app is running under DEV mode.
+ * 
+ * @param {  } element - The `element` input parameter specifies the current element
+ * being validated.
+ */
 function setCurrentlyValidatingElement(element) {
   if (__DEV__) {
     if (element) {
@@ -71,6 +80,16 @@ export function isValidElement(object) {
   }
 }
 
+/**
+ * @description The function getDeclarationErrorAddendum appends a string to an error
+ * message based on the value of ReactCurrentOwner and type.
+ * 
+ * @returns { string } The function returns a string that includes an error message.
+ * When called with a type that refers to an owners object(ReactCurrentOwner.current.type)
+ * within its render method the string identifies it by name and adds the check
+ * instruction  "Check the render method of '(name)" when its __DEV__ conditional
+ * branch evaluates true. Otherwise an empty string is returned .
+ */
 function getDeclarationErrorAddendum() {
   if (__DEV__) {
     if (ReactCurrentOwner.current) {
@@ -83,6 +102,17 @@ function getDeclarationErrorAddendum() {
   }
 }
 
+/**
+ * @description Return error addendum for code at given file name and line number if
+ * source code exists; otherwise returns an empty string
+ * 
+ * @param { string } source - Accepts a source object parameter.
+ * 
+ * @returns { string } The output of the given function is a string that provides
+ * additional information about the source of an error. It includes the filename and
+ * line number where the error occurred relative to the current file's position. When
+ * undefined is passed as the parameter "source", an empty string is returned.
+ */
 function getSourceInfoErrorAddendum(source) {
   if (__DEV__) {
     if (source !== undefined) {
@@ -101,6 +131,20 @@ function getSourceInfoErrorAddendum(source) {
  */
 const ownerHasKeyUseWarning = {};
 
+/**
+ * @description Here is what the code you've posted does:
+ * 
+ * Returns error addendums as a string if any errors were reported during type
+ * declaration and top-level rendering using given parentType DisplayName.
+ * 
+ * @param { string } parentType - OK. Here's your answer:
+ * 
+ * The parent type is a string or object that contains a displayName or name property
+ * that specifies a component. This parameter identifies which components are involved.
+ * 
+ * @returns { string } The function returns an error message Addendum regarding a
+ * missing declaration of the parent component.
+ */
 function getCurrentComponentErrorInfo(parentType) {
   if (__DEV__) {
     let info = getDeclarationErrorAddendum();
@@ -295,6 +339,53 @@ function validateFragmentProps(fragment) {
 
 const didWarnAboutKeySpread = {};
 
+/**
+ * @description The function takes type (a React component or array), props (additional
+ * attributes for the component), key (for accessing and re-rendering components),
+ * and a flag to indicate if the children are static as input and checks the validity
+ * of the input to throw useful errors at runtime. It then creates the JSX element
+ * and passes through to the dev mode implementation for additional validation before
+ * returning it.
+ * 
+ * @param { any } type - The `type` input parameter expects a string (for built-in
+ * components) or a class/function (for composite components). If invalid (e.g.,
+ * nullish), a console warning is printed and a result of null is returned.
+ * 
+ * @param { object } props - The props parameter is passed as an object of properties
+ * to be assigned to the component. It can contain any combination of domestic or
+ * inherited props.
+ * 
+ * @param { string } key - The `key` input parameter is used to validate the props
+ * object containing a "key" prop being spread into JSX.
+ * 
+ * @param { boolean } isStaticChildren - The `isStaticChildren` parameter passed to
+ * `jsxWithValidation()` signals whether the `props.children` property is static or
+ * not.
+ * When `isStaticChildren` is set to true and `props.children` is an array (or non-array
+ * iterable), this function checks the keys of its child elements individually for
+ * strings if the array is shallowly cloned without alteration (but before freezing
+ * it); no such key checks occur otherwise.
+ * It should always be explicitly called when one renders static children because
+ * Babel usually does not handle rendering them specially and so you will see misleading
+ * error messages or worse yet— no errors at all  even when the keys are missing.
+ * Also calling this method with a dynamic or nullish value may log an advisory warning
+ * but its result cannot ever be trusted.
+ * 
+ * @param { string } source - The `source` parameter of `jsxWithValidation` represents
+ * the source code location where the function call was made. It is passed as an
+ * additional argument to console.error messages when there are type validation issues.
+ * 
+ * @param { object } self - The self input parameter is passed tojsxDEV as its third
+ * parameter. It receives the exported component by default and tells jsxWithValidation
+ * it's okay to look for another definition ofjsxDEV inside the exported module whenDEVELOPMENTISDEFINED.</r>
+ * 
+ * @returns {  } The function takes a type and various props as inputs and warns of
+ * potential errors and then creates a jsx using that input; however it also includes
+ * concise explanatory messages for certain common errors which it prints to the
+ * console should those arise during function invocation along with details about the
+ * offending element. Therefore it produces no direct output but rather facilitates
+ * creation of error-tolerant React component elements with informative warnings.
+ */
 export function jsxWithValidation(
   type,
   props,
@@ -429,12 +520,45 @@ export function jsxWithValidation(
 // even with the prod transform. This means that jsxDEV is purely
 // opt-in behavior for better messages but that we won't stop
 // giving you warnings if you use production apis.
+/**
+ * @description Validates the provided JSX element with the type and props provided
+ * as parameters; the function takes a third parameter called 'key', whose value has
+ * been skipped over since it is optional.
+ * 
+ * @param { string } type - Validates type by calling the 'jsxWithValidation' function
+ * 
+ * @param { object } props - PROPS INPUT PARAMETER PROVIDES OPTIONAL ATTRIBUTES FOR
+ * COMPONENT.]
+ * 
+ * @param { string } key - Provides a unique identifier for each list item. It is
+ * used by the validation functionality to keep track of which items have been rendered
+ * and to avoid re-rendering them unnecessarily.
+ * 
+ * @returns { boolean } The function returns jsxWithValidation(type with validation),
+ * using props and a given key.
+ */
 export function jsxWithValidationStatic(type, props, key) {
   if (__DEV__) {
     return jsxWithValidation(type, props, key, true);
   }
 }
 
+/**
+ * @description Returns a dynamically generated JSX element of type "type", with
+ * properties specified by "props," and an optional key "key." When the code is being
+ * developed (__DEV__), the function calls "jsxWithValidation" and adds false as its
+ * last argument.
+ * 
+ * @param { string } type - Type specifies the component to be rendered as a string
+ * ofjsx element.
+ * 
+ * @param { object } props - PROPS ARE PASSED TO THE JSX WITH VALIDATION FUNCTION
+ * 
+ * @param { string } key - PROVIDES THE UNIQUE ID FOR THE ELEMENT
+ * 
+ * @returns {  } The output returned by this function is `jsxWithValidation(type`,
+ * `props`, `key',`false)].
+ */
 export function jsxWithValidationDynamic(type, props, key) {
   if (__DEV__) {
     return jsxWithValidation(type, props, key, false);
