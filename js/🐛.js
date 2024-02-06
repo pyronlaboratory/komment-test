@@ -61,15 +61,6 @@ function Script( editor ) {
 	const title = new UIText().setColor( '#fff' );
 	header.add( title );
 
-	/**
-	 * @description The function creates an SVG element with width and height attributes
-	 * of 32 pixels each and appends a path element to it using the provided d attribute
-	 * and stroke attribute with value #fff. The function then returns the SVG element.
-	 * 
-	 * @returns {  } A new SVG element is created with the attribute "width" set to 32
-	 * and "height" set to 32. Within it a new path element is added whose d attribute
-	 * has the values M 12.056574086888695 ,12.056574086888695 .
-	 */
 	const buttonSVG = ( function () {
 
 		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
