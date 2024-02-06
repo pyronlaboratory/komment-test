@@ -1,4 +1,29 @@
 
+/**
+ * @description SEARCH
+ * The given function searches an array for a specific value and returns true if it
+ * finds one. If the search is unsuccessful then false will be returned. The function
+ * first calculates the midpoint of the specified range (start and end). Then it
+ * determines which subrange contains the desired element by comparing its current
+ * position to the element at that point; it proceeds accordingly to continue narrowing
+ * the search space.
+ * 
+ * @param { array } arr - The input parameter "arr" is the array that is being searched.
+ * 
+ * @param {  } x - X is the element being searched for within the array passed into
+ * this function.
+ * 
+ * @param { number } start - Searches the beginning half of the array.
+ * 
+ * @param { number } end - End is the last index of arr where element is not equal
+ * to x.
+ * 
+ * @returns { boolean } Searches the array for the given value using the midpoint of
+ * the range defined by start and end as a pivot. If the array has multiple occurrences
+ * or no occurrences of the value at all within the specified range. it returns false
+ * otherwise it recursively continues until the condition is met within the searched
+ * range of array.
+ */
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
