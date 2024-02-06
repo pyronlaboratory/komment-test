@@ -5,6 +5,35 @@ import { SetMaterialValueCommand } from './commands/SetMaterialValueCommand.js';
 
 
 
+/**
+* @description This is a code fragment from a THREE.js-related file that sets up an
+* CodeMirror editor for modifying GLSL shader materials and programs.
+* Here is the breakdown of what it does:
+* 
+* • It initializes containers to hold display logic related to Code Mirror below the
+* editors .
+* • Using Signal.connect() it lists onto three signals which are; 'editor cleared',
+*   • 'edit script',  and 'script removed'.
+* • The editScript() method signals' method will call   function every time the
+* shader materials are edited/created with CodeMirror below them; if (currentmode
+* is not null), the material name displayed near code-mirror will update.
+* • If scriptName changes then change modes of editing; setDisplay() value as needed
+* to display relevant material.
+*   • setMode(null), otherwise set mode based on what was passed into it(or a copy
+* from stored previous data); setCodeMirroryOption() sets up option such font size
+* among others.
+* 
+* @param { object } editor - The `editor` input parameter is not used at all inside
+* the ` create Editor` function. It's available as aparameter only within the wider
+* scope of the anonymous self-invoking function (ES5), where it's defined as part
+* of `three.editor`.
+* 
+* @returns {  } The output of this function is a container element that displays an
+* editing interface for shader code using CodeMirror. It sets up event listeners to
+* provide autocompletion and other features for the editor. The container is initially
+* displayed with no content and will be hidden when the script being edited is
+* removed. Additionally this functions returns valid if there were no parsing errors.
+*/
 function Script( editor ) {
 
 	const signals = editor.signals;
