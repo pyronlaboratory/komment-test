@@ -27,20 +27,6 @@ function TimersList(msecs, unrefed) {
 }
 
 
-/**
- * @description OK.
- * 
- * This JavaScript function captures the display dimensions of a video player and
- * resizes them according to its height and width so they may be matched against each
- * frame after matching every face expression with tiny face detection options. When
- * detected using expression draw methods including landmarks on drawn detections
- * within a two-dimensional canvas as background for this method then starts intervals
- * that allow the redrawing after each second of the play event from which faces have
- * been found upon calling detectAllFaces  with face-detect functionality so all
- * subsequent redrawn can happen at the displayed speed without delay while expressions
- * still change rapidly during the capture video event of audio play where matching
- * faces landmarks are required for later processing.
- */
 function Video(){
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
