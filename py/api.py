@@ -1,6 +1,6 @@
 def terminate():
   """
-  The provided function `terminate()` performs the action ofpassing.
+  TERMINATE ENDS THE EXECUTION OF THE PROGRAM IMMEDIATELY.
 
   """
   pass
