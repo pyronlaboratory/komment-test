@@ -166,6 +166,51 @@ function CSSTransition({
   const nodeRef = React.useRef(null);
   const Component = tag;
 
+         /**
+          * @description This element implements a CSSTransition for React. It allows for
+          * smoothing the entering or exiting of a component from or to the DOM by animating
+          * its styling and opacity transitions using CSS keyframe animations. The 'appear'
+          * property is used to define when the transition starts. When unmounted ('removeFromDom'
+          * is true), it sets display to "none."
+          * 
+          * @param { boolean } appear - The `appear` property determines whether the child
+          * node will be hidden at the start of the transition and will then appear when the
+          * transition is complete.
+          * 
+          * @param { object } nodeRef - Passed to the Ref object of the inner component (in
+          * this case the Component with type prop="Div"). Used to reference the root DOM node
+          * of the inner component that will receive event listeners and class toggles during
+          * its lifecycle methods onEnter/onExiting.
+          * 
+          * @param { string } unmountOnExit - Removes the node from the DOM when the component
+          * exits.
+          * 
+          * @param { boolean } in - The `in` property controls whether or not the element is
+          * currently entering or exiting. When `true`, it indicates that the element is
+          * entering and when false it indicates that the element is exiting.
+          * 
+          * @param {  } addEndListener - Adds an event listener to the transitionend event on
+          * the nodeReference.current dom element. When the event is triggered the function
+          * provided as an argument done will be called
+          * 
+          * @param {  } onEnter - The `onEnter` property sets up an event listener on the
+          * `transitionend` event of the DOM element and triggers the provided function when
+          * the transition ends. It also sets the `style.display` property of the element to
+          * `null`.
+          * 
+          * @param {  } onEntering - Removes enterStartClasses and adds enterEndClasses.
+          * 
+          * @param {  } onEntered - Removes class(es).
+          * 
+          * @param {  } onExit - Removes leaveStartClasses.
+          * 
+          * @param {  } onExiting - The onExiting property is called just before the transition
+          * ends and removes classes from the current element using removeClasses() method and
+          * adds the leave end classes using addClass() method.
+          * 
+          * @param {  } onExited - Removes class(es) from the current node and sets its display
+          * property to "none" if removeFromDom is false.
+          */
   return (
     <ReactCSSTransition
       appear={appear}
