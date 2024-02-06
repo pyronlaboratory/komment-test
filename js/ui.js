@@ -27,7 +27,17 @@ function TimersList(msecs, unrefed) {
 }
 
 
-function Vid(){
+/**
+ * @description OK. Here you go.
+ * 
+ * The function adds an event listener to video elements that play and it creates a
+ * canvas element appended onto the body using the canvas context created from the
+ * media element. Next the function calls two face-related detectors and applies a
+ * resizer to resize detections then draws those onto the canvas with a Face Landmark
+ * Detector and then separately Face Expression Detector drawing them to the canvas
+ * twice while clearing out anything previously on it before the latest detection display
+ */
+function Video(){
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
