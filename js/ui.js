@@ -28,16 +28,37 @@ function TimersList(msecs, unrefed) {
 
 
 /**
- * @description OK. Here you go.
+ * @description Here is the function signature:
  * 
- * The function adds an event listener to video elements that play and it creates a
- * canvas element appended onto the body using the canvas context created from the
- * media element. Next the function calls two face-related detectors and applies a
- * resizer to resize detections then draws those onto the canvas with a Face Landmark
- * Detector and then separately Face Expression Detector drawing them to the canvas
- * twice while clearing out anything previously on it before the latest detection display
+ * The function takes no arguments and returns nothing; its execution scope contains
+ * two objects (detections and canvas). With event listeners included that execute
+ * asynchronous tasks after waiting for the end of the specified media type video
+ * playback. When the "play" media event finishes playing on an instance of the HTML5
+ * Media Element named video , a new canvas object will be dynamically appended to
+ * the HTML element of body inside the display and dimensions (that equal those of
+ * the source video )
+ *       face landmarks expressions . Once for the tinyface detections without
+ * constraints of network latency are computed on that media content video instance
+ * to determine all human faces existing simultaneously as possible; and if existences
+ * are found and their resizable sizes including new dimension expressions that also
+ * include information such as x & y coordinates on screen at pixel accurate resolution
+ * matching canvas size which was defined with its parent dimensions - this new list
+ * of these detection s are then drawn onto that freshly appended display canvas with
+ * drawing function from tiny-Face
+ *         drawing these detection(s) resized will clear first existing face-related
+ * markup data . Whenever all possible simultaneously found facial landmark information
+ * ( including
+ *             left pupil ,  right pupil , left eyebrow arch position/orientation etc
+ * ... are expressed for human facial  faces - when they become present. The resulting
+ * detection marker data (pixel size / density accurate for its resized dimensions)
+ * would then be written on display . Then drawn/overlaid ontop the last resized
+ * canvas image which was sized based off parent canvas object bounding rect limits
+ * relative towards parent body (a containing HTML divElement perhaps with style
+ * boundaries of 1080P/ full hd) for a natural image format rendering process
+ * 
+ * Can I clarify any of the functionality within Vid function ?
  */
-function Video(){
+function Vid(){
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
