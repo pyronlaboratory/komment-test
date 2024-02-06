@@ -1,65 +1,116 @@
-import React, { useEffect } from 'react';
-import {
-  Switch,
-  Route,
-  useLocation
-} from 'react-router-dom';
+import React, { useRef, useEffect, useContext } from 'react';
+import { CSSTransition as ReactCSSTransition } from 'react-transition-group';
 
-import './css/style.scss';
+const TransitionContext = React.createContext({
+  parent: {},
+})
 
-import AOS from 'aos';
-import { focusHandling } from 'cruip-js-toolkit';
-
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import Donate from './pages/Donate';
-import ResetPassword from './pages/ResetPassword';
-
-/**
- * @description This component initialization establishes an AOS (Animate on Scrolling)
- * instance.
- * 
- * @returns { Component } Function returns a JSX element built from routes rendered
- * within a Switch component.
- */
-function App() {
-
-  const location = useLocation();
-
+function useIsInitialRender() {
+  const isInitialRender = useRef(true);
   useEffect(() => {
-    AOS.init({
-      once: true,
-      disable: 'phone',
-      duration: 700,
-      easing: 'ease-out-cubic',
-    });
-  });
-
-  useEffect(() => {
-    document.querySelector('html').style.scrollBehavior = 'auto'
-    window.scroll({ top: 0 })
-    document.querySelector('html').style.scrollBehavior = ''
-    focusHandling('outline');
-  }, [location.pathname]); // triggered on route change
-
-  return (
-    <>
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/signin">
-          <SignIn />
-        </Route>
-        <Route path="/donate">
-          <Donate />
-        </Route>
-        <Route path="/reset-password">
-          <ResetPassword />
-        </Route>
-      </Switch>
-    </>
-  );
+    isInitialRender.current = false;
+  }, [])
+  return isInitialRender.current;
 }
 
-export default App;
+function CSSTransition({
+  show,
+  enter = '',
+  enterStart = '',
+  enterEnd = '',
+  leave = '',
+  leaveStart = '',
+  leaveEnd = '',
+  appear,
+  unmountOnExit,
+  tag = 'div',
+  children,
+  ...rest
+}) {
+  const enterClasses = enter.split(' ').filter((s) => s.length);
+  const enterStartClasses = enterStart.split(' ').filter((s) => s.length);
+  const enterEndClasses = enterEnd.split(' ').filter((s) => s.length);
+  const leaveClasses = leave.split(' ').filter((s) => s.length);
+  const leaveStartClasses = leaveStart.split(' ').filter((s) => s.length);
+  const leaveEndClasses = leaveEnd.split(' ').filter((s) => s.length);
+  const removeFromDom = unmountOnExit;
+
+  function addClasses(node, classes) {
+    classes.length && node.classList.add(...classes);
+  }
+
+  function removeClasses(node, classes) {
+    classes.length && node.classList.remove(...classes);
+  }
+
+  const nodeRef = React.useRef(null);
+  const Component = tag;
+
+  return (
+    <ReactCSSTransition
+      appear={appear}
+      nodeRef={nodeRef}
+      unmountOnExit={removeFromDom}
+      in={show}
+      addEndListener={(done) => {
+        nodeRef.current.addEventListener('transitionend', done, false)
+      }}
+      onEnter={() => {
+        if (!removeFromDom) nodeRef.current.style.display = null;
+        addClasses(nodeRef.current, [...enterClasses, ...enterStartClasses])
+      }}
+      onEntering={() => {
+        removeClasses(nodeRef.current, enterStartClasses)
+        addClasses(nodeRef.current, enterEndClasses)
+      }}
+      onEntered={() => {
+        removeClasses(nodeRef.current, [...enterEndClasses, ...enterClasses])
+      }}
+      onExit={() => {
+        addClasses(nodeRef.current, [...leaveClasses, ...leaveStartClasses])
+      }}
+      onExiting={() => {
+        removeClasses(nodeRef.current, leaveStartClasses)
+        addClasses(nodeRef.current, leaveEndClasses)
+      }}
+      onExited={() => {
+        removeClasses(nodeRef.current, [...leaveEndClasses, ...leaveClasses])
+        if (!removeFromDom) nodeRef.current.style.display = 'none';
+      }}
+    >
+      <Component ref={nodeRef} {...rest} style={{ display: !removeFromDom ? 'none': null }}>{children}</Component>
+    </ReactCSSTransition>
+  )
+}
+
+function Transition({ show, appear, ...rest }) {
+  const { parent } = useContext(TransitionContext);
+  const isInitialRender = useIsInitialRender();
+  const isChild = show === undefined;
+
+  if (isChild) {
+    return (
+      <CSSTransition
+        appear={parent.appear || !parent.isInitialRender}
+        show={parent.show}
+        {...rest}
+      />
+    )
+  }
+
+  return (
+    <TransitionContext.Provider
+      value={{
+        parent: {
+          show,
+          isInitialRender,
+          appear,
+        },
+      }}
+    >
+      <CSSTransition appear={appear} show={show} {...rest} />
+    </TransitionContext.Provider>
+  )
+}
+
+export default Transition;
