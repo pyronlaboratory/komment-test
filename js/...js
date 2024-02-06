@@ -19,6 +19,18 @@ const sats = {
 
 const TLEPATH = path.resolve(__dirname, 'TLE');
 
+/**
+ * @description The function loadTLE is a promise-based function that determines if
+ * a satellite's TLE (Two Line Element) exists and is up-to-date. If the TLE does not
+ * exist or is older than one day it will download the latest TLE from
+ * celestrak.org/NORAD/elements/noaa.txt. Once the file is downloaded and saved to
+ * the TLEPATH file location the function returns the TLE file's contents using the
+ * fs.readFileSync() method
+ * 
+ * @returns { string } The `loadTLE()` function returns a promise that resolves with
+ * a string containing the TLE data or rejects with an error if there was an issue
+ * downloading the data.
+ */
 function loadTLE() {
   return new Promise((resolve, reject) => {
     let download = false;
@@ -55,6 +67,50 @@ function loadTLE() {
   });
 }
 
+/**
+ * @description The function takes two arguments: TLE (Two-Line Elements) and qth
+ * (ground track point), and returns an array of passes consisting of information
+ * such as the satellite name( satellite information will not be included when providing
+ * a response here but is contained within the sats object)
+ * Direction( E/W direction based on apex Azimuth)
+ * Frequency( exact or to fixed four decimal places depending upon apexAzimuth
+ * orientation to cardinal directions)
+ * Max Elevation
+ * Start time
+ * and Duration with regard to start of the pass.
+ * The function begins by defining variables necessary for observations at qth based
+ * upon JSpredict capabilities utilized later within its methodology; these include
+ * the list TLELines composed by breaking the user provided string representation
+ * consisting simply ONE \r\n between each line element pair , with a new line
+ * representing Line elements . Next , we check whether current observed line elements
+ * are null before we attempt  observe the next two adjacent lines which follow
+ * suit(taking their place respectively at Index position : i+1) until another pass
+ *   (subsequent line element) remains unobserved by being beyond minimum elevation
+ * required or else maximum duration  allowed per predicted passage passes the upper
+ * limit and continues loop iteration while either still remaining within the former
+ * limits before concluding via array's size . Once having covered both successive
+ * lines if we remain left with leftover array positions containing incomplete observed
+ * information - typically from the starting two original entries given without their
+ * adjacent pairs- whose durations haven’t yet exceeded maximum allowed values per
+ * predicted pass (in milliseconds), the program simply adds that to total calculated
+ * pass duration . Ultimately then returns all collected organized by Satellite names
+ * 
+ * Are there any requests you would like me to address or clarify for this function?
+ * 
+ * @param { string } TLE - TLE (Two Line Elements) is the input parameter that is
+ * expected to be a spacecraft's ephemeris data organized as two line elements separated
+ * by a newline character "\n", providing satellite position information at specified
+ * times.
+ * 
+ * @param { object } qth - The `qth` input parameter specifies the observer location.
+ * 
+ * @returns { object } The output returned by the `getTransits()` function is an array
+ * of passes with information about each satellite pass. Each pass includes satellite
+ * details such as frequency and direction of movement. Additionally it also displays
+ * the countdown timer until the pass starts; apex azimuth when satellite transits
+ * through the horizon (indicating whether satellite is going West or East); start
+ * time and end time for that particular pass with total duration.
+ */
 function getTransits(TLE, qth) {
   const TLELines = TLE.split('\r\n');
   let passes = [];
@@ -151,10 +207,38 @@ function getTransits(TLE, qth) {
   return passes;
 }
 
+/**
+ * @description Lists pass.
+ * 
+ * @param {  } qth - QUERY THAT PARAMETER THERE IS passes.
+ * 
+ * @returns { object } The output returned by this function is a promise of an array
+ * of transits.
+ */
 function listPasses(qth) {
   return loadTLE().then((tle) => getTransits(tle, qth));
 }
 
+/**
+ * @description determinePass returns a single transit event or "false" if there are
+ * no events that pass the minimum elevation angle of the satellites on the ground
+ * station's location qth and starts at startTime
+ * 
+ * @param { array } qth - Qth input parameters serves as a fixed observation point.
+ * It consists of an array with two elements: latitute and longitude.
+ * 
+ * @param { number } startTime - The startTime parameter determines when each pass
+ * ends and begins by telling the jspredict() which moment at which to begin observing
+ * transits from the satellites over the QTH (Quality Tracking H Station). This
+ * parameter sets the boundary for when an observational period will conclude for
+ * each transit; passes will be filtered based on how much elevation the satellite
+ * reached before being declared valid.
+ * 
+ * @returns { object } The function "determinePass" returns a list of passes or false
+ * if no pass is found. The list contains objects with satellite name and maximum
+ * elevation information. The object is ordered based on start time. If no pass is
+ * found within the given start and end times (20 minutes), the function returns "false."
+ */
 function determinePass(qth, startTime) {
   return loadTLE().then((TLE) => {
     const TLELines = TLE.split('\r\n');
@@ -201,6 +285,26 @@ function determinePass(qth, startTime) {
   });
 }
 
+/**
+ * @description It accepts two parameters: pass and height and returns an array of
+ * satellite positions at those locations over the course of 500 milliseconds.
+ * 
+ * @param { object } pass - The `pass` input parameter provides information about
+ * which satellite and line(s) to process within the TLE files loaded via the `loadTLE()`
+ * method.
+ * 
+ * @param { number } height - Height is a parameter that represents the number of
+ * seconds to propagate. It determines how far into the future the satellite positions
+ * are calculated. The function will iteratively add line durations up to the height
+ * provided to obtain multiple positions along the satellite's trajectory over a
+ * specific period.
+ * 
+ * @returns { array } The function "getSatellitePositions" returns an array of arrays
+ * each containing two values (latitude and longitude). These are the predicted
+ * positions of the satellite over time based on its TLE information and the location's
+ * height from Earth's center to its surface. Each inner array represents one prediction
+ * at a single moment based on its time.
+ */
 async function getSatellitePositions(pass, height) {
   const lineDuration = 500;
   const satPositions = [];
