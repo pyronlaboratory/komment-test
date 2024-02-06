@@ -1,3 +1,27 @@
+/**
+ * @description Searches for an element 'x' within a specified portion of an array
+ * 'arr' between elements at indices 'start' and 'end', using a binary search technique
+ * with pivot point as 'mid'. Returns 'true' if the element is found and 'false' otherwise.
+ * 
+ * @param { array } arr - The array to be searched is passed as the `arr` parameter.
+ * 
+ * @param { number } x - SEARCHES FOR AN ELEMENT.
+ * 
+ * @param { number } start - searches the starting index of the array.
+ * 
+ * @param {  } end - Searches the rest of the array starting at mid+1.
+ * 
+ * @returns { boolean } The function takes four parameters: an array `arr`, a value
+ * `x`, a starting index `start`, and an ending index `end`. If the starting index
+ * exceeds the ending index it returns false otherwise it uses the floor method to
+ * find the mid point of the search interval by dividing start and end. It checks if
+ * the element at that position is equal to the given x then it returns true else if
+ * its greater it returns a function that searches till the middle point is found.
+ * Similarly if its less than `x` it recursively calls this function from the index
+ * mid+1 towards ending point . The output returned by this function would be either
+ * true or false as it indicates if element 'x' exists at any position within arr 
+ * between the start and end indices inclusive.
+ */
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
