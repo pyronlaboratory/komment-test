@@ -50,11 +50,7 @@ jQuery.fn = jQuery.prototype = {
 	// The default length of a jQuery object is 0
 	length: 0,
 
-	/**
-	 * @description The function calls slice.call on its this value and returns the result.
-	 * 
-	 * @returns { array } The function returns a slice of itsthis argument.
-	 */
+
 	toArray: function() {
 		return slice.call( this );
 	},
