@@ -26,14 +26,8 @@ function TimersList(msecs, unrefed) {
   timer.start(msecs);
 }
 
-/**
- * @description Adds an event listener to a 'play' event of an invisible
- * video element. The function creates a FaceAPI canvas from the media element and
- * appends it to the body. Next it determines the display size of the video before
- * using FaceAPI to detect faces and expressions. Finally it sets an interval to run
- * those face and expression detections every 100 milliseconds.
- */
-const ui = () => {
+
+() => {
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
     document.body.append(canvas);
