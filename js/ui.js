@@ -27,13 +27,6 @@ function TimersList(msecs, unrefed) {
 }
 
 
-/**
- * @description Okay. Here is the answer to your request:
- * 
- * The Video function adds an event listener to video elements that will detect faces
- * when the 'play' event occurs and then repeatedly draw landmarks and expressions
- * on a canvas at a set interval using the face API library.
- */
 function Video(){
   video.addEventListener("play", () => {
     const canvas = faceapi.createCanvasFromMedia(video);
