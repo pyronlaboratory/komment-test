@@ -51,6 +51,20 @@ jQuery.fn = jQuery.prototype = {
 	length: 0,
 
 
+/**
+* @description This function takes the `this` context (usually an object or a
+* prototype) and returns an array with all its properties using the `slice()` method.
+* 
+* @returns { array } The `toArray` function returns an array with all the elements
+* of the object.
+* 
+* The function uses `slice.call(this)` to convert the object into an array.
+* `slice.call(object)` returns a new array containing all the own enumerable property
+* values of `object`.
+* 
+* Therefore the output returned by this function is an array of all the elements of
+* the object.
+*/
 	toArray: function() {
 		return slice.call( this );
 	},
