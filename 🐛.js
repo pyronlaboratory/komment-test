@@ -6,34 +6,44 @@ import { SetMaterialValueCommand } from './commands/SetMaterialValueCommand.js';
 
 
 /**
-* @description This is a code fragment from a THREE.js-related file that sets up an
-* CodeMirror editor for modifying GLSL shader materials and programs.
-* Here is the breakdown of what it does:
-* 
-* • It initializes containers to hold display logic related to Code Mirror below the
-* editors .
-* • Using Signal.connect() it lists onto three signals which are; 'editor cleared',
-*   • 'edit script',  and 'script removed'.
-* • The editScript() method signals' method will call   function every time the
-* shader materials are edited/created with CodeMirror below them; if (currentmode
-* is not null), the material name displayed near code-mirror will update.
-* • If scriptName changes then change modes of editing; setDisplay() value as needed
-* to display relevant material.
-*   • setMode(null), otherwise set mode based on what was passed into it(or a copy
-* from stored previous data); setCodeMirroryOption() sets up option such font size
-* among others.
-* 
-* @param { object } editor - The `editor` input parameter is not used at all inside
-* the ` create Editor` function. It's available as aparameter only within the wider
-* scope of the anonymous self-invoking function (ES5), where it's defined as part
-* of `three.editor`.
-* 
-* @returns {  } The output of this function is a container element that displays an
-* editing interface for shader code using CodeMirror. It sets up event listeners to
-* provide autocompletion and other features for the editor. The container is initially
-* displayed with no content and will be hidden when the script being edited is
-* removed. Additionally this functions returns valid if there were no parsing errors.
-*/
+ * @description This function creates a code mirror editor for Material Property
+ * editing and other GLSL shaders parameters on a Three.js scene item and event signal
+ * listener connected. When the user double-clicks an object (either scene.item)
+ * material component or shader display property button ,  a prompt displays at the
+ * bottom of the threejs canvas (DOM Container element is set to visible display
+ * none), to create / edit and parameter
+ * shaders for the chosen  object using auto completion using esprima parse method
+ * or glsl parsed validated shader errors messages output on codemirror messages error
+ * lines range widget display with highlight. After this feature function adds three
+ * key events , cursoractivity for updated hinting at each word entry by user for
+ * GLSL arguments and  completion list preview using a TernJS autocompletion server
+ * connected. On finish edit ( double clicking  outside or on another element of the
+ * Three.js scene to focus and reset canvas DOM) it updates materials properties names
+ * with values displayed on mouseover above and also accepts the modified parameter
+ * GL slang scripts  as uniforms define to 3.js materials property when Save button
+ * clicked( saved edited code script is material Property of selected item  being
+ * removed after button action click). The removed scripts will not work . Finally
+ * scene item has  listeners on property remore which displays error lines for the
+ * given material property shaders with source highlight error messages near those 
+ * parts.
+ * 
+ * @param { object } editor - The `editor` input parameter is used to set the content
+ * of the text editor component and should be a string containing the code to be
+ * executed or an array of lines.
+ * 
+ * @returns {  } This is a callback function that generates a UI editor component for
+ * modifying Material objects with THREE.JS. It creates a DOM element and styles it
+ * for rendering code editor UI; initializes CodeMirror for editing GLSL/Javascript
+ * scripts used by material definitions; adds listener functions for editor activities
+ * (e.g., completion suggestions when Ctrl + Space is pressed); enables autocomplete
+ * suggestions when typing glsl/javascript words; shows hints related to currently
+ * edited function or parameter definition on cursor activity events; clears existing
+ * history and settings on script removals (based on input param signals);  Finally
+ * displays a Material UI preview. The output would be the rendered UI elements of
+ * code editor section plus supporting functionality  e.g., script naming information
+ * title display etc . In other words all needed components form THREE point material's
+ * code-oriented interface and live prview feed.
+ */
 function Script( editor ) {
 
 	const signals = editor.signals;
@@ -51,6 +61,15 @@ function Script( editor ) {
 	const title = new UIText().setColor( '#fff' );
 	header.add( title );
 
+	/**
+	 * @description The function creates an SVG element with width and height attributes
+	 * of 32 pixels each and appends a path element to it using the provided d attribute
+	 * and stroke attribute with value #fff. The function then returns the SVG element.
+	 * 
+	 * @returns {  } A new SVG element is created with the attribute "width" set to 32
+	 * and "height" set to 32. Within it a new path element is added whose d attribute
+	 * has the values M 12.056574086888695 ,12.056574086888695 .
+	 */
 	const buttonSVG = ( function () {
 
 		const svg = document.createElementNS( 'http://www.w3.org/2000/svg', 'svg' );
