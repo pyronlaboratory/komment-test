@@ -15,6 +15,13 @@ import SignIn from './pages/SignIn';
 import Donate from './pages/Donate';
 import ResetPassword from './pages/ResetPassword';
 
+/**
+ * @description This component initialization establishes an AOS (Animate on Scrolling)
+ * instance.
+ * 
+ * @returns { Component } Function returns a JSX element built from routes rendered
+ * within a Switch component.
+ */
 function App() {
 
   const location = useLocation();
