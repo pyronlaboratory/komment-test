@@ -15,6 +15,15 @@ import { DOMEval } from "./core/DOMEval.js";
 
 var version = "@VERSION",
   rhtmlSuffix = /HTML$/i,
+           /**
+            * @description SELECTOR AND CONTEXT GIVEN FUNCTION execution
+            * 
+            * @param {  } selector - SELECTOR PROVIDES THE QUERY ALLOWING ACCESS TO OBJECT(S).
+            * 
+            * @param { object } context - The `context` input parameter provides an object that
+            * supplies information about the current rendering pipeline and enables access to
+            * certain aspects of the framework from within the handler.
+            */
   jQuery = function (selector, context) {};
 
 jQuery.fn = jQuery.prototype = {
@@ -26,6 +35,12 @@ jQuery.fn = jQuery.prototype = {
   // The default length of a jQuery object is 0
   length: 0,
 
+  /**
+   * @description The given function slice calls the current object.
+   * 
+   * @returns { array } The output returned by this function is an array formed from
+   * the current element of this object.
+   */
   toArray: function () {
     return slice.call(this);
   },
@@ -615,6 +630,26 @@ jQuery.extend({
     return first;
   },
 
+  /**
+   * @description Finds elements within an array that do not meet a provided validation
+   * function criteria and saves them into a separate array.
+   * 
+   * @param { array } elems - Elems is the array to iterate through and apply the
+   * provided callback function to each item.
+   * 
+   * @param {  } callback - The `callback` input parameter takes an item from the `elems`
+   * array and an index of that item and calls the provided function on those parameters
+   * to determine if it passes a certain test (a true return value means it doesn't
+   * pass). If the test fails (i.e., a false return value), the item is added to the
+   * resulting `matches` array.
+   * 
+   * @param { boolean } invert - Inverts the logic of the validation function. When set
+   * to true and a item doesn't pass validation the it will be included instead of excluded.
+   * 
+   * @returns { array } Function takes an array of elements and a callback function as
+   * arguments. It then returns an array of only those elements that pass the validator
+   * function provided.
+   */
   grep: function (elems, callback, invert) {
     var callbackInverse,
       matches = [],
@@ -635,6 +670,26 @@ jQuery.extend({
   },
 
 
+  /**
+   * @description Translates each of the items to their new values and flattens any
+   * nested arrays.
+   * 
+   * @param { object } elems - Elems is an array-like object or a plain object that the
+   * function processes.
+   * 
+   * @param { any } callback - Certainly. Here is your answer:
+   * 
+   * Callback takes two parameters and returns a value.
+   * 
+   * @param { object } arg - OK. Here is your answer:
+   * 
+   * The input parameter 'arg' supplies a supplemental value to each element passed
+   * into the function.
+   * 
+   * @returns { array } The function takes an array or object and applies a provided
+   * callback function to each element. It then returns a flattened array of values
+   * returned by the callback functions.
+   */
   map: function (elems, callback, arg) {
     var length,
       value,
