@@ -1,20 +1,7 @@
 package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
-/**
- * This function implements the `size()` method for a doubly linked list class. It
- * iterates through the list using two nested loops and counts the number of non-null
- * elements. The outer loop increments a count variable for each non-null element
- * found; when the count reaches Integer.MAX_VALUE (i.e., 2^31), the loop exits with
- * the return value equal to the current count. The inner loop continuously jumps
- * back to the head of the list whenever it encounters a null pointer.
- * 
- * @returns This function returns the number of nodes (elements)in a circularly linked
- * list. The list has no separate "size" field and size must be retrieved using this
- * function .It returns the number of elements present. In other words ,it is a
- * O(1)time complexity function since the time taken remains constant irrespective
- * of list's size.
- */
+
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
