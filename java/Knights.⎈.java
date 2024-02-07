@@ -2,6 +2,20 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
+/**
+ * This function implements the size function for a singly linked list. It loops
+ * through all the nodes of the list and returns the number of non-null elements
+ * found. If there are too many non-null elements (i.e., Integer.MAX_VALUE), it breaks
+ * out of the loop and returns that count.
+ * 
+ * @returns This is a function that returns the size of a singly-linked list. It does
+ * so by iterating through the list and keeping count of the number of nodes it visits
+ * before encountering a null reference. The maximum value of an int (2^31 - 1) is
+ * used as a limit to the number of iterations. If this value is reached without
+ * encountering a null reference after that point , it means the list is empty because
+ * the head of the list must be null after iterating through the list n times(n =
+ * INT_MAX). Thus it returns n if there is a list and 0 if there isn't any list.
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
