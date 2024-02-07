@@ -25,21 +25,7 @@ public class IIRFilter {
         historyY = new double[order];
     }
 
-    /**
-     * This function sets the coefficients of a linear convolution kernel using two double
-     * arrays `aCoeffs` and `bCoeffs`. It throws an exception if either array is the wrong
-     * length or if the first element of `aCoeffs` is zero. Otherwise it sets the elements
-     * of the internal coefficient arrays `coeffsA` and `coeffsB` to the corresponding
-     * elements of `aCoeffs` and `bCoeffs`.
-     * 
-     * @param aCoeffs The `aCoeffs` input parameter is an array of doubles that contains
-     * the coefficients of the polyotic equation's leading polynomial. It is used to set
-     * the values of the `coeffsA` array.
-     * 
-     * @param bCoeffs The `bCoeffs` input parameter is used to set the second set of
-     * coefficients (b) for the polynomials. It has the same length as the `aCoeffs` array
-     * and must also have order equal to the specified `order`.
-     */
+    
     public void setCoeffs(double[] aCoeffs, double[] bCoeffs) throws IllegalArgumentException {
         if (aCoeffs.length != order) {
             throw new IllegalArgumentException("aCoeffs must be of size " + order + ", got " + aCoeffs.length);
