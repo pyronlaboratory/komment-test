@@ -29,6 +29,17 @@ var version = "@VERSION",
 										 * @returns {  } The output returned by this function is a newly constructed jQuery
 										 * object.
 										 */
+										/**
+										 * @description The function initiates the jQuery constructor with a given selector
+										 * and context. It returns an enhanced jQuery object ready to be used.
+										 * 
+										 * @param { string } selector - SELECTS ELEMENTS OR NODES FOR PROCESSING.
+										 * 
+										 * @param { object } context - Context is used as the initialization context for
+										 * plugin methods.
+										 * 
+										 * @returns { object } The function generates a new jQuery object.
+										 */
 	jQuery = function( selector, context ) {
 
 		// The jQuery object is actually just the init constructor 'enhanced'
