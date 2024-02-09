@@ -32,16 +32,9 @@ import ReactSharedInternals from 'shared/ReactSharedInternals';
 const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
-/**
- * @description No problem; I'll follow those guidelines to the letter. Here's my answer:
- * 
- * Sets an extra stack frame when a DOM element is currently being validated if the
- * app is running under DEV mode.
- * 
- * @param {  } element - The `element` input parameter specifies the current element
- * being validated.
- */
+
 function setCurrentlyValidatingElement(element) {
+  
   if (__DEV__) {
     if (element) {
       const owner = element._owner;
