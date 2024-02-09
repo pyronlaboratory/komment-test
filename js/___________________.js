@@ -1,3 +1,7 @@
+/**
+ * @description Nothing. The function is empty and does not perform any action or
+ * have any effect.
+ */
 function foo() {
 }
 
