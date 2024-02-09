@@ -33,22 +33,6 @@ const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
 
-/**
- * @description This function sets an extra stack frame with information about the
- * currently validating element during development (__DEV__), providing insight into
- * the type of unknown elements and their sources. When there is no current validating
- * element(element == null), the function clears the extra stack frame.
- * 
- * @param {  } element - In this function's context., the input `element` variable
- * functions as an optionally passed reference to an element; if none is passed to
- * this function as a parameter and thus `element === null`, React's current "extra"
- * stack frame is explicitly set to null; otherwise this function utilizes the value
- * of this elements' type property by calling describeUnknownElementTypeFrameInDEV
- * with this data (a callable method created at some earlier point); there is no
- * return from this setCurrentlyValidatingElement method; thus one can surmise its
- * main purpose (in a dev-friendly setting) allows devs to conveniently track "extra"
- * frames of a specific stack trace kind related only to React components while developing
- */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
