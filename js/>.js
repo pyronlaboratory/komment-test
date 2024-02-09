@@ -29,6 +29,32 @@ var version = "@VERSION",
 										 * @returns {  } The output returned by this function is a newly constructed jQuery
 										 * object.
 										 */
+										/**
+										 * @description This function creates a new jQuery object using the specified "selector"
+										 * and "context". It is essentially an enhancement of the jQuery initialization method
+										 * and allows errors to be thrown if jQuery has not been included.
+										 * 
+										 * @param { string } selector - The input `selector` param inside this function is
+										 * passed as an identifier for a jQuery selection (of elements to perform jQuery
+										 * methods upon). Essentially what you want to select.
+										 * 
+										 * @param { object } context - The second function argument `context` provides the
+										 * jQuery framework with a node (element) to search from when performing jQuery
+										 * functions on elements matching the passed selector; meaning that searching starts
+										 * within the element pointed at by context and progresses outward from there until
+										 * it finds an appropriate match for the query. This way more specific or exact
+										 * targeting of results is enabled within complex DOM hierarchies where a variety of
+										 * relevant elements may reside elsewhere throughout the DOM apart from just straight
+										 * root-level pages element selections etc
+										 * 
+										 * @returns { object } This function takes two parameters - 'selector' and 'context',
+										 * and returns an object constructed using the jQuery init constructor (i.e.,
+										 * jQuery.fn.init()). In other words a new instance of the jQuery object is created
+										 * using the provided arguments which can be a string (the selector) or a DOM element(s)
+										 * as the context and it will be returned as a wrapped jQuery object. This means that
+										 * any operation performed on this newly formed jQuery object would have access to
+										 * the extensive collection of methods and features included with the library.
+										 */
 	jQuery = function( selector, context ) {
 
 		// The jQuery object is actually just the init constructor 'enhanced'
