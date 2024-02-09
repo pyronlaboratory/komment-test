@@ -1,5 +1,9 @@
 
 
+/**
+ * @description Nothing; the function doesn't do anything because it doesn't contain
+ * any code.
+ */
 function foo() {
 }
 
