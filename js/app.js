@@ -34,9 +34,17 @@ const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
 
 /**
- * @description
+ * @description This function sets the current validation element based on development
+ * environment and conditionally records the type of element with its corresponding
+ * source location into an extra stack frame for debugging purposes.
  * 
- * @param {  } element -
+ * @param {  } element - In this specific function context， the `element` input does
+ * two things:
+ * 
+ * 1) If no element is provided as an input to setCurrentlyValidatingElement function
+ * then setExtraStackFrame null
+ * 
+ * 2)If an element is provided setExtraStackFrame with information regarding it
  */
 function setCurrentlyValidatingElement(element) {
   
