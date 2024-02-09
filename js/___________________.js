@@ -1,6 +1,4 @@
-/**
- * @description foo Function Provides No Specific Behavior When Called Empty
- */
+
 function foo() {
 }
 
