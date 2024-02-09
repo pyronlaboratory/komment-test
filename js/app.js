@@ -33,6 +33,11 @@ const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
 
+/**
+ * @description
+ * 
+ * @param {  } element -
+ */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
