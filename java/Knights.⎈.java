@@ -3,6 +3,24 @@ import java.util.*;
 public class KnightsTour {
 
     
+/**
+ * This function calculates the size of a circularly-linked list. It iterates through
+ * every node and returns the number of nodes (excluding null values).
+ * 
+ * @returns This is an infinite loop that checks the size of a LinkedList (presumably
+ * implementation-defined).
+ * 
+ * The function returns the value of count after traversing all the elements (if there
+ * are any). Specifically:
+ * 
+ * 	- If no nodes are found (i.e., first() == null), the return value is 0.
+ * 
+ * If there are one or more nodes (even if we stop early), count matches the number
+ * of nodes encountered before encountering a null item.
+ * 
+ * To make this description even more concise: size() counts and returns the number
+ * of non-null elements seen during iteration through all nodes.
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
@@ -31,6 +49,20 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
+    /**
+     * This is a program for a Minecraft game. The given code sets the board dimensions
+     * as an array of integers where -1 indicates empty cells and 1 indicates cells filled
+     * with gold Ores. The main function selects two random positions on the board to
+     * place gold ores by generating random row and column numbers within bounds (2 and
+     * base-3). Finally , it determines whether the randomly placed gold ore intersects
+     * with the starting points of other connected ores . If it does  print a message
+     * indicating this ; otherwise  says that there was no result.
+     * 
+     * @param args Nothing. There are no arguments passed to the main function here. The
+     * `main` method signature is `public static void main(String[] args)`. The String
+     * array `args` is never used or referenced within the function body. Therefore the
+     * `args` parameter serves no purpose and can be omitted altogether as is done here.
+     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
