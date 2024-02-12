@@ -2,21 +2,6 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
-/**
- * This is a `Size` implementation for an interface `Collection`. It iterates through
- * all the nodes of the collection by restarting from the beginning when the maximum
- * integer value is reached and returning the number of non-null items.
- * 
- * @returns This is a method that computes and returns the size of a list (in terms
- * of the number of elements it contains) as defined by the `List` interface. The
- * method is implemented iteratively using a for loop and continues till the end of
- * the list. If the count of non-null elements reaches `Integer.MAX_VALUE`, it means
- * the list is unbounded and the method returns that count without breaking the loop.
- * In other words there's no fixed maximum size and therefore this method does not
- * impose any upper limit on the size of a List implementor and allows lists with any
- * size (subject to VM limitations). This function's output is the size of the input
- * list which might be unbounded
- */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
