@@ -2,6 +2,26 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
+/**
+ * This is a version of the recursive function "size" implemented on a simple singly
+ * linked list class with a generic type parameter E (representing the type of elements
+ * stored). Here's what the function does:
+ * 1/ For as long as necessary: restart the loop if we've already reached the max
+ * value of integer
+ * 2/ Loop until the current Node is null
+ * 3/ Check to see if the node has data
+ * 4/ Return count of the loop
+ * 
+ * @returns The size of this queue will always be a very large integer like
+ * Integer.MAX_VALUE. There can be many items queued up so the number of nodes will
+ * likely be a huge integer which effectively exceeds MaxValue or Integer.MAX_VALUE
+ * . Therefore there is an infinite loop here forever iterating on 'restartFromHead'.
+ * As such no output/function result value would ever exit the for() loop below and
+ * so no actual usable function output ever returns.  The practical net effect would
+ * likely cause an OEL(OutOfMemoryError Limit) if the input Queue became too big since
+ * an infinite loop is not tenable without that occurrence especially during a node
+ * loop when iterating all possible items from first().
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
@@ -30,6 +50,16 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
+    /**
+     * This is a Function for the n-puzzle. Given a two dimensional array of size base x
+     * base representing the state of the puzzle where the numbers -1 and 1 are used to
+     * represent empty space and occupied space. The function solves the puzzle by iterating
+     * over the matrix finding a starting state of only 1's and 0's randomly placed on a
+     * cell that is neither the top-left corner nor the bottom-right corner.
+     * 
+     * @param args Nothing. There are no argument passed to the main method since the
+     * parameters are all set to void.
+     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
