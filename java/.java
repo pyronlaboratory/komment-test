@@ -13,6 +13,10 @@ class $ {
         }
     }
 
+    /**
+     * The `printDummies` function prints out the elements of an integer array called
+     * "numbers" to the console.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
