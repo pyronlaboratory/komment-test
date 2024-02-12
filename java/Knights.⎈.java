@@ -2,18 +2,6 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
-/**
- * This function is the `size()` method of an undated linked list. It uses a manual
- * loop to count all the non-null nodes and returns the count.
- * 
- * @returns The function is a recursive version of size().  It returns the number of
- * nodes present at any given time point. The for loop inside it first counts all
- * items. If the count reaches maximum allowed by Java (2 GB approx) during traversal
- * through list then method breaks out and return what has been counted before the
- * break occurred i.e only part of the list is accounted for . Restart logic ensures
- * that rest of the list nodes are also visited if less than Maximum limit count.
- * Hence output depends on size of list passed into function
- */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
