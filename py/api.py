@@ -1,2 +1,2 @@
 def terminate():
-  pass
+  return True
