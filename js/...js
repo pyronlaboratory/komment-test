@@ -68343,26 +68343,6 @@ function determinePass(qth, startTime) {
   });
 }
 
-/**
- * @description It accepts two parameters: pass and height and returns an array of
- * satellite positions at those locations over the course of 500 milliseconds.
- * 
- * @param { object } pass - The `pass` input parameter provides information about
- * which satellite and line(s) to process within the TLE files loaded via the `loadTLE()`
- * method.
- * 
- * @param { number } height - Height is a parameter that represents the number of
- * seconds to propagate. It determines how far into the future the satellite positions
- * are calculated. The function will iteratively add line durations up to the height
- * provided to obtain multiple positions along the satellite's trajectory over a
- * specific period.
- * 
- * @returns { array } The function "getSatellitePositions" returns an array of arrays
- * each containing two values (latitude and longitude). These are the predicted
- * positions of the satellite over time based on its TLE information and the location's
- * height from Earth's center to its surface. Each inner array represents one prediction
- * at a single moment based on its time.
- */
 async function getSatellitePositions(pass, height) {
   const lineDuration = 500;
   const satPositions = [];
