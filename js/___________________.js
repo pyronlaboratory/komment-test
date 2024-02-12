@@ -1,7 +1,5 @@
 
-/**
- * @description Nothing; it has no effects and does not return anything.
- */
+
 function foo() {
 }
 /**
