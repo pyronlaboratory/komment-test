@@ -1,4 +1,8 @@
 
+/**
+ * @description Nothing; it does nothing. The function has no instructions or statements
+ * and simply exists as an empty shell.
+ */
 function foo() {
 }
 
