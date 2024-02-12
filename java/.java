@@ -2,7 +2,6 @@ class $ {
     {
         System.out.println("hello world");
     }
-    
     static {
         System.out.println("hello, too");
     }
