@@ -14,6 +14,10 @@ class $ {
     }
 
 
+    /**
+     * This function takes an arbitrary type list of objects as input and then prints out
+     * each object inside the list one by one using the `System.out.println()` method.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);

@@ -48,6 +48,17 @@ public class UserInfo {
   @SerializedName(SERIALIZED_NAME_USERNAME)
   private String username;
 
+  /**
+   * This function takes a map of string lists and assigns it to the "extra" attribute
+   * of the UserInfo object.
+   * 
+   * @param extra The `extra` parameter is a Map of Strings to lists of strings that
+   * is passed into the `extra()` method. It allows for the function to receive additional
+   * information about the user that can be stored and accessed later.
+   * 
+   * @returns The output returned by the `extra()` method is an object of type `UserInfo`
+   * with an additional field named `extra`, which is a map of string lists.
+   */
   public UserInfo extra(Map<String, List<String>> extra) {
 
     this.extra = extra;
