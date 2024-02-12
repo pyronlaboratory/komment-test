@@ -14,10 +14,6 @@ class $ {
     }
 
 
-    /**
-     * The function `printDumbers` takes a list of integers (`List<Integer> dumbers`) as
-     * input and prints each integer out to the console using `System.out.println(number)`.
-     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
