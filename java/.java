@@ -13,6 +13,10 @@ class $ {
             break http;
         }
     }
+    /**
+     * This function takes an array of integers as input and prints each integer inside
+     * the array to the console one by one.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
