@@ -2,6 +2,23 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
+/**
+ * This is an implementation of the `size()` method for a generic resizable doubly-linked
+ * list data structure. It uses a iterative approach to count the number of nodes
+ * (i.e., elements) storedin the list and returns that count. Specifically it iterates
+ * through the list from its head until no more nodes are available or the current
+ * count exceeds the maximum value allowed by `Integer.MAX_VALUE`, returning the
+ * count. If the maximum value is exceeded the method restarts its iterations.
+ * 
+ * @returns The size function calculates and returns an int value representing the
+ * count or the number of nodes (reached via subsequent next pointers). This means
+ * that any Node elements having a value of null will not affect the calculated count;
+ * the loop iterates to the extent needed until reaching Integer.MAX_VALUE and finally
+ * returns the count just before the loop breaks out; otherwise  the function
+ * reinitializes count =0 and goes ahead to traverse ( first -> next) of each Node(except
+ * the very first one), then breaking out the second loop after returning a suitable
+ * int value -size of collection represented.
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
