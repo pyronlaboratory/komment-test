@@ -30,17 +30,6 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
-    /**
-     * This function creates a randomized maze (a grid of size base x base) where some
-     * cells are filled with walls (-1) and some with a goal (1). It then randomly selects
-     * a start cell and tries to find a path from that cell to all remaining empty cells
-     * by recursively exploring adjacent cells and keeping track of which cells have been
-     * visited. If it finds a solution (all empty cells reachable from the start), it
-     * prints the solution.
-     * 
-     * @param args The `args` input parameter is not used anywhere inside the function.
-     * It is simply ignored. The function takes no command-line arguments.
-     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
