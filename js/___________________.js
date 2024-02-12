@@ -1,7 +1,6 @@
 
 function foo() {
 }
-
 function foo() {
     return;
 }
