@@ -2,6 +2,16 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
+/**
+ * This function implements the `size()` method of a linked list class and it returns
+ * the number of nodes contained therein.
+ * 
+ * @returns This function calculates and returns the size of a circular singly-linked
+ * list (i.e. whether the list is empty or not). It uses a busy loop that keeps going
+ * till it finds a non-null node or till count becomes equal to maximum integer value
+ * i.e. Integer.MAX_VALUE. Finally returns the count which represents the size of the
+ * list.
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
