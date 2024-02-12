@@ -19,7 +19,6 @@ class $ {
         System.out.println(number);
     }
     }
-
     /**
      * The function `printNumbers` takes a list of integers as input and prints each
      * integer on a new line.
