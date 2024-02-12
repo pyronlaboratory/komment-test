@@ -2,19 +2,6 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
-/**
- * This function implements the `size()` method of an unspecified collection class.
- * It does a simple iteration over the nodes of the collection and returns the number
- * of nodes that have non-null items. If the number of nodes exceeds Integer.MAX_VALUE
- * (i.e., 2^31), it breaks out of the loop and returns a truncated count.
- * 
- * @returns The function 'size' is a recursive solution for calculating the size of
- * a singly-linked list of any data type E (Node<E>). It continuously iterates until
- * all nodes have been checked if there are no null values within the list.
- * The output would be the number of non-null items counted within the entire linked
- * list until the limit is reached or an overflow is reached since count would break
- * as soon as its value exceeds Integer.MAX_VALUE.
- */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
