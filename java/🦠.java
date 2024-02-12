@@ -48,6 +48,18 @@ public class UserInfo {
   @SerializedName(SERIALIZED_NAME_USERNAME)
   private String username;
 
+  /**
+   * This function sets the "extra" field of the UserInfo object to the given map of
+   * key-value pairs.
+   * 
+   * @param extra The `extra` parameter is a map of strings to lists of strings that
+   * is passed as an argument to the `UserInfo` constructor. It allows for the injection
+   * of additional information about the user that can be used within the class.
+   * 
+   * @returns This method takes a map as an argument and assigns it to the "extra" field
+   * of the UserInfo object. It then returns the updated UserInfo object. The output
+   * is a new UserInfo object with the extra fields populated.
+   */
   public UserInfo extra(Map<String, List<String>> extra) {
 
     this.extra = extra;
