@@ -2,11 +2,6 @@
 function foo() {
 }
 
-/**
- * @description The function returns nothing.
- * 
- * @returns {  } The function foo returns no output or a null value.
- */
 function foo() {
     return;
 }
