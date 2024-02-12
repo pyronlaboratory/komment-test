@@ -13,7 +13,6 @@ class $ {
         }
     }
 
-
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
