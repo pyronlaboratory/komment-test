@@ -3,6 +3,26 @@ from typing import List, Tuple
 
 
 def default_matrix_multiplication(a: List, b: List) -> List:
+    """
+    This function takes two lists (vectors) of two values each and returns their
+    matrix product by forming the matrix product of the four vectors componentwise.
+    If the inputs are not two identical 2x2 matrices then it throws an Exception
+
+    Args:
+        a (List): The function takes two parameters `a` and `b`. The input `a` is
+            used as a matrix with 2 rows and 2 columns whose elements are multiplied
+            element-wise with the corresponding elements of `b` to produce the
+            output matrix.
+        b (List): The input parameter `b` represents the second matrix used for
+            multiplication. It is a list of two elements.
+
+    Returns:
+        List: The function "default_matrix_multiplication" returns a list of two
+        lists containing the result of matrix multiplication of two 2x2 matrices.
+        The output is a single list with two elements inside of it containing two
+        sublists each.
+
+    """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
     new_matrix = [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]], [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]],]
