@@ -12,6 +12,10 @@ class $ {
             break http;
         }
     }
+    /**
+     * The given function takes a list of integers as an argument and prints each integer
+     * to the console using the standard output stream.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
