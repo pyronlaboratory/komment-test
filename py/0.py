@@ -3,24 +3,6 @@ from typing import List, Tuple
 
 
 def default_matrix_multiplication(a: List, b: List) -> List:
-    """
-    Provides a default matrix multiplication implementation given two lists
-    representing the matrices' dimensions.
-
-    Args:
-        a (List): The `a` input parameter provides two lists as matrix elements
-            for multiplication.
-        b (List): The `b` input parameter provides a list of another matrix that
-            is used as the second operand for multiplication with the first matrix
-            given as `a`.
-
-    Returns:
-        List: Returns: [ [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1]
-        + a[0][1] * b[1][1]],
-                        [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1]
-        + a[1][1] * b[1][1]] ]
-
-    """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
     new_matrix = [
