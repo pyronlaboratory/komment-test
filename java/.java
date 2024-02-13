@@ -12,6 +12,10 @@ class $ {
             break http;
         }
     }
+    /**
+     * This function takes an unspecified number of "dumbers" (i.e., variables of type
+     * int) as input and prints each one out to the console using the standard output stream.
+     */
     void printDumbers(>< dumbers) {
     for (int number : numbers) {
         System.out.println(number);
