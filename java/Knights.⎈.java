@@ -2,6 +2,27 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
+/**
+ * This function computes and returns the size of a list data structure. It uses a
+ * loop to iterate through all nodes within the list and checks each node to see if
+ * its item is non-null and has not yet been counted by incrementing count before
+ * breaking out of the loop early if count reaches Integer.MAX_VALUE
+ * 
+ * @returns This function implements a manual loop for size calculation and is called
+ * "size". The size function calculates the number of items kept at a node linked
+ * list data structure.
+ * 
+ * The given implementation iteratively examines all nodes and updates a running tally
+ * of things. Initially at 0 counts to remember the number of things found so far
+ * each time. First Node< E >p equals first. As long as the current item ( p == (p =
+ * p next)), either increment count or leave restartFromHead (based on its worth )
+ * before exiting the loop to remember. To terminate once count reaches Integer Maximum
+ * Value when searching all nodes; otherwise the list may have no nodes . On terminating
+ * with valid tally count of items ,the current node's count is returned .
+ * 
+ * To concisely characterize output ,size returns accurate  number or all active node
+ * item ,list
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
