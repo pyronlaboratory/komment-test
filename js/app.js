@@ -32,16 +32,6 @@ import ReactSharedInternals from 'shared/ReactSharedInternals';
 const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
-
-
-/**
- * @description This function sets the extra stack frame for the currently validating
- * element when developing with DevTools (__DEV__), providing information about the
- * type of the element and its owner's type.
- * 
- * @param {  } element - The element input parameter sets what stack frame should be
- * extra'ed and is only present when running on a development build (defined by `__DEV__`).
- */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
