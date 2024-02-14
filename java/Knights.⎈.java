@@ -29,18 +29,6 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
-    /**
-     * This function creates a grid of size base x base filled with random values (-1),
-     * places a value 1 at a random location within the grid. Then it checks if the "value
-     * 1" is connected (by checking neighboring cells values) up to range 2 from its
-     * location. If it finds one such connected path it will print result else it prints
-     * "no result" .
-     * 
-     * @param args There is no use of the `args` parameter within the function at all;
-     * it is never accessed or referred to inside the body of the code. Thus this parameter
-     * can be safely removed as it is a legacy aspect of the Java Language which expects
-     * main methods to accept an array of String command line arguments.
-     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
