@@ -5,7 +5,6 @@ class $ {
     static {
         System.out.println("hello, too");
     }
-    
     $() {
         http://www.softwareschneiderei.de
         while ($()) {
