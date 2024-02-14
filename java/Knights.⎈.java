@@ -3,25 +3,29 @@ import java.util.*;
 public class KnightsTour {
 
 /**
- * This function computes and returns the size of a list data structure. It uses a
- * loop to iterate through all nodes within the list and checks each node to see if
- * its item is non-null and has not yet been counted by incrementing count before
- * breaking out of the loop early if count reaches Integer.MAX_VALUE
+ * This is a linked list implementation of the `size()` method found on many collections.
+ * It uses two loop iterations to determine the number of non-null items held within
+ * the list. The first iteration scans all the nodes from head to tail while keeping
+ * a running count of elements found. In case the counter reaches Integer.MAX_VALUE
+ * during the loop (meaning the list is large and not an empty list), it breaks out
+ * early without continuing with the full loop and returns that count. If the list
+ * is small enough that no premature return occurs due to counting excessive amounts
+ * of elements(in this implementation: > Integer.MAX_VALUE) then the second nested
+ * loop iterates all the way through the entire list again checking each node's value
+ * (reusing the first loop's var "p"). Upon finding an item with no subsequent node
+ * or having completed traversal from head to tail for the very last time upon reaching
+ * a circular point back to first: this counts that final item before the first node's
+ * count total then returns at function's end.
  * 
- * @returns This function implements a manual loop for size calculation and is called
- * "size". The size function calculates the number of items kept at a node linked
- * list data structure.
- * 
- * The given implementation iteratively examines all nodes and updates a running tally
- * of things. Initially at 0 counts to remember the number of things found so far
- * each time. First Node< E >p equals first. As long as the current item ( p == (p =
- * p next)), either increment count or leave restartFromHead (based on its worth )
- * before exiting the loop to remember. To terminate once count reaches Integer Maximum
- * Value when searching all nodes; otherwise the list may have no nodes . On terminating
- * with valid tally count of items ,the current node's count is returned .
- * 
- * To concisely characterize output ,size returns accurate  number or all active node
- * item ,list
+ * @returns This function size returns an integer that represents the count of non-null
+ * items present
+ * in a singly-linked list of generic type E. The size() function does not traverse
+ * the whole linked list; instead it restarts and continues till count
+ * approaches Integer.MAX_VALUE limit(i.e., when the counter's value becomes maximum)
+ * at this point break is encountered . This simply denotes that we've looped through
+ * the whole list without visiting any nodes whose items were null
+ * The output of the function would be the count i.e.,  number of non-null item nodes
+ * found. Therefore count = count + 1
  */
 public int size() {
     restartFromHead: for (;;) {
