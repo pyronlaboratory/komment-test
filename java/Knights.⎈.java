@@ -2,31 +2,6 @@ package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
 
-/**
- * This is a linked list implementation of the `size()` method found on many collections.
- * It uses two loop iterations to determine the number of non-null items held within
- * the list. The first iteration scans all the nodes from head to tail while keeping
- * a running count of elements found. In case the counter reaches Integer.MAX_VALUE
- * during the loop (meaning the list is large and not an empty list), it breaks out
- * early without continuing with the full loop and returns that count. If the list
- * is small enough that no premature return occurs due to counting excessive amounts
- * of elements(in this implementation: > Integer.MAX_VALUE) then the second nested
- * loop iterates all the way through the entire list again checking each node's value
- * (reusing the first loop's var "p"). Upon finding an item with no subsequent node
- * or having completed traversal from head to tail for the very last time upon reaching
- * a circular point back to first: this counts that final item before the first node's
- * count total then returns at function's end.
- * 
- * @returns This function size returns an integer that represents the count of non-null
- * items present
- * in a singly-linked list of generic type E. The size() function does not traverse
- * the whole linked list; instead it restarts and continues till count
- * approaches Integer.MAX_VALUE limit(i.e., when the counter's value becomes maximum)
- * at this point break is encountered . This simply denotes that we've looped through
- * the whole list without visiting any nodes whose items were null
- * The output of the function would be the count i.e.,  number of non-null item nodes
- * found. Therefore count = count + 1
- */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
