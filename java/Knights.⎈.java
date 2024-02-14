@@ -1,7 +1,6 @@
 package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
-
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
