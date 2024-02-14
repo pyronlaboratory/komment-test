@@ -32,6 +32,19 @@ import ReactSharedInternals from 'shared/ReactSharedInternals';
 const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
+/**
+ * @description This function sets the extra stack frame for debugging currently
+ * validating element. It also sets the extra stack frame to null if no element is
+ * being validated.
+ * 
+ * @param {  } element - In the given function `setCurrentlyValidatingElement`, the
+ * `element` input parameter represents an instance of a React component or a Text
+ * Node (for text content) that is currently being validated by React's DOM diffing
+ * algorithm. Whenever there is a change detected during rendering and there isn't
+ * an exact mapping for it yet., Reconciler performs an unfold tree traversal which
+ * culminates here - providing this instance as the input argument enables proper
+ * stack tracing to track where that change was recorded
+ */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
