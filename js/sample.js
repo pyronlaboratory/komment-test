@@ -1,4 +1,42 @@
 
+/**
+ * @description This function implements a binary search algorithm that finds an
+ * element 'x' within an array of integers 'arr' within the specified range (start
+ * -> end) based on their value and returns true if it exists or false otherwise.
+ * 
+ * @param { array } arr - Here's the answer:  The `arr` input parameter is passed by
+ * reference and serves as the array to search.
+ * 
+ * @param { any } x - The `x` input parameter represents the value being searched for
+ * within the array of integers. This function uses this value to determine whether
+ * a matching element exists within the array and to narrow down the search space if
+ * a partial match is found.
+ * 
+ * @param { number } start - The "start" parameter of the "search" function is a key
+ * integer value that determines which position from an array we search next. If true
+ * is returned from a recursive call (mid-1) or mid+1 then the value will move toward
+ * the beginning or end respectively as there is not a correct answer there but that
+ * subarray does have valid integers at both ends of a partitioned portion so narrowing
+ * it down continues until "end" is reached
+ * 
+ * @param { number } end - The `end` input parameter defines the end index of the
+ * range of array elements to be searched. It determines how far the search continues
+ * until a match or no match is found. In essence: the higher the `end` value is set
+ * compared to the `start` parameter :the larger the segment of the array being
+ * searched for the target element becomes; thus more iterations may occur before
+ * `end` is reached than before `start`.
+ * 
+ * @returns { boolean } This is a recursive binary search function that takes an array
+ * and three parameters: arr - the array to be searched; x-the value to be found and
+ * start and end-the boundaries of the search space. If (start>end), indicating there
+ * are no possible values of the array between start and end which return false(an
+ * integer number).The other wise , mid is calculate by using mathematical floor
+ * ((start+end)/2); which would lead us to the middle point if x and mid. When their
+ * values matched that returns true if  the middle value arr[mid]==x or start point
+ * less than x less then the search space mid -1 when middle is greater and returns
+ * function call recurrently (start is move towards the left), (mid+1 to the right),
+ * till first finding the correct position.
+ */
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
