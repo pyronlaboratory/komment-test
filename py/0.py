@@ -6,30 +6,26 @@ pass
 
 def default_matrix_multiplication(a: List, b: List) -> List:
     """
-    This function takes two lists (matrices) as input and returns a list of two
-    elements - the result of matrix multiplication. It checks if the matrices are
-    not 2x2 before performing the multiplication and raises an exception otherwise.
+    This function takes two lists (vectors) representing a 2x2 matrix and multiplies
+    them element-wise to produce a new 2x2 matrix.
 
     Args:
-        a (List): Here's an explanation of what the parameter "a" does:
-            
-            In the "default_matrix_multiplication" function there is one parameter
-            that we'll call 'a'. It's taking two List parameters: one is called
-            "b", and then there's "a". a's only job is to check whether its input
-            of lists with at least 2 elements on the main list can be multiplied
-            by b as lists. If true then returns new list containing elements. The
-            newList parameter gets List(s) as parameters with length 2 representing
-            arrays within arrays; which will perform regular matrix multiplication
-            on it. Then this process performs a bunch of math to spit out another
-            new list using all the parameter List values inside an actual number
-            based index List array.
-        b (List): In this function `b`, an optional parameter of type `List`, is
-            being multiplied element-wise with the corresponding elements of the
-            matrix `a`.
+        a (List): The function takes two lists as inputs - 'a' and 'b', and applies
+            matrix multiplication on those lists which results to an output of
+            list type.  In essence 'a' represents the first matrix and b is the second.
+        b (List): In the provided function default_matrix_multiplication (a and
+            b), "b" represents the second list or matrix being multiplied element-wise
+            (with dot multiplication) to compute C=A x B . If A is the first matrix
+            with shape (2X2) having elements a[][ ], similarly ,B would be another
+            such matrix( 2X2 )  with elements b [][]
 
     Returns:
-        List: The output of the default matrix multiplication function would be:
-        [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]]].
+        List: The output of the function `default_matrix_multiplication` is a list
+        containing two lists:
+        
+        `[[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]]`
+        
+        `([a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]])]`
 
     """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
