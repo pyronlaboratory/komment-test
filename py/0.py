@@ -3,6 +3,43 @@ from typing import List, Tuple
 
 
 def default_matrix_multiplication(a: List, b: List) -> List:
+    """
+    This function takes two lists representing 2x2 matrices and returns a new list
+    representing the product of the two matrices.
+
+    Args:
+        a (List): Here's what the question is asking:
+            
+            The default_matrix_multiplication() takes two list-based inputs as
+            parameters; the 'a' and the 'b'. Of these two functions calls parameter
+            a would seem to be somewhat redundant because we never access its value
+            explicitly during the computation of return statement ( new_matrix )
+            but instead use directly elements from the lists contained within a ,
+            why is it an input parameter of the function at all? Why isn't a
+            simplfied version that removes unnecessary parameter and reduces code
+            size?
+            
+            This function performs matrix multiplication where matrices are passed
+            as two separate lists (each list consisting of 2 lists) representing
+            2 x 2 matrix and based on given matrices dimensions checks whether the
+            product is possible.
+            
+            The 'a' input parameter has a value that the code ignores and always
+            uses the list elements instead to multiply with other list elements
+            from 'b' parameters list regardless if one were pass None ( null ) for
+            value . Its an over loaded function  parameter name . The function
+            checks for empty or uneven length of given lists for matrix multiplications
+            , then if either lists are non valid it raises 'Exception" without
+            considering the 'a' and or b value itself.
+        b (List): The b parameter is the other matrix being multiplied. It has the
+            same number of rows as the first matrix a (2).
+
+    Returns:
+        List: The output of the given function when provided with two lists `a`
+        and `b` representing 2x2 matrices would be a 2x2 matrix computed using
+        regular matrix multiplication and returns the resulting 2x2 matrix.
+
+    """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
     new_matrix = [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]], [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]],]
