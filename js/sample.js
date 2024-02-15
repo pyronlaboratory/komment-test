@@ -1,4 +1,45 @@
 
+/**
+ * @description This is a recursive function that searches an array for a specific
+ * value x using a divide-and-conquer approach. Given an array arr and three parameters
+ * x start and end (which define the target value and the range to search respectively)
+ * , it returns true if the value is found within the range and false otherwise
+ * 
+ * @param { array } arr - The `arr` parameter is passed by the caller of the `search`
+ * function and contains an array of elements to search through. The function uses
+ * this array to find the specified `x`.
+ * 
+ * @param { array } x - The `x` input parameter represents the value to search for
+ * within the array. It is passed as an argument to the `search` function and is used
+ * to determine whether a given element of the array is equal to or less than the `x`
+ * value being searched for.
+ * 
+ * @param { number } start - The "start" parameter determines the beginning index of
+ * the portion of the array to be searched for "x". The function then divides that
+ * section into two parts: one containing elements less than "x", and another with
+ * elements greater than it.
+ * 
+ * @param { number } end - The `end` parameter specifies the end index of the slice
+ * of the array to be searched. The function recursively divides the array into two
+ * parts and checks if `x` is present within either of those partitions. This continues
+ * until a truthy return value is found or it is established that `x` cannot be located
+ * within the given slice of the array. `end` effectively determines where to cut the
+ * middle of the division and ensures that no indices outside the original array are
+ * checked.
+ * 
+ * @returns { boolean } This function takes an array of integers and a target integer
+ * `x` as inputs. It performs a linear search on the array to determine whether `x`
+ * exists within the array or not.
+ * 
+ * The function returns a boolean value indicating whether `x` was found within the
+ * array or not. If `x` is found at index `mid`, the function returns `true`. If `x`
+ * is not found within the array or if `start > end`, the function returns `false`.
+ * 
+ * In the cases where `x` is found neither at the starting point nor at the middle
+ * point of the search range (i.e. `mid - 1` or `mid + 1`), the function recursively
+ * calls itself with the appropriate start and end points for the next iteration of
+ * the search.
+ */
 const search = (arr, x, start, end) => {
   if (start > end) return false;
   let mid = Math.floor((start + end) / 2);
