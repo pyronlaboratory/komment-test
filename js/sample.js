@@ -10,7 +10,6 @@ const search = (arr, x, start, end) => {
   }
 };
 
-
 /**
  * @description retrieves the value of an AppID  based on an application name within
  * a CSV file
