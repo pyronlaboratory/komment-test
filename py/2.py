@@ -1,14 +1,12 @@
 def server(port):
   """
-  The provided Python function `server` listens for incoming requests on a specific
-  port and prints a message indicating that it is ready to serve.
+  This Python function named `server` takes an argument `port` and simply prints
+  a message to the console indicating that it is listening on that port and will
+  now accept incoming connections.
 
   Args:
-      port (int): The port parameter serves as an argument to determine the port
-          at which the server will listen for incoming connections. This permits
-          the programmer to define various servers and modify them accordingly by
-          providing a distinctive port number each time the program is executed
-          again using different ports .
+      port (str): The `port` parameter sets the value to which the function listens
+          for incoming client connections.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed")
