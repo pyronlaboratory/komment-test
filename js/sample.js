@@ -10,16 +10,6 @@ const search = (arr, x, start, end) => {
   }
 };
 
-/**
- * @description retrieves the value of an AppID  based on an application name within
- * a CSV file
- * 
- * @returns { string } The function takes a parameter "sysparm_appName" and logs its
- * value as "appid". It then retrieves the AppID from a GlideRecord object using the
- * parameter value and returns the AppID as a string.
- * 
- * The output returned by the function is the AppID as a string.
- */
 const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
