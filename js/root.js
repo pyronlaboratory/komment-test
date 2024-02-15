@@ -199,6 +199,55 @@ function CSSTransition({
           * completely exited the transition and all CSS properties have been removed from the
           * DOM element reference. It will remove any remaining exiting classes from the element.
           */
+         /**
+          * @description This is a React CSSTransition component that manages the display of
+          * a child component (wrapped within theCSSTransition element) by applying classes
+          * and styles during entry and exit animations. It allows for a smooth transition
+          * between showing and hiding the child component.
+          * 
+          * @param { boolean } appear - The `appear` prop determines whether or not the exit
+          * animation runs. If it's true then when entering and exited states transition from
+          * appearing from nowhere (like sliding up or down from beneath the viewport.)
+          * 
+          * It controls if enter transition start hidden or visible
+          * 
+          * @param { object } nodeRef - The `nodeRef` property is a reference to the actual
+          * DOM element that this component will be rendering into. It allows you to control
+          * the underlying DOM element and perform additional logic based on the state of the
+          * transition.
+          * 
+          * @param { boolean } unmountOnExit - The `unmountOnExit` property removes the Component
+          * from the DOM when the exit animation is completed.
+          * 
+          * @param { array } in - The "in" prop specifies the entering animation for this
+          * component and takes a boolean value of true to enable entering animations and a
+          * false to disable it.
+          * 
+          * @param { Component } addEndListener - The `addEndListener` property listens for
+          * the `transitionend` event on the React transition component and triggers a function
+          * (`done`) once the animation ends.
+          * 
+          * @param {  } onEnter - The "onEnter" property sets the class list of the component
+          * to the enterClasses whenever the component is entering and adds the class list of
+          * the entering classes.
+          * 
+          * @param { Component } onEntering - The "onEntering" property of the ReactCSSTransition
+          * component is used to add CSS classes to the transitioning node while it is entering
+          * the target state. This happens just before the transition has finished and the
+          * element becomes visible.
+          * 
+          * @param { any } onEntered - The "onEntered" property removes the "enterEndClasses"
+          * and "enterClasses".
+          * 
+          * @param {  } onExit - The "onExit" property adds the class(es) to the element during
+          * the transition from the enter phase to the exit phase of the component.
+          * 
+          * @param { string } onExiting - The onExiting event is used to add classes to the
+          * transitioning element as it exits and enter new ones when transitionEnds event triggers
+          * 
+          * @param {  } onExited - The `onExited` property sets an event listener to remove
+          * classes from the component and potentially set `display: none`.
+          */
   return (
     <ReactCSSTransition
       appear={appear}
