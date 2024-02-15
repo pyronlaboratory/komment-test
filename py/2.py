@@ -1,14 +1,13 @@
 def server(port):
 
   """
-  The function "server" takes a port as an argument and prints out a message stating
-  that it is actively listening for incoming requests on the specified port; the
-  statement implies the possibility of processing changes or receiving requests
-  simultaneously while changing the output channel mode.
+  The given code defines a function named "server" that listens for incoming
+  requests on a specific port. It prints a message indicating that the server is
+  active and ready to accept connections.
 
   Args:
-      port (int): The `port` parameter specifies the port that the server will
-          listen on for incoming connections.
+      port (int): The port input parameter tells the function what port to listen
+          on.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed")
