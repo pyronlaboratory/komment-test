@@ -1,8 +1,9 @@
 import math
 from typing import List, Tuple
 
-def terminate:
-)
+def terminate():
+True
+
 
 def default_matrix_multiplication(a: List, b: List) -> List:
     """
