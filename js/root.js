@@ -5,12 +5,6 @@ const TransitionContext = React.createContext({
   parent: {},
 })
 
-/**
- * @description initializes a ref with the value of true and then sets it to false
- * during the next effect. Finally returns the current value.
- * 
- * @returns { boolean } Output: a boolean value set to `false`.
- */
 function useIsInitialRender() {
   const isInitialRender = useRef(true);
   useEffect(() => {
