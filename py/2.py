@@ -1,15 +1,14 @@
 def server(port):
 
   """
-  This function defines a Python Server that listens for incoming requests on a
-  specified port and prints a message indicating that the server is listening and
-  ready to receive requests. The message includes the port number and a mention
-  of parallel changes.
+  This Python function takes an integer 'port' as input and prints a message to
+  the console indicating that a server is listening on that port and that the
+  server is capable of adding new changes while simultaneously outputting messages
+  through a changed output channel. In other words it enables parallel change application.
 
   Args:
-      port (int): The `port` parameter tells the server which port to bind to for
-          accepting connections; the `print()` statement uses this port number
-          within the message displayed to the user.
+      port (list): The input `port` parameter indicates which port to run the
+          server on.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed")
