@@ -1,13 +1,11 @@
 def server(port):
   """
-  The function `server(port)` prints a message indicating that the server is active
-  and accepting connections on the specified port (e.g., "Server listening: 8080").
+  The function "server(port)" listens for incoming requests on a given port and
+  prints a message indicating that the server is active and ready to handle requests.
 
   Args:
-      port (int): The `port` input parameter is an integer that defines the port
-          number on which the server will listen for incoming requests; it does
-          not affect the functionality of the function apart from determining the
-          port on which the function will run.
+      port (int): The port input parameter serves as an argument to the function
+          and determines the port on which the server listens for incoming connections.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed");
