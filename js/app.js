@@ -27,6 +27,23 @@ const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
 
+/**
+ * @description This function sets an "extra stack frame" to indicate the type of
+ * element being validated during development (__DEV__). In particular:
+ * 
+ * - If element is provided - currently being validated.
+ * - The frame indicates details about unknown element types for element._source using
+ * describeUnknownElementTypeFrameInDEV
+ * - Else (i.e., if element is null/ undefined) a special frame with null parameters
+ * is used  to signal this absence of current element validation.
+ * 
+ * @param { object } element - The `element` input parameter of `setCurrentlyValidatingElement`
+ * is used to set the element being currently validated as per React Dev Tools debugging
+ * requirements if the process runs under developer mode (`__DEV__`). Only when an
+ * element has been supplied is a stack frame generated that depicts the element type
+ * and its source information for better debugging. When no element is provided however
+ * it's necessary to remove any previously recorded stack frames.
+ */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
@@ -50,6 +67,30 @@ if (__DEV__) {
   propTypesMisspellWarningShown = false;
 }
 
+/**
+ * @description This function checks if a given object is a valid React Element. It
+ * returns true if the object is an object (and not null), has a `__$typeof` property
+ * whose value is 'REACT_ELEMENT_TYPE'.
+ * 
+ * @param { object } object - Here are the object parameters used within the body of
+ * the isValidElement function:
+ * 
+ * - object: A general object to determine validity
+ * 
+ * This object is being checked to see if it contains all properties needed for an
+ * element by checking its type and null values before moving further within the
+ * conditions set forth within the function.
+ * 
+ * @returns { boolean } This function checks if the provided `object` is a valid React
+ * Element using the following criteria:
+ * 
+ * 	- `typeof object` should be 'object';
+ * 	- `object` should not be null;
+ * 	- `object.$$typeof` should be equal to `REACT_ELEMENT_TYPE`.
+ * 
+ * If all the conditions are met (`object` is an object and is not null with the
+ * correct type), the function will return `true`. otherwise it returns false.
+ */
 export function isValidElement(object) {
   if (__DEV__) {
     return (
