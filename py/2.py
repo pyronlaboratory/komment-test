@@ -1,12 +1,12 @@
 def server(port):
   """
-  The `server()` function listens for incoming requests on a given port and prints
-  a message indicating that it is running and ready to receive requests.
+  This Python function takes a port number as input and prints a message indicating
+  that the server is listening on that port and that new changes will be added to
+  the system while the output channel's mode is changed.
 
   Args:
-      port (int): The `port` input parameter determines on which port the server
-          listens for incoming requests. It is used to print a message indicating
-          the port number and the change of output channel mode.
+      port (dict): The `port` input parameter defines the TCP port that the server
+          listens on and accepts incoming connections from clients.
 
   """
   print(f"Server listening: {port} | adding new changes in parallel while output channel mode changed");
