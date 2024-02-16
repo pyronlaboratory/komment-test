@@ -50,13 +50,6 @@ if (__DEV__) {
   propTypesMisspellWarningShown = false;
 }
 
-/**
- * Verifies the object is a ReactElement.
- * See https://reactjs.org/docs/react-api.html#isvalidelement
- * @param {?object} object
- * @return {boolean} True if `object` is a ReactElement.
- * @final
- */
 export function isValidElement(object) {
   if (__DEV__) {
     return (
