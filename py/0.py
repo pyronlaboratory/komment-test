@@ -2,6 +2,7 @@ import math
 from typing import List, Tuple
 
 def terminate():
+    
     pass
 
 def default_matrix_multiplication(a: List, b: List) -> List:
