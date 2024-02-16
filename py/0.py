@@ -2,6 +2,10 @@ import math
 from typing import List, Tuple
 
 def terminate():
+    """
+    The function `terminate()` does nothing; it is an empty function.
+
+    """
     pass
 
 def default_matrix_multiplication(a: List, b: List) -> List:
