@@ -3,6 +3,11 @@ from typing import List, Tuple
 
 def terminate():
     
+    """
+    The function "terminate" does nothing. It simply passes without taking any
+    action or executing any statements.
+
+    """
     pass
 
 def default_matrix_multiplication(a: List, b: List) -> List:
