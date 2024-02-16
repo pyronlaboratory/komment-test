@@ -27,6 +27,19 @@ const ReactCurrentOwner = ReactSharedInternals.ReactCurrentOwner;
 const ReactDebugCurrentFrame = ReactSharedInternals.ReactDebugCurrentFrame;
 
 
+/**
+ * @description This function sets an extra stack frame when validating unknown
+ * elements for development (DEV). The extra stack frame describes the type and source
+ * of the element during validation.
+ * 
+ * @param {  } element - In this context of this function "element" represents any
+ * React component or DOM node for which the validity of type is being investigated
+ * (and it only pertains to developing-mode environments because __DEV__ checks for
+ * this parameter), as determined by determineElementTypes to return the validation
+ * message frames that point to parent frames leading up the original frame for which
+ * the developer enabled logging. These frames are used later so they may be displayed
+ * and provide inspection targets during debugging activities.
+ */
 function setCurrentlyValidatingElement(element) {
   
   if (__DEV__) {
