@@ -1,43 +1,69 @@
 import React from 'react';
 
 /**
- * @description This React function component takes no props but renders an HTML
- * container with a header and a list of two "results" calculated by the add and sin
- * math functions respectively and labeled 1 and 2 respectively.
+ * @description This is a React functional component that returns a list of mathematical
+ * operations 'Results' of two numbers using 'add' and one single-precision trigonometric
+ * operation 'sin'.
  * 
- * @returns { object } This component takes a mathematical expression as input and
- * evaluates it to produce a set of results that are displayed on a web page using ReactJS
- * The result set has two elements one being addition of '5' & '3'(i.e., 8) , the
- * other is the sin (pi/2), which approximately equals 1.752568471
-{/**
- * @description This React functional component (MathComponent) defines two mathematical
- * functions (add and sin), executes them with specified arguments to generate two
- * output values; stores these output values within an array called results and then
- * uses React’s map method to list each result item inside an unordered list of “li”
- * (list items).
+ * @returns { object } The output of this function will be:
  * 
- * @param { number } result - In the `add` and `sin` functions provided within the
- * return of MathComponent component - each respective parameter(being 'a' within add
- * or not null at index 0 and also null at index 1 within sin respectively), when
- * provided is completely ignored and instead react passes its value through. That's
- * why if you hardcoded numbers like `5`, `3`, or `Math.PI/2` these values aren't
- * manipulated with within that respective functions; no type casting has been applied
- * - those input parameter functions accept only the primitive `number`. It can thus
- * be seen as essentially pointless when given actual math operators are being passed.
- * Essentially what we see is pure React component function  that takes array of some
- * data.
- * 
- * @param { number } index - The input parameter `index` is passed as a key to each
- * item inside the list produced by `results.map()`. This uniquely identifies each
- * li element and aids virtual DOM optimization. It enables React to correctly maintain
- * the state of the items when items are added or deleted from the array.
- */}
- * Therefore concisely: Output returned is [8,"1.752568471"].
+ * <h1>Math Results</h1>
+ * <ul>
+ * <li key={0}>Result 1: 8</li>
+ * <li key={1}>Result 2: -0.465751508683894</li>
  */
 const MathComponent: React.FC = () => {
+/**
+ * @description The provided function `add` takes two arguments `a` and `b` of type
+ * `number` respectively and returns their sum.
+ * 
+ * @param { number } a - The `a` input parameter adds its value to the `b` parameter
+ * during the addition of numerical values that happens within the body of the function
+ * defined.
+ * 
+ * @param { number } b - The `b` input parameter adds numbers to the `a` parameter
+ * to return their sum.
+ * 
+ * @returns { number } The output of the given function `add(a: number., b: number)`
+ * is `a + b`.
+ */
     function add(a: number, b: number): number {
         return a + b;
     }
+/**
+ * @description The given function calculates the sine of a number "a" using theMath.sin()
+ * function and returns the result.
+ * 
+{/**
+ * @description This is a React functional component named `MathComponent` that returns
+ * a rendered JSX element based on the contents of the `results` array. It displays
+ * two mathematical expressions computed and stored as strings inside that array as
+ * simple text within list items labeled with integers counting from 1.
+ * 
+ * @param { number } result - The "result" parameter is simply being used as an index
+ * to label each li item being rendered. The "index+1" formula creates a list with
+ * numbers beginning at the number two because it's keying off the array indexes when
+ * rendering the list items. Therefore there will be 2 listed (result 1: x), and 3
+ * listed (result 2: y) etc. There is no actual functional purpose of result being
+ * there aside from its use as an index; result was never even assigned a value so
+ * it isn't even being utilized for any actual math operations and is only ever passed
+ * to the mapped function with no effect.
+ * 
+ * @param { number } index - In the `map()` function provided as an argument to
+ * React.js's `results.map()` method inside `MathComponent`, the value `index`
+ * represents which `result` element is currently being processed. Index counts from
+ * 0 through however many items are left within `results`. `key` attributes are
+ * important because React Elements (Components/Functional Components alike) "assume"
+ * keys can provide optimization capabilities for re-ordering work done on screen by
+ * the renderer of a react app (as long as all child element arrays passed into other
+ * Components have been accounted for via key assignment(s)).
+ */}
+ * @param { number } a - The input parameter `a` is passed through to `Math.sin()`
+ * without any modifications; it represents the angle to be sine-ized.
+ * 
+ * @returns { number } The output returned by this function is the sine of the provided
+ * number 'a', which is a numerical value calculated using the Mathematical.sin() method.
+ */
     function sin(a: number): number {
         return Math.sin(a);
     }
