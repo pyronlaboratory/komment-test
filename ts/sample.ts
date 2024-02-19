@@ -52,25 +52,21 @@ let clearScheduledRefresh: ReturnType<typeof setTimeoutWallClock> | undefined =
   undefined;
 
 /**
- * @description This is an async function that takes 4 parameters: { abort?, tokensCb?,
- * isRefreshingCb?. AbortSignal }, and schedules refreshes of "tokens". It schedules
- * one (potentially many) refresh(es) if necessary with the possibility of multiple
- * instances scheduling refreshes due to a form of a race condition utilizing
- * Math.random(). Then clears out any previous schedule (clearsScheduledRefresh?)
- * prior to rescheduling one time per request for approximately 30 seconds before
- * expiry after retrieving tokens before then refreshing them and logging failed
- * attempts if needed (utilizing the debugger) Finally the function returns clearScheduleRefressh.
+ * @description This function schedules a refresh of "tokens" and checks if the
+ * provided AbortSignal is aborting the refresh before refreshing them and notifying
+ * the supplied callback with new tokens and current state as refreshed
  * 
- * @param { boolean } abort,tokensCb,isRefreshingCb - This function takes an object
- * parameter that has three options:
- * 	- abort?: An object containing functions such as "aborted", to abort early.
- * 	- tokensCb?: Callback taking response of retrieveTokens(), so one can operate
- * with the results when tokens arrive
- * 	- isRefreshingCb?;: Optional call-back allowing a consumer of the function know
- * whether a refresh was/is ongoing.
+ * @param { Promise } abort,tokensCb,isRefreshingCb - The abort and isRefreshingCB
+ * allow for cancelling (stopping) and receiving notificaion when the refresh starts
+ * and/or ends whereas the tokenCB merely has a payload sent to it which contains
+ * tokens that have been refreshed if a callback is supplied
  * 
- * @returns {  } This function returns a cleared timeout function which is used to
- * stop a previously scheduled refresh.
+ * @returns { Promise } The `_scheduleRefresh` function returns a cleared schedule
+ * refresh after either immediately calling `refreshTokens` and then calling
+ * `setTimeoutWallClock`, or scheduling a timeout that triggers another `refreshTokens`
+ * call and includes an event listener for the abort signal that would trigger clearing
+ * of the scheduled refresh.
+ * So its output is `clearScheduledRefresh`.
  */
 async function _scheduleRefresh({
   abort,
@@ -101,10 +97,10 @@ async function _scheduleRefresh({
     );
 
 /**
- * @description This function sets a timeout using `setTimeout` that calls the
- * `refreshTokens` function after the passed delay time (`refreshIn`). If the
- * `refreshTokens` call fails with an error and if a `debug` object is provided as a
- * variable argument (marked by the `?`), the function will log that error.
+ * @description This function calls the `refreshTokens` function after a specified
+ * delay (given by `refreshIn`), with an optional `abort`, `tokensCb`, and `isRefreshingCb`
+ * parameters. If the `refreshTokens` call fails (caught by the `catch` callback),
+ * it logs an error message but does not stop executing other code.
  */
     clearScheduledRefresh = setTimeoutWallClock(
       () =>
