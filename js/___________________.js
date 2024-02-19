@@ -1,5 +1,3 @@
-
-
 /**
  * @description Nothing. The function does nothing because it is empty (it doesn't
  * have any statements or expressions within its body).
