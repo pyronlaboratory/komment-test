@@ -1,22 +1,30 @@
 def handleGlobalQuery(self, query):
   """
-  This function processes a global query and returns a list of RankItems for color
-  hex codes found at the beginning of the query string. It first checks if the
-  query is empty or starts with a hash symbol # and strips the hash if it does.
-  It then checks if the remaining string is of one of the allowed lengths (3-12)
-  and consists only of hexadecimal characters before adding a RankItem to the list
-  and returning it.
+  This function handles a global query (query.string) by extracting the hash symbol
+  # and then checking if the remaining string consists of six or more hexadecimal
+  characters and removes the hash symbol # and any spaces from the original query
+  string and converts the remaining text into an item to be ranked .
 
   Args:
-      query (dict): The input parameter `query` is the global query made by the
-          user on the application's search bar. It takes a string representation
-          of the user's search query and filters the items to return based on that
-          query.
+      query (str): The query parameter is a string representing a user input. It's
+          processed to determine whether it's a hex color code and if so returns
+          relevant output ranking the color item first.
 
   Returns:
-      list: The function "handleGlobalQuery" returns a list of one "RankItem"
-      containing an item with ID=md_id and text and subtext of "#code color
-      description", and icon URLs beginning with "gen:?background=#".
+      list: Based on the provided information;
+      This function takes a "query" argument and performs the following actions:
+      1/ Remove any leading # symbols from the query string
+      2/ If the resulting string has a length of 3.,6.8.,9. or 12 (which are all
+      hexadecimal color codes)
+           	- if the entire string is made up of only hexadecimal characters
+             	- Adds an item to "rank_items" with id "md-id", text equal to the query
+                string., a subtext mentioning that the code will return the color
+               	- Icon URLs point to the hexadecimal color value
+      3/ Returns the updated rank_items list.
+      Given these details. this function will return a single item from "rank_item"
+      when the input query contains
+      a hexadecimal color string with no # symbol at the beginning and containing
+      only hexadecimal digits.
 
   """
   rank_items = []
