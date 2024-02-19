@@ -1,5 +1,4 @@
 import React from 'react';
-
 /**
  * @description This is a React component that performs various mathematical operations
  * on numbers and displays the results. The operations include addition subtraction
