@@ -4,6 +4,7 @@ from typing import List, Tuple
 def terminate():
     pass
 
+
 def default_matrix_multiplication(a: List, b: List) -> List:
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
