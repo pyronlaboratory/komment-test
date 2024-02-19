@@ -1,6 +1,15 @@
 package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
+/**
+ * This function implements the `size()` method for a singly linked list class. It
+ * iterates through all the nodes of the list and returns the number of nodes that
+ * are not null (i.e., the length of the list).
+ * 
+ * @returns The output of the size() method described above is an integer value that
+ * represents the number of nodes present as part of this circular doubly linked list
+ * (represented by "Node<E>").
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
@@ -29,6 +38,15 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
+    /**
+     * This is a functional code fragment for generating a randomly shaped minefield and
+     * attempting to clear it using breadth-first search.
+     * 
+     * @param args Nothing; there is no use of the `args` input parameter within the given
+     * `main` method. It is declared as part of the `public static void main(String[]
+     * args)` signature only and is not used at all.  Therefore the `args` array is empty
+     * and not called.
+     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
