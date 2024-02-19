@@ -1,20 +1,22 @@
 def handleGlobalQuery(self, query):
   """
-  This function takes a query as input and returns a list of items to be displayed
-  as results. It specifically focuses on handling global queries that start with
-  a # symbol and consists only of hexadecimal digits. If the query matches these
-  conditions. it appends a rank item to the list with an icon URL derived from the
-  hexadecimal value of the query.
+  This function processes a global query and returns a list of RankItems for color
+  hex codes found at the beginning of the query string. It first checks if the
+  query is empty or starts with a hash symbol # and strips the hash if it does.
+  It then checks if the remaining string is of one of the allowed lengths (3-12)
+  and consists only of hexadecimal characters before adding a RankItem to the list
+  and returning it.
 
   Args:
-      query (list): The `query` input parameter is a string representing the global
-          query and is used to determine whether the code should display an item.
-          If it matches a certain pattern and meets specific conditions outlined
-          inside the `if` statement.
+      query (dict): The input parameter `query` is the global query made by the
+          user on the application's search bar. It takes a string representation
+          of the user's search query and filters the items to return based on that
+          query.
 
   Returns:
-      list: The output returned by this function is a list containing one RankItem
-      object.
+      list: The function "handleGlobalQuery" returns a list of one "RankItem"
+      containing an item with ID=md_id and text and subtext of "#code color
+      description", and icon URLs beginning with "gen:?background=#".
 
   """
   rank_items = []
