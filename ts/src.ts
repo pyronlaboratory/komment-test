@@ -1,39 +1,67 @@
 import React from 'react';
 
 /**
- * @description This is a functional component for a web application written with
- * React (the library) which has two functions as local imports named `add` and `sin`,
- * these add two parameters and calculate the sin of one number respectively. The two
- * function calls are then added to an array alongside their results to create a map
- * within a list within an unordered list to render on screen and be viewable to users.
+ * @description This function returns a JSX component that displays the results of
+ * two mathematical operations: addition and sine calculation.
  * 
- * @returns { array } This function takes no arguments and returns a JSX component
- * that displays the results of two mathematical operations: adding 5 and 3 and
- * computing the sine of Pi/2. The output will be a list of two elements: "Result 1:
-{/**
- * @description This React Function Component generates an HTML list with the values
- * of two mathematical functions applied to a set of numbers. It imports React from
- * 'react'; defines the function components add and sin which apply their respective
- * mathematical operations to parameters and returns the results inside a data array
- * of JavaScript objects .
+ * @returns { array } The component returns an HTML ul element with two list items:
  * 
- * @param { number } result - The input parameter result within the map function seems
- * to be the output of previous calculated value before moving on to the next step.
+ * 1/ "Result 1: 8"
+ * 2/ "Result 2: -0.5"
  * 
- * @param { object } index - The `index` input parameter is used to uniquely identify
- * each list element to be rendered and assigned a key so that React knows how to
- * reorder or remove items within that list efficiently when rendering components;
- * it can also help debugging by displaying an order-dependent ID with items instead
- * of only their value.
- */}
- * 8" and "Result 2: -1."
+ * where "8" is the result of add(5', 3') and -0.5" is the result of sin(PI / 2).
  */
 const MathComponent: React.FC = () => {
 
+/**
+ * @description This function adds two numbers and returns their sum.
+ * 
+ * @param { number } a - The input parameter `a` is added to the input parameter `b`
+ * and then returned as a single value.
+ * 
+ * @param { number } b - Nothing - the function simply returns `a + a`.
+ * 
+ * @returns { number } The output returned by this function is 20.
+ * 
+ * In detail:
+ * 
+ * The function takes two parameters `a` and `b`, both of type `number`. The function
+ * adds `a` and `b` together and returns the sum.
+ * 
+ * Therefore when we call the function with `a = 10` and `b = 10`, the output will
+ * be `a + b = 10 + 10 = 20`.
+ */
     function add(a: number, b: number): number {
         return a + b;
     }
 
+/**
+ * @description This function takes a number 'a' as an input and returns its sine
+ * value using the built-inMath.sin() function.
+ * 
+ * @param { number } a - The input parameter `a` represents the angle for which the
+ * sine will be calculated and is passed to theMath.sin() method to perform the actual
+{/**
+ * @description This function renders an unordered list of two math expressions and
+ * their calculated values. The math expressions are "add(5，3)" and sin (Math.PI/2)
+ * and the component returns their result.
+ * 
+ * @param { array } result - The "result" input parameter is not used at all inside
+ * the anonymous function passed as a child of the map() method. Therefore it does nothing.
+ * 
+ * @param { array } index - The `index` input parameter is being passed to the `map()`
+ * method from react - which returns an index based on how many items there are inside
+ * an array - meaning that all `li` list-item elements will be given unique `key`
+ * attributes thanks to the index.
+ */}
+ * calculation.
+ * 
+ * @returns { number } The function takes one parameter `a` of type `number`. The
+ * return statement calculates the sine of `a` using `Math.sin()` and returns its
+ * result. In other words sin function accepts a number as an argument ,it uses
+ * Math.sin() to calculate the trigonometric sine  of that number and then returns
+ * the result
+ */
     function sin(a: number): number {
         return Math.sin(a);
     }
