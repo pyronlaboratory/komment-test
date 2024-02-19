@@ -1,3 +1,17 @@
+{/**
+ * @description This React functional component takes no props and returns an array
+ * of numbers with each number being the result of a mathematical operation (addition
+ * through rounding) on the number five using functions such as `sin()`.
+ * 
+ * @param { number } result - In this function here <https://i.imgur.com/vg785kB.png>,
+ * the result is never used. Therefore its existence as a parameter would have no
+ * consequence to the functionality of the component because it’s always being ignored.
+ * 
+ * @param { number } index - In this React functional component named `MathComponent`,
+ * the `index` input parameter serves as a unique key to identify each item on the
+ * list of mathematical operations performed on the number 5 and helps React keep
+ * track of them.
+ */}
 import React from 'react';
 
 /**
