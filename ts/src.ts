@@ -1,17 +1,3 @@
-{/**
- * @description This React functional component takes no props and returns an array
- * of numbers with each number being the result of a mathematical operation (addition
- * through rounding) on the number five using functions such as `sin()`.
- * 
- * @param { number } result - In this function here <https://i.imgur.com/vg785kB.png>,
- * the result is never used. Therefore its existence as a parameter would have no
- * consequence to the functionality of the component because it’s always being ignored.
- * 
- * @param { number } index - In this React functional component named `MathComponent`,
- * the `index` input parameter serves as a unique key to identify each item on the
- * list of mathematical operations performed on the number 5 and helps React keep
- * track of them.
- */}
 import React from 'react';
 
 /**
@@ -23,6 +9,26 @@ import React from 'react';
 * @returns { array } - This React functional component takes in no props and returns 
 * a JavaScript array of numbers, with each number being the result of a mathematical 
 {/**
+{/**
+ * @description This is a functional component written using React.js that performs
+ * several mathematical operations (such as addition through rounding) on the number
+ * 5 using functions like add() , subtract() multiply(), divide () modulus power( ),
+ * square root(), absolute value(), round () floor (), ceiling () and log() from Math
+ * object.) The output is a list of numbers for each performed operation with key
+ * index to identify the item uniquely; the component returns <div>  with <h1>, ul
+ * and div tags containing list item li for all mathematical operations performed.
+ * The purpose of this code appears to demonstrate several React features such as
+ * rendering lists keys ES6 arrow functions ,and destructuring) and use of react
+ * functions with other languages built ins Math.
+ * 
+ * @param { Component } result - The 'result' input parameter is not used at all
+ * because it is assigned an unused 'b' parameter that was passed when calling the
+ * add method. Therefore the result has no function within this script.
+ * 
+ * @param { number } index - In the function `MathComponent`, the `index` input
+ * parameter is used as a key to identify each item on the list and help React keep
+ * track of them.
+ */}
 * @description This function defines a React component that displays various
 * mathematical operations on the number 5 using functions such as `sin()`.
 * 
@@ -80,6 +86,17 @@ const MathComponent: React.FC = () => {
 
     // ... [other functions can be defined here in the same manner as before]
 
+/**
+ * @description This function calculates the sine of a given angle (a) using the
+ * Math.sin() function and returns the result.
+ * 
+ * @param { number } a - The input parameter `a` passes its value to `Math.sin()` for
+ * calculation purposes.
+ * 
+ * @returns { number } This function takes a single argument `a` of type `number`,
+ * and returns the sine of `a` using the `Math.sin()` method. The output returned by
+ * this function is the sine of the given number `a`.
+ */
     function sin(a: number): number {
         return Math.sin(a);
     }
