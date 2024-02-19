@@ -2,36 +2,9 @@ import math
 from typing import List, Tuple
 
 def terminate():
-    """
-    The function `terminate()` does nothing; it is an empty function.
-
-    """
     pass
 
 def default_matrix_multiplication(a: List, b: List) -> List:
-    """
-    This function takes two lists (vectors) representing a 2x2 matrix and multiplies
-    them element-wise to produce a new 2x2 matrix.
-
-    Args:
-        a (List): The function takes two lists as inputs - 'a' and 'b', and applies
-            matrix multiplication on those lists which results to an output of
-            list type.  In essence 'a' represents the first matrix and b is the second.
-        b (List): In the provided function default_matrix_multiplication (a and
-            b), "b" represents the second list or matrix being multiplied element-wise
-            (with dot multiplication) to compute C=A x B . If A is the first matrix
-            with shape (2X2) having elements a[][ ], similarly ,B would be another
-            such matrix( 2X2 )  with elements b [][]
-
-    Returns:
-        List: The output of the function `default_matrix_multiplication` is a list
-        containing two lists:
-        
-        `[[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]]`
-        
-        `([a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]])]`
-
-    """
     if len(a) != 2 or len(a[0]) != 2 or len(b) != 2 or len(b[0]) != 2:
         raise Exception("Matrices are not 2x2")
     new_matrix = [[a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]], [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]],]
