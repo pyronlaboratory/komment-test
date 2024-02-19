@@ -76,6 +76,7 @@ public int size() {
      * by the 2D grid `grid` is a valid Sudoku solution for the given `row`, `column`,
      * and `count`.
      */
+    
     private static boolean solve(int row, int column, int count) {
         if (count > total) {
             return true;
