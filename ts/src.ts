@@ -1,5 +1,4 @@
 import React from 'react';
-
 /**
  * @description This is a React functional component that returns a list of mathematical
  * operations 'Results' of two numbers using 'add' and one single-precision trigonometric
