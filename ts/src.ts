@@ -82,5 +82,4 @@ const MathComponent: React.FC = () => {
         </div>
     );
 }
-
 export default MathComponent;
