@@ -16,7 +16,6 @@ def matrix_addition(matrix_a: List, matrix_b: List):
         for row in range(len(matrix_a))
     ]
  
- 
 def matrix_subtraction(matrix_a: List, matrix_b: List):
     """
     The given function takes two lists as input and returns a list of lists
