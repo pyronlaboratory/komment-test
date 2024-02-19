@@ -1,17 +1,19 @@
 import React from 'react';
 
 /**
- * @description This function defines several mathematical functions as constants and
- * then calculates their results for various input values using those functions
- * (represented as numbers). Then it displays a list of the result calculated values
- * .
+ * @description This is a React component that performs various mathematical operations
+ * on numbers and displays the results. The operations include addition subtraction
+ * multiplication division modulus power rounding floor ceiling logarithm and sine calculation.
  * 
- * @returns { object } Based on the given code snippet. The function component takes
- * no argument and returns a list of Math results as an array of JavaScript objects
- * with properties such as result number key and value .
+ * @returns { array } The output of this function will be an array of numbers that
+ * represent the result of different mathematical operations performed on the number
+ * 5.
  * 
- * Therefore he output return by the function is an unordered list of the Math results
- * obtained using different Math operation functions applied to a set of input values
+ * These operations include adding and subtracting 3 from 5; multiplying 5 and 3;
+ * dividing 5 by 3; finding the remainder of 5 divided by 3 (modulus); raising 5 to
+ * the power of 3; calculating the square root of 25; finding the absolute value of
+ * negative 5; rounding 5.4; floor of 5.8; and ceiling of 5.2. The final result
+ * includes the sine of half-pi (the other sin() argument.)
  */
 const MathComponent: React.FC = () => {
 
@@ -23,39 +25,37 @@ const MathComponent: React.FC = () => {
 * The function only uses the `b` parameter, which is passed as an argument when 
 * calling the function.
 * 
-{/**
- * @description This React Functional Component named "MathComponent" returns an HTML
- * ul list of math operations performed on various input values: addition(5+3),
- * subtraction (5-3), multiplication (5x3), division (5/3), remainder (5%3),
- * exponentiation (5^3), square root of 25 squared , absolute value (-5), rounded 5.4
- * roundedTo closest integer (5.4 -> 5), ceiling of 5.2 raised to nearest integer
- * (5.2 -> 6), log base 10 of 10 squared and sin of PI/2 .
- * 
- * @param { number } result - In this React Functional Component template literal
- * definition below  the 'result' input parameters takes the results from the
- * calculations and stores them into memory to be passed on later into another part
- * of code where they will be rendered  :
- * ```
- * const results = [
- *     add(5,' add', 3),  // note: 3 passed as an object to store as well
- *     subtract(5 , ' minus', 3 ),
- *     multiply(5  ,  'times', 3  ),
- *     divide(5  ,  ' divide by', 3   ),
- *     modulus(5   ,  ' modulo of', 3  )
- *   ].map((result => ( { ... result })) <li key={ index}>Result
- *      { index+1}: {{...result }}< /li> <<consolelog result>>  );
- * ```
- * 
- * @param { array } index - The `index` input parameter is used as a key to uniquely
- * identify each item being rendered by the map() method. This allows React to keep
- * track of the items being rendered and efficiently update or remove them as necessary.
- * Essentially ,the `index` parameter helps React manage the state of the list and
- * prevent unnecessary re-renders.
- */}
 * @param { number } b - In the provided function `add(a: number, b: number): number`, 
 * the `b` input parameter is a parameter that is passed as an argument to the function 
 * when it is called.
 * 
+{/**
+ * @description This function imports React and defines a component that displays a
+ * list of mathematical operations and their results. The component uses variousMath
+ * methods such as add subtract multiply divide modulus power round floor ceiling log
+ * and sin to perform calculations with given inputs. The resultsof these calculaions
+ * are then displayed as a list of HTML labels
+ * 
+ * @param { number } result - In the `sin` function provided at the bottom of the
+ * code snippet presented here as Math Component of react functional component that
+ * receives only a single argument parameter `a` and immediately return's the result
+ * after performing some computation utilizing that sole parameter; therefore the
+ * input `result` has no bearing nor function here because `result` is never called
+ * nor directly referenced or passed within the Math.sin() code function which does
+ * computations and sin returns values of Math operations directly and that value is
+ * what we need if we are supposed to render or use the result;  otherwise since its
+ * absence could render ' undefined '. In simpler words this ` result' parameter just
+ * doesn't exist nor serves any useful purpose within the sin functions and therefore
+ * does not contribute much of consequence for Math Component because these results
+ * gets computed anyway irrespective of this uncalled input value; thus `result' is
+ * unreferenced or a 'dead' function input variable
+ * 
+ * @param { object } index - The index is a parameter used as an argument within map
+ * functions within array loops. The value of this function key maps uniquely to the
+ * component to be displayed and allows for easy component lookup through an object
+ * if that's how you choose to structure your state for each particular calculation
+ * result
+ */}
 * In other words, the `b` parameter is used in the calculation of the sum of the two 
 * numbers, and the return value of the function is the result of adding `a` and `b`.
 * 
@@ -80,16 +80,20 @@ const MathComponent: React.FC = () => {
  * this function is the sine of the given number `a`.
  */
 /**
- * @description This function calculates the sine of a given angle (a) using Math.sin()
+ * @description This function calculates the sine of a given number (using `Math.sin()`)
  * and returns the result.
  * 
- * @param { number } a - The `a` input parameter is a numerical value that passes
- * through to the internal `Math.sin()` method and utilized for its intended mathematical
- * purposes.
+ * @param { number } a - The input parameter a is used to calculate the sine of the
+ * value it receives through sin(), and returns the calculation as an output.
  * 
- * @returns { number } This function uses the built-in `Math.sin()` method to calculate
- * and return the sine of a given angle `a`.  The output returned by this function
- * is simply the sine of `a`, which is calculated using `Math.sin()`.
+ * @returns { number } Based on the documentation provided for the function "sin()",
+ * it takes one parameter of type number (designated as "a") and then uses that input
+ * value to calculate and return its sine using Math.sin(), which is another function
+ * from Mathematics. As such any number input will produce a corresponding result
+ * based on trigonometric principles related to a specific angle of a value; i.e.,
+ * an integer between -1 and 1 inclusive; therefore , given any particular number
+ * entered into 'a', sin() simply returns that same calculated sine given inputted
+ * value when called upon through this function.
  */
     function sin(a: number): number {
         return Math.sin(a);
