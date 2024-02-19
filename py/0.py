@@ -11,24 +11,6 @@ def default_matrix_multiplication(a: List, b: List) -> List:
     return new_matrix
  
 def matrix_addition(matrix_a: List, matrix_b: List):
-    """
-    The function matrix_addition takes two lists of lists ( matrices) and returns
-    a new list of lists. It appends each element of the first matrix to each element
-    of the second matrix by row.
-
-    Args:
-        matrix_a (List): Here is the concise answer you requested:
-            
-            matrix_a is a List that serves as the first operand for matrix addition.
-        matrix_b (List): THE SECOND MATRIX IS ADDED TO THE FIRST MATRIX ROW BY ROW
-            USING THE COLUMN-WISE ADDITION IN THIS DEFINED FUNCTION.
-
-    Returns:
-        list: The function returns a list of lists representing the result of
-        adding two matrices. Each sublist within the larger list contains the sum
-        of the corresponding elements of the input matrices.
-
-    """
     return [
         [matrix_a[row][col] + matrix_b[row][col] for col in range(len(matrix_a[row]))]
         for row in range(len(matrix_a))
