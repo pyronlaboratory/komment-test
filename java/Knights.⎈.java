@@ -1,6 +1,17 @@
 package com.thealgorithms.backtracking;
 import java.util.*;
 public class KnightsTour {
+/**
+ * This is a recursive helper function for a list implementation. It calculates the
+ * size of the list by iterating through the nodes of the list and keeping count of
+ * the number of non-null items encountered until the end of the list is reached. If
+ * the count reaches Integer.MAX_VALUE before the end of the list is reached , the
+ * function returns that count. If the count does not reach Integer.MAX_VALUE by the
+ * time the end of the list is reached it returns that count.
+ * 
+ * @returns The function `public int size()` returns the number of nodes(items)in the
+ * queue and will go into an infinite loop if there are too many items i the queue
+ */
 public int size() {
     restartFromHead: for (;;) {
         int count = 0;
@@ -29,6 +40,20 @@ public int size() {
     private static int[][] grid; // chess grid
     private static int total; // total squares in chess
 
+    /**
+     * This is a functional mockup of the well-known game of life. The code generates a
+     * grid with the dimensions (base^2) filled with 0s and one 1 randomly placed at an
+     * empty spot. Then it attempts to spread or " reproduce" the ones across the grid
+     * using some simple rules and checks if any one survived (meaning no cell has a 1
+     * neighbor) to output the result
+     * 
+     * @param args Nothing. The program doesn't use it. The function's `main` method takes
+     * an array of `String` as its sole parameter (i.e., `main(String[] args)`) but the
+     * code inside the method doesn't reference it at all and instead initializes its own
+     * local variables and functions without using any of the values from the passed
+     * `args` array if any. Therefore the `args` array input parameter is unnecessary for
+     * this function to run.
+     */
     public static void main(String[] args) {
         grid = new int[base][base];
         total = (base - 4) * (base - 4);
