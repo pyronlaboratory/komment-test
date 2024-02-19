@@ -1,17 +1,3 @@
-/**
- * Copyright Amazon.com, Inc. and its affiliates. All Rights Reserved.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"). You
- * may not use this file except in compliance with the License. A copy of
- * the License is located at
- *
- *     http://aws.amazon.com/apache2.0/
- *
- * or in the "license" file accompanying this file. This file is
- * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF
- * ANY KIND, either express or implied. See the License for the specific
- * language governing permissions and limitations under the License.
- */
 import { configure } from "./config.js";
 import { TokensFromRefresh } from "./model.js";
 import { retrieveTokens, TokensFromStorage } from "./storage.js";
@@ -21,17 +7,7 @@ import { setTimeoutWallClock } from "./util.js";
 
 let schedulingRefresh: ReturnType<typeof _scheduleRefresh> | undefined =
   undefined;
-/**
-* @description This function Schedule refresh after a specified delay and return the 
-* scheduled task, with the purpose of handling the refresh of a resource such that 
-* it is not refreshed repeatedly when there is no need to
-* 
-* @returns { Promise } - The function takes arguments, calls another function that 
-* returns a promise and captures the return value in `schedulingRefresh`, and then 
-* returns that same value after completing the inner function's execution using `.finally()`.
-* 
-* The output returned by this function depends on how ` _scheduleRefresh()` behaves.
-*/
+
 export async function scheduleRefresh(
   ...args: Parameters<typeof _scheduleRefresh>
 ) {
@@ -51,23 +27,6 @@ type TokensForRefresh = Partial<
 let clearScheduledRefresh: ReturnType<typeof setTimeoutWallClock> | undefined =
   undefined;
 
-/**
- * @description This function schedules a refresh of "tokens" and checks if the
- * provided AbortSignal is aborting the refresh before refreshing them and notifying
- * the supplied callback with new tokens and current state as refreshed
- * 
- * @param { Promise } abort,tokensCb,isRefreshingCb - The abort and isRefreshingCB
- * allow for cancelling (stopping) and receiving notificaion when the refresh starts
- * and/or ends whereas the tokenCB merely has a payload sent to it which contains
- * tokens that have been refreshed if a callback is supplied
- * 
- * @returns { Promise } The `_scheduleRefresh` function returns a cleared schedule
- * refresh after either immediately calling `refreshTokens` and then calling
- * `setTimeoutWallClock`, or scheduling a timeout that triggers another `refreshTokens`
- * call and includes an event listener for the abort signal that would trigger clearing
- * of the scheduled refresh.
- * So its output is `clearScheduledRefresh`.
- */
 async function _scheduleRefresh({
   abort,
   tokensCb,
@@ -96,15 +55,8 @@ async function _scheduleRefresh({
       `Scheduling refresh of tokens in ${(refreshIn / 1000).toFixed(1)} seconds`
     );
 
-/**
- * @description This function calls the `refreshTokens` function after a specified
- * delay (given by `refreshIn`), with an optional `abort`, `tokensCb`, and `isRefreshingCb`
- * parameters. If the `refreshTokens` call fails (caught by the `catch` callback),
- * it logs an error message but does not stop executing other code.
- */
     clearScheduledRefresh = setTimeoutWallClock(
       () =>
-
         refreshTokens({ abort, tokensCb, isRefreshingCb, tokens }).catch(
           (err) => debug?.("Failed to refresh tokens:", err)
         ),
@@ -120,27 +72,11 @@ async function _scheduleRefresh({
 }
 
 let refreshingTokens: ReturnType<typeof _refreshTokens> | undefined = undefined;
-/**
-* @description This function is a wraper for the `_refreshTokens` function, which 
-* is not defined in the snippet provided.
-* 
-* @returns { Promise } - The function `refreshTokens` is asynchronous and returns a 
-* Promise that resolves to the value `refreshingTokens` after executing the 
-* `_refreshTokens` function with the arguments `...args`.
-* 
-* In other words, the output returned by this function is either the value of 
-* `refreshingTokens` if it's already defined, or the result of `_refreshTokens` after 
-* the Promise resolves.
-*/
+
 export async function refreshTokens(
   ...args: Parameters<typeof _refreshTokens>
 ) {
   if (!refreshingTokens) {
-/**
-* @description The given function defines an asynchronous function that first calls
-* the `refreshTokens` function with the arguments provided and then sets the
-* `refreshingTokens` variable to `undefined` when the promise resolved or rejected.
-*/
     refreshingTokens = _refreshTokens(...args).finally(
       () => (refreshingTokens = undefined)
     );
@@ -149,25 +85,7 @@ export async function refreshTokens(
 }
 
 const invalidRefreshTokens = new Set<string>();
-/**
-* @description This function `_refreshTokens` performs a token refresh using a refresh 
-* token and returns the updated access and id tokens, as well as the expiration date.
-* 
-* @returns { object } - The function `_refreshTokens` takes an object with optional 
-* parameters `abort`, `tokensCb`, `isRefreshingCb`, and `tokens`, and returns a 
-* Promise that resolves to an object with the following properties:
-* 
-* 	- `accessToken`: an access token obtained through the refresh token flow.
-* 	- `idToken`: an ID token obtained through the refresh token flow.
-* 	- `expireAt`: the timestamp at which the tokens will expire, in milliseconds.
-* 	- `username`: the username associated with the tokens.
-* 
-* The function first checks if all necessary parameters are present and throws an 
-* error if not. It then attempts to retrieve tokens using the refresh token flow and 
-* handles any errors that may occur during this process. If the token is invalid or 
-* has failed previously, the function will throw an error. Once tokens are obtained, 
-* it calls the `tokensCb` callback (if provided) with the fresh tokens.
-*/
+
 async function _refreshTokens({
   abort,
   tokensCb,
@@ -195,13 +113,7 @@ async function _refreshTokens({
       );
     }
     debug?.("Refreshing tokens using refresh token ...");
-/**
-* @description This function initiates an authentication flow using a refresh token
-* and catches any errors that may occur during the process.
-* 
-* @param { object } err - The `err` input parameter is used to capture any error
-* that may occur during the authentication flow.
-*/
+    
     const authResult = await initiateAuth({
       authflow: "REFRESH_TOKEN_AUTH",
       authParameters: {
