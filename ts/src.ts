@@ -16,6 +16,25 @@ import React from 'react';
  */
 const MathComponent: React.FC = () => {
 
+{/**
+ * @description This is a React component that displays an array of mathematical
+ * operation results using various math methods like add(), subtract(), multiply(),
+ * divide(), etc. It takes no argument and returns an array of mathematical operations.
+ * 
+ * @param { Component } result - The result' input parameter does not contribute to
+ * the function's computation or return value because 'sin(' utilizes the solely
+ * passed a argument within its implementation to produce and return calculated values.
+ * As a result this input "result', serves no use nor provides benefit as a dead
+ * unreferenced parameter
+ * and should therefore simply be removed or refactored into the proper input expected
+ * for calculations being performed; for instance with a instead of result if we wish
+ * to refer back thereon within any given implementation for results' usage later
+ * downline within Math Componentjs functionality
+ * 
+ * @param { object } index - The input 'index' within the 'MathComponents', serves
+ * as a unique key and enables quick and efficient access of component state if the
+ * particular calculation result is desired and if one wishes to store each state individually
+ */}
 /**
 * @description This function adds two numbers together and returns their sum.
 * 
@@ -93,6 +112,24 @@ const MathComponent: React.FC = () => {
  * an integer between -1 and 1 inclusive; therefore , given any particular number
  * entered into 'a', sin() simply returns that same calculated sine given inputted
  * value when called upon through this function.
+ */
+/**
+ * @description This function calculates the sine of a given input 'a' (number type)
+ * and returns the output result using the 'Math.sin()'.
+ * 
+ * @param { number } a - The `a` input parameter passes its value to `Math.sin()` for
+ * calculation purposes.
+ * 
+ * @returns { number } Based on the documentation provided for the function "sin()",
+ * it takes one parameter of type number (designated as "a") and then uses that input
+ * value to calculate and return its sine using Math.sin(), which is another function
+ * from Mathematics.
+ * 
+ * Therefore , given any particular number entered into 'a', sin() simply returns
+ * that same calculated sine given inputted value when called upon through this
+ * function .
+ * 
+ * This function returns an integer between -1 and 1 inclusive.
  */
     function sin(a: number): number {
         return Math.sin(a);
