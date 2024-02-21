@@ -42,16 +42,6 @@ const search = (arr, x, start, end) => {
 };
 
 
-/**
- * @description This function retrieves the application ID based on a parameter passed
- * in the URL. It first logs the parameter value to the pipeline log, then queries
- * the cmdb_ci_business_app table using the `get` method and returns the resulting
- * number as the application ID.
- * 
- * @returns { string } The function returns the `appID` variable, which is either
- * empty or a number representing the ID of the business application associated with
- * the given `sysparm_appName`.
- */
 const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
