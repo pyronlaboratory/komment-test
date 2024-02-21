@@ -42,6 +42,17 @@ const search = (arr, x, start, end) => {
 };
 
 
+/**
+ * @description This function retrieves the ID of a business application based on a
+ * parameter passed through a system. If the parameter is not found or empty, the
+ * function returns an empty string. It logs the retrieved ID to a pipeline for logging
+ * purposes.
+ * 
+ * @returns { string } The function returns the application ID based on the parameter
+ * passed in the URL. If the parameter is present, it retrieves the application ID
+ * from the database using the `cmdb_ci_business_app` table. If the parameter is not
+ * present, the function returns an empty string.
+ */
 const getApplicationID = () => {
   var appID = "";
   gs.log("appid: " + this.getParameter("sysparm_appName"), "pipeline");
