@@ -15,15 +15,6 @@ import { DOMEval } from "./core/DOMEval.js";
 
 var version = "@VERSION",
   rhtmlSuffix = /HTML$/i,
-           /**
-            * @description SELECTOR AND CONTEXT GIVEN FUNCTION execution
-            * 
-            * @param {  } selector - SELECTOR PROVIDES THE QUERY ALLOWING ACCESS TO OBJECT(S).
-            * 
-            * @param { object } context - The `context` input parameter provides an object that
-            * supplies information about the current rendering pipeline and enables access to
-            * certain aspects of the framework from within the handler.
-            */
   jQuery = function (selector, context) {};
 
 jQuery.fn = jQuery.prototype = {
