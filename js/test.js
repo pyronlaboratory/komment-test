@@ -15,6 +15,19 @@ import { DOMEval } from "./core/DOMEval.js";
 
 var version = "@VERSION",
   rhtmlSuffix = /HTML$/i,
+           /**
+            * @description This function selects an element or elements based on a specified
+            * selector and context, and performs an action on them.
+            * 
+            * @param { string } selector - The `selector` input parameter selects the HTML element
+            * or elements that the function will operate on. It is used to target specific
+            * elements within the context of the calling code.
+            * 
+            * @param {  } context - The `context` input parameter in the provided function is
+            * used to provide additional data or information that can be utilized within the
+            * function. It serves as a way to pass in external data or context that can be used
+            * to modify or manipulate the output of the function.
+            */
   jQuery = function (selector, context) {};
 
 jQuery.fn = jQuery.prototype = {
