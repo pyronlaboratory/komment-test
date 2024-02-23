@@ -166,6 +166,61 @@ function CSSTransition({
   const nodeRef = React.useRef(null);
   const Component = tag;
 
+         /**
+          * @description This component uses React CSSTransition to manage the visibility of
+          * a component. It sets up listeners for different events during the transition, such
+          * as `onEnter`, `onEntering`, `onEntered`, `onExit`, `onExiting`, and `onExited`.
+          * These events are used to add or remove CSS classes from the component's node
+          * reference, controlling its visibility. The component also sets up a `nodeRef` to
+          * refer to the component's DOM node, and uses the `rest` prop to pass additional
+          * props to the component.
+          * 
+          * @param { boolean } appear - The `appear` property sets whether the component should
+          * appear when the transition is complete or not. If it's set to `true`, the component
+          * will appear after the transition is finished, otherwise it won't.
+          * 
+          * @param {  } nodeRef - The `nodeRef` property is a React ref that stores a reference
+          * to the underlying DOM element. It is used to add event listeners and to remove
+          * classes when the component unmounts.
+          * 
+          * @param { boolean } unmountOnExit - The `unmountOnExit` property in the
+          * `ReactCSSTransition` component unmounts the component when it exits, which means
+          * it removes the component from the DOM. This is useful for cleaning up resources
+          * and preventing memory leaks when a component is no longer needed.
+          * 
+          * @param { boolean } in - The `in` property in the ReactCSSTransition component sets
+          * whether the transition is occurring or not. If it is set to `true`, the transition
+          * will occur, and if it is set to `false`, the transition will not occur.
+          * 
+          * @param {  } addEndListener - The `addEndListener` property adds an event listener
+          * to the element when it is being removed from the DOM. It listens for the `transitionend`
+          * event and when it occurs, it calls the `done` function.
+          * 
+          * @param { Component } onEnter - In this component, the `onEnter` property is called
+          * when the element is entering the DOM. It sets the display property of the element
+          * to null if it hasn't already been removed from the DOM, and adds classes to the
+          * element during its entry.
+          * 
+          * @param { Component } onEntering - In this component, the `onEntering` property
+          * adds a class to the element when it is entering the viewport, and removes that
+          * class when the transition is complete.
+          * 
+          * @param { Component } onEntered - The `onEntered` property adds classes to the
+          * component upon entering it. It removes classes that were added during the `onEntering`
+          * phase and adds new ones.
+          * 
+          * @param { Component } onExit - The `onExit` property adds classes to the node when
+          * it is being removed from the DOM. It adds leaveStart and leaveEnd classes, followed
+          * by removeClasses for both of those classes, and finally adds a class of "none" to
+          * hide the element.
+          * 
+          * @param { Component } onExiting - The `onExiting` property sets up an event listener
+          * that removes classes from the component when it is leaving the DOM. It adds classes
+          * to the component before it leaves, which helps with smooth transitions.
+          * 
+          * @param { Component } onExited - The `onExited` property triggers the removal of
+          * the node's CSS classes when the transition is completed, making the element invisible.
+          */
   return (
     <ReactCSSTransition
       appear={appear}
