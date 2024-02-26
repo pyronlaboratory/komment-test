@@ -906,20 +906,6 @@ def create_android_sdk_rule(environ_cp):
   versions = sorted(os.listdir(build_tools))
 
   def valid_build_tools(version):
-    """
-    This function checks if a specific version of the Android build tools is
-    installed by checking the existence of a folder with that version's name inside
-    the Android SDK directory.
-
-    Args:
-        version (str): The `version` input parameter specifies the version of the
-            build tools that should be checked for existence.
-
-    Returns:
-        bool: The function `valid_build_tools(version)` returns `True` if the file
-        `/path/to/android/sdk/build-tools/version` exists and `False` otherwise.
-
-    """
     return os.path.exists(
         os.path.join(android_sdk_home_path, 'build-tools', version))
 
