@@ -31,11 +31,6 @@ public class AllPathsFromSourceToTarget {
     }
 
 
-    /**
-     * This function initializes an adjacency list data structure for a graph with `v`
-     * vertices. It creates an array of `ArrayList`s with size `v`, and initialize each
-     * element of the array to an empty list.
-     */
     private void initAdjList() {
         adjList = new ArrayList[v];
 
