@@ -7,30 +7,6 @@ import { setTimeoutWallClock } from "./util.js";
 let schedulingRefresh: ReturnType<typeof _scheduleRefresh> | undefined =
   undefined;
 
-/**
- * @description This function creates a new scheduleRefresh function and assigns it
- * to schedulingRefresh only if there isn't already a value for it. The value that
- * gets returned at the end is assigned after being assigned the results of
- * scheduleRefresh. In essence then:
- * - Does not execute anything until .finally
- * - Returns whatever is given to _scheduleRefresh and assigns its value back to undefined
- * 
- * @param { Parameters } args - No problem; here's your answer:
- * 
- * The input parameters passed into the `export async function scheduleRefresh` are
- * destructured using Parameters. It is calling another function and then finishing
- * up by defining a variable 'schedulingRefresh' that equals undefined after completion
- * of this whole process .
- * 
- * @returns { Promise } This export function scheduleRefresh is used as a wrapped
- * around another function with an argument to take like this `_scheduleRefresh(...args)`
- * then return promise of `schedule refresh`  which first parameter  set to be false
- * then pass to original function `_scheduleRefresh` and set to finish or fulfilled
- * once this `original function ` returns promising after fulfilled then sets back
- * to undefine so no scheduled function should run twice by setting back again. The
- * output is a promise from  original schedule refresh and only ran only once if it
- * doesn't has already schedule previously set
- */
 export async function scheduleRefresh(
   ...args: Parameters<typeof _scheduleRefresh>
 ) {
