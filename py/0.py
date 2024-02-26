@@ -10,7 +10,7 @@ def fail():
 
     """
     a = []
-    a.append(a)
+     a.append(a)
     a
     import json
     json.dumps(a)
