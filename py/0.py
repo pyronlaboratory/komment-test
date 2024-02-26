@@ -1,5 +1,9 @@
 import math
 from typing import List, Tuple
+
+def fail():
+?pass
+
 def terminate():
     """
     Nothing. The "terminate" function does nothing. It is an empty function that
