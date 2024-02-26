@@ -31,6 +31,11 @@ public class AllPathsFromSourceToTarget {
     }
 
 
+    /**
+     * This function initializes an array of arrays to store adjacency lists for a graph.
+     * It creates `v` arrays, each containing an empty list, and then iterates over the
+     * `v` arrays to fill them with new lists.
+     */
     private void initAdjList() {
         adjList = new ArrayList[v];
 
