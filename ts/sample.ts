@@ -7,6 +7,26 @@ import { setTimeoutWallClock } from "./util.js";
 let schedulingRefresh: ReturnType<typeof _scheduleRefresh> | undefined =
   undefined;
 
+/**
+ * @description This function schedules a refresh of the data source, using the
+ * provided `_.scheduleRefresh` method. It checks if scheduling is already in progress,
+ * and if not, it sets `schedulingRefresh` to the result of calling `_scheduleRefresh`
+ * with the provided arguments, followed by calling `finally` to reset `schedulingRefresh`
+ * to undefined once the refresh has completed. The function returns `schedulingRefresh`.
+ * 
+ * @param { Parameters<typeof _scheduleRefresh> } args - The `args` input parameter
+ * is used to pass any additional arguments that need to be passed to the
+ * `_scheduleRefresh()` function when it is called. These arguments are passed directly
+ * to the internal `_scheduleRefresh()` function without modification, allowing for
+ * customization of the scheduling behavior if needed.
+ * 
+ * @returns { Promise } The function `scheduleRefresh` returns a promise that represents
+ * the current state of scheduling refresh. If the function has not been called before,
+ * it sets the variable `schedulingRefresh` to the result of calling `_scheduleRefresh`
+ * with the provided arguments and then immediately clears the value of `schedulingRefresh`.
+ * The returned promise will resolve when the refresh is scheduled or reject if an
+ * error occurs.
+ */
 export async function scheduleRefresh(
   ...args: Parameters<typeof _scheduleRefresh>
 ) {
