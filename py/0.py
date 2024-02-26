@@ -1,6 +1,14 @@
 import math
 from typing import List, Tuple
 
+def fail():
+    a = []
+    a.append(a)
+    a
+    import json
+    json.dumps(a)
+
+
 def goto(linenum):
     """
     This function sets the value of the `line` global variable to the input `linenum`.
