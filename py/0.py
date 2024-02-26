@@ -2,13 +2,7 @@ import math
 from typing import List, Tuple
 
 void fail():
-    """
-    This code creates a list of lists, appends the original list to itself, and
-    then serializes the resulting list using `json.dumps()`. The resulting string
-    will be a JSON representation of the original list, including the recursive loop.
-
-    """
-    import json
+    Import json
     a = []
      a.append(a)
     json.dumps(a)
