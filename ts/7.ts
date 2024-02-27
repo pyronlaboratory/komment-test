@@ -28,6 +28,23 @@ export class AppSyncStack extends TerraformStack {
   role: any = null;
   table: any = null;
   dataSource: any = null;
+  /**
+   * @description This function creates an AppSync API, including a GraphQL API, a
+   * DynamoDB data source, and several IAM policies and attachments. It also creates
+   * TFResources for tables, roles, functions, and resolvers.
+   * 
+   * @param { Construct } scope - The `scope` input parameter in the `constructor`
+   * function of Amplify AppSync defines the scope of the component. It specifies the
+   * parent component or top-level component that the new component will be a part of.
+   * In this case, the `scope` parameter is set to `Construct`, which means that the
+   * new component will be a child component of the `Construct` component. This allows
+   * for easier organization and management of components in an Amplify AppSync project.
+   * 
+   * @param { string } name - The `name` input parameter in the ` constructor` function
+   * sets the name of the construct. It is used to create unique names for resources
+   * and dependencies, which are necessary for proper functioning of the Amplify AppSync
+   * framework.
+   */
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
