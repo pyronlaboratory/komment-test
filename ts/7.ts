@@ -28,35 +28,6 @@ export class AppSyncStack extends TerraformStack {
   role: any = null;
   table: any = null;
   dataSource: any = null;
-
-/**
- * @description This is a constructor for a AWS CloudFormation template that sets up
- * an AppSync API and related resources.
- * 
- * The constructor:
- * 
- * 1/ Creates the AWS provider with region deployment
- * 2/ Constructs the AppSync API based on Schema files
- * 3/ Assigns schema to terraform output
- * 4/ Iterates over CFN Resources and constructs TF tables/roles/policies accordingly
- * 5/ Assigns TableArn/Policy Arns to Terraform outputs.
- * 6/ Constructs an IAM Policy Attachment
- * 7/ Assigns the iam Role Arn to terraform output
- * 8/ Creates the dataSource
- * 9/ Iterate over TF functions/resolvers and create related constructs
- * 
- * @param { Construct } scope - The `scope` parameter defines the object to which new
- * AWS resources will be added as properties of the `constructor`. The constructor
- * leverages these objects' features like accessing methods like `super()` or `${...}`
- * injection to construct other parts such as a `tfStack`, an AWS provider that serves
- * only as an object and doesn't contain resources yet with some configuration. These
- * elements form the infrastructure to serve amplify functionality through this GraphQL
- * API which relies on schema.graphql; schema objects may or may not include inputs
- * required for creation (like regions).
- * 
- * @param { string } name - The `name` parameter is used to specify the name of the
- * Stack that will be created or replaced by Amplify Console.
- */
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
