@@ -29,6 +29,26 @@ export class AppSyncStack extends TerraformStack {
   table: any = null;
   dataSource: any = null;
   
+  /**
+   * @description This function creates an AppSync API and its associated resources
+   * (table, role, policy, attachment) using AWS CloudFormation. It also creates a
+   * DynamoDB data source and functions (including a resolver). The function takes in
+   * the deployment region and a stack name as parameters, and sets up the necessary
+   * resources for the AppSync API to work properly.
+   * 
+   * @param { Construct } scope - The `scope` input parameter in the constructor function
+   * defines the scope of the code. In this case, it determines which AWS services can
+   * be imported and used within the function. By default, the `scope` parameter is set
+   * to `Construct`, which allows the function to access all AWS services. However, you
+   * can also set it to a specific service or resource group to limit the scope of the
+   * code further.
+   * 
+   * @param { string } name - The `name` input parameter in the `constructor` function
+   * of the `AppsyncGraphqlApi` class is used to set the name of the API. It is passed
+   * as an argument to the `super` constructor, which sets the name of the superclass
+   * (in this case, `construct`). The name of the API is then used to create the API's
+   * ID, which is later used to reference the API in other code objects.
+   */
   constructor(scope: Construct, name: string) {
     super(scope, name);
 
