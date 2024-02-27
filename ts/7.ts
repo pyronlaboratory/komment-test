@@ -29,21 +29,22 @@ export class AppSyncStack extends TerraformStack {
   table: any = null;
   dataSource: any = null;
   /**
-   * @description This function creates an AppSync API, including a GraphQL API, a
-   * DynamoDB data source, and several IAM policies and attachments. It also creates
-   * TFResources for tables, roles, functions, and resolvers.
+   * @description This function creates an AppSync API with a GraphQL schema, authentication
+   * type, and data source. It also creates TF resources such as tables, roles, policies,
+   * functions, and resolvers. The function takes in the deployment region and name as
+   * input parameters and sets up the necessary infrastructure for the AppSync API.
    * 
-   * @param { Construct } scope - The `scope` input parameter in the `constructor`
-   * function of Amplify AppSync defines the scope of the component. It specifies the
-   * parent component or top-level component that the new component will be a part of.
-   * In this case, the `scope` parameter is set to `Construct`, which means that the
-   * new component will be a child component of the `Construct` component. This allows
-   * for easier organization and management of components in an Amplify AppSync project.
+   * @param { Construct } scope - The `scope` input parameter in the `constructor()`
+   * function of an Amplify AppSync module defines the scope of the module's resources.
+   * It specifies which AWS services the module can access and manipulate, such as
+   * DynamoDB, API Gateway, or CloudFront. By default, the `scope` parameter is set to
+   * `construct`, which means that the module can only access and manipulate its own
+   * resources. However, you can also set it to a different value, such as `aws` or
+   * `iam`, to give the module wider access to AWS services and resources.
    * 
    * @param { string } name - The `name` input parameter in the ` constructor` function
-   * sets the name of the construct. It is used to create unique names for resources
-   * and dependencies, which are necessary for proper functioning of the Amplify AppSync
-   * framework.
+   * sets the name of the construct. It is used to create resource names and references
+   * throughout the code.
    */
   constructor(scope: Construct, name: string) {
     super(scope, name);
