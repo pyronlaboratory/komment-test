@@ -1,6 +1,6 @@
 using System;
 
-namespace RefactoringGuru.DesignPatterns.AbstractFactory.Conceptual
+namespace ∞.DesignPatterns.AbstractFactory.Conceptual
 {
     public interface IAbstractFactory
     {
