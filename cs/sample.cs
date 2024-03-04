@@ -1,3 +1,8 @@
+using System;
+namespace GoogleTestAdapter.Common { public static class Functional {public static Func<TArgument, TAnonymousReturnType> ToFunc<TArgument, TAnonymousReturnType>(Func<TArgument, TAnonymousReturnType> lambda)
+{return lambda;}}}
+
+
 abstract class Motorcycle
 {
     public void StartEngine() {/* Method statements here */ }
@@ -13,9 +18,3 @@ public void Print() => Console.WriteLine(First + " " + Last);
 public static Complex operator +(Complex a, Complex b) => a.Add(b);
 public string Name => First + " " + Last;
 public Customer this[long id] => store.LookupCustomer(id);
-
-
-using System;
-namespace GoogleTestAdapter.Common { public static class Functional {public static Func<TArgument, TAnonymousReturnType> ToFunc<TArgument, TAnonymousReturnType>(Func<TArgument, TAnonymousReturnType> lambda)
-{return lambda;}}}
-
