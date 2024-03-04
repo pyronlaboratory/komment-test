@@ -28,8 +28,8 @@ namespace Conhost.UIA.Tests
         public const int timeout = Globals.Timeout;
 
         /// <summary> 
-        /// verifies that all tabs and objects are enabled or disabled correctly when the 
-        /// global v1/v2 state is manipulated. 
+        /// verifies that options are enabled or disabled correctly when the global v1/v2 state 
+        /// is changed. 
         /// </summary> 
         [TestMethod]
         [TestProperty("Ignore", "True")] // GH#7282 - investigate and reenable
@@ -93,9 +93,8 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// tests the registry write-back functionality of a test application by creating a 
-        /// backup, launching the application, and then comparing the original and modified 
-        /// registries to ensure proper write-back. 
+        /// verifies that write-backs from a process to the registry are correctly handled by 
+        /// the registry component, including backup and restore operations. 
         /// </summary> 
         [TestMethod]
         [TestProperty("Ignore", "True")] // GH#7282 - investigate and reenable
@@ -114,8 +113,8 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// verifies that writebacks from a shortcut are properly applied to the specified 
-        /// target, using an open-closed design pattern. 
+        /// verifies that writebacks are properly updated when creating a temp command shortcut 
+        /// using `CmdApp`. 
         /// </summary> 
         [TestMethod]
         [TestProperty("Ignore", "True")] // GH#7282 - investigate and reenable
@@ -138,35 +137,60 @@ namespace Conhost.UIA.Tests
             }
         }
 
+        /// <summary> 
+        /// verifies the write-back operations for a given Registry, Command Application, and 
+        /// Open Target. 
+        /// </summary> 
+        /// <param name="reg"> 
+        /// RegistryHelper object that contains the registry information to be checked for writebacks. 
+        /// </param> 
+        /// <param name="app"> 
+        /// command application for which writebacks are being checked. 
+        /// </param> 
+        /// <param name="target"> 
+        /// open target for which the writebacks are being checked. 
+        /// </param> 
         private void CheckRegistryWritebacks(RegistryHelper reg, CmdApp app, OpenTarget target)
         {
             this.CheckWritebacks(reg, null, app, target);
         }
 
+        /// <summary> 
+        /// verifies that any write-backs associated with a given shortcut are properly 
+        /// synchronized with the corresponding application and target. 
+        /// </summary> 
+        /// <param name="shortcut"> 
+        /// Shortcut object that is being written back to the application. 
+        /// </param> 
+        /// <param name="app"> 
+        /// CmdApp object that provides access to the target platform's functionality for 
+        /// writing back data. 
+        /// </param> 
+        /// <param name="target"> 
+        /// open target for which the writebacks are being checked. 
+        /// </param> 
         private void CheckShortcutWritebacks(ShortcutHelper shortcut, CmdApp app, OpenTarget target)
         {
             this.CheckWritebacks(null, shortcut, app, target);
         }
 
         /// <summary> 
-        /// verifies that writebacks from the registry or shortcut are properly saved and 
-        /// updated in the target application when various settings are changed. 
+        /// verifies that changes made to checkboxes and sliders in a PropertiesDialog are 
+        /// properly saved when the dialog is closed either through OK or Cancel. 
         /// </summary> 
         /// <param name="reg"> 
-        /// Registry settings for the target application, which is used to verify writebacks 
-        /// in either registry or shortcut mode. 
+        /// registry object to be used for writeback testing. 
         /// </param> 
         /// <param name="shortcut"> 
-        /// shortcut option for writing back values, which is used to determine whether to use 
-        /// the shortcut or registry writeback mechanism. 
+        /// 2nd mode of writeback testing, where shortcuts are used instead of registry values. 
         /// </param> 
         /// <param name="app"> 
-        /// application instance for which the writeback functionality is being tested. 
+        /// CmdApp object that is used to provide access to the application's functionality 
+        /// and state for verifying writebacks. 
         /// </param> 
         /// <param name="target"> 
-        /// open target for which the writeback functionality is being tested, and it is passed 
-        /// to the function as a parameter to identify the specific target for which the tests 
-        /// are being performed. 
+        /// OpenTarget object that the writeback tests are being performed on, and is used to 
+        /// identify the specific target for which the writebacks are being verified. 
         /// </param> 
         private void CheckWritebacks(RegistryHelper reg, ShortcutHelper shortcut, CmdApp app, OpenTarget target)
         {
@@ -284,34 +308,36 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// iterates through each tab in a set and verifies the values of writebacks, expected 
-        /// positions of sliders, checkboxes, and global state of the console version. 
+        /// iterates through all tabs in a `Tabs` collection and calls itself recursively for 
+        /// each tab, passing the appropriate parameters. 
         /// </summary> 
         /// <param name="isRegMode"> 
-        /// mode of operation (reg or non-reg) and affects the behavior of the function. 
+        /// mode of the application, whether it's regular or registry mode. 
         /// </param> 
         /// <param name="reg"> 
-        /// 3rd party RegistryHelper class used to interact with the Windows registry. 
+        /// 3rd party registry helper object that contains metadata and values for the targets 
+        /// to be checked for writebacks. 
         /// </param> 
         /// <param name="shortcut"> 
-        /// Shortcut helper class, which provides methods for working with shortcuts. 
+        /// ShortcutHelper object that contains information about the shortcut associated with 
+        /// the target. 
         /// </param> 
         /// <param name="target"> 
-        /// OpenTarget object that contains information about the target application or system 
-        /// being evaluated for writebacks. 
+        /// OpenTarget object that contains the current target file or directory being processed 
+        /// by the function. 
         /// </param> 
         /// <param name="tabs"> 
-        /// Tabs class instance that contains the values to be checked for consistency with 
-        /// expected positions. 
+        /// Tabs class instance that contains information about all tabs in the current document. 
         /// </param> 
         /// <param name="sliderExpected"> 
-        /// expected position of the slider within the targeted tab. 
+        /// expected position of a slider in the UI. 
         /// </param> 
         /// <param name="checkboxValue"> 
-        /// current value of the checkbox associated with the shortcut being verified. 
+        /// value of a checkbox associated with the corresponding tab. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// global state of the console version of the application. 
+        /// version of the console application being executed by the shortcut, and is used to 
+        /// determine the appropriate behavior for certain actions within the function. 
         /// </param> 
         private void CheckWritebacksVerifyValues(bool isRegMode, RegistryHelper reg, ShortcutHelper shortcut, OpenTarget target, Tabs tabs, SliderMeta.ExpectedPosition sliderExpected, bool checkboxValue, Tabs.GlobalState consoleVersion)
         {
@@ -322,37 +348,40 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// verifies the values of boxes, sliders, and checkboxes in a tab after they have 
-        /// been written back to the registry or shortcut. 
+        /// verifies the values of boxes, sliders, and checkboxes in a TabBase object based 
+        /// on the provided RegistryHelper, ShortcutHelper, OpenTarget, and consoleVersion. 
+        /// It performs these actions either in registry mode or after waiting for a timeout 
+        /// when in non-registry mode. 
         /// </summary> 
         /// <param name="isRegMode"> 
-        /// mode of operation (registry or not) and determines whether to call `VerifyBoxes` 
-        /// and `VerifySliders` functions. 
+        /// mode of operation, either registration or non-registration, and determines which 
+        /// verification routines to execute. 
         /// </param> 
         /// <param name="reg"> 
-        /// 3rd party library Registry Helper, which is used to interact with the registry. 
+        /// 3rd party Registry class that contains the registry data being checked for writeback 
+        /// values. 
         /// </param> 
         /// <param name="shortcut"> 
-        /// 3rd party shortcut that is being written back to the registry or file system. 
+        /// 3rd party OpenTarget shortcut that is being written back to the registry by the 
+        /// CheckWritebacks method. 
         /// </param> 
         /// <param name="target"> 
-        /// OpenTarget instance that is associated with the current tab and serves as a reference 
-        /// for verifying the written values. 
+        /// OpenTarget object that provides information about the current target being processed. 
         /// </param> 
         /// <param name="tab"> 
-        /// TabBase object that contains the current tab being processed during the writeback 
-        /// verification process. 
+        /// currently selected tab in the IDE and is used to verify its state during the 
+        /// writeback process. 
         /// </param> 
         /// <param name="sliderExpected"> 
-        /// expected position of a slider in the UI, which is used to verify its value after 
-        /// it has been updated by the shortcut or RegMode operation. 
+        /// expected position of a slider in relation to its target value, which is used to 
+        /// verify the slider's position during execution. 
         /// </param> 
         /// <param name="checkboxValue"> 
-        /// value of a checkbox in the UI being verified. 
+        /// value of the checkbox associated with the tab being checked. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// current version of the console being used by the script, and is used to verify 
-        /// that the correct version is being used for proper functionality. 
+        /// version of the console being used, which is used to verify the correctness of the 
+        /// writeback process. 
         /// </param> 
         private void CheckWritebacksVerifyValues(bool isRegMode, RegistryHelper reg, ShortcutHelper shortcut, OpenTarget target, TabBase tab, SliderMeta.ExpectedPosition sliderExpected, bool checkboxValue, Tabs.GlobalState consoleVersion)
         {
@@ -373,29 +402,28 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// verifies the values of checkboxes associated with a tab, checking if they match 
-        /// the expected value stored in the registry. It accounts for inverse boxes and console 
-        /// version differences. 
+        /// verifies the state of checkboxes in a given registry key based on the target opened 
+        /// and the console version. It iterates through the list of checkboxes, verifying the 
+        /// stored value against the expected result for each box. 
         /// </summary> 
         /// <param name="tab"> 
-        /// TabBase object that contains the checkboxes to be verified for their registry values. 
+        /// TabBase object that contains the Checkboxes to be verified. 
         /// </param> 
         /// <param name="reg"> 
         /// RegistryHelper object that provides access to the target's registry keys and values 
         /// for verification purposes. 
         /// </param> 
         /// <param name="inverse"> 
-        /// inverse state of the boxes being verified, where `true` means the box should be 
-        /// false and `false` means the box should be on. 
+        /// mode of the target, whether it's specific or not, and affects the validation of boxes. 
         /// </param> 
         /// <param name="target"> 
-        /// target application or feature to be verified, and determines which boxes to include 
-        /// in the verification process. 
+        /// OpenTarget for which the boxes are being verified, and it is used to determine 
+        /// whether to include global-only boxes in the test set or not. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// 32-bit or 64-bit version of the registry viewer used to generate high-quality 
-        /// documentation for the code being passed, and affects how the boxes are validated 
-        /// in the Verify method. 
+        /// 32-bit console version of the OpenBoxes control, which is used to determine how 
+        /// to handle certain properties and their corresponding validation in the VerifyBoxes 
+        /// method. 
         /// </param> 
         private void VerifyBoxes(TabBase tab, RegistryHelper reg, bool inverse, OpenTarget target, Tabs.GlobalState consoleVersion)
         {
@@ -459,24 +487,23 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// enumerates and validates the values of checkboxes in a TabBase, using the shortcut's 
-        /// GetFromPropertyStore method to retrieve property data. It checks each box's value 
-        /// against its expected state based on its PropKey and whether it is inverse. 
+        /// verifies the data associated with a set of checkboxes based on their prop key and 
+        /// value name, and console version. 
         /// </summary> 
         /// <param name="tab"> 
         /// TabBase object that contains the Checkboxes to be verified. 
         /// </param> 
         /// <param name="shortcut"> 
-        /// implementation class for storing property values, which is used to retrieve property 
-        /// keys for validation. 
+        /// GetFromPropertyStore method's shortcut, which is used to quickly retrieve data 
+        /// from the property store. 
         /// </param> 
         /// <param name="inverse"> 
-        /// inverse state of the boxes to be verified, where `true` means the box should be 
-        /// turned off and `false` means it should be turned on. 
+        /// opposite of the expected state for each checked box, where `true` means the box 
+        /// should be off and `false` means it should be on. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// 32-bit vs 64-bit version of the console, which determines whether or not to skip 
-        /// validation of certain v2 properties in the verification process. 
+        /// console version for which the shortcuts need to be verified, and it is used to 
+        /// skip validation of v2 properties when switching to v1 console. 
         /// </param> 
         private void VerifyBoxes(TabBase tab, ShortcutHelper shortcut, bool inverse, Tabs.GlobalState consoleVersion)
         {
@@ -522,29 +549,28 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// verifies the values of sliders in a given tab against their expected positions, 
-        /// using the specified console version. It iterates over the sliders in the tab, 
-        /// checks the stored value against the expected position, and logs any discrepancies 
-        /// for further analysis. 
+        /// iterates over a list of sliders in a given tab, retrieves their stored values from 
+        /// the registry, and compares them to expected values for each slider. It also rescales 
+        /// the expected values if necessary for compatibility with an older console version. 
         /// </summary> 
         /// <param name="tab"> 
-        /// TabBase object that contains the sliders to be verified. 
+        /// 3D tab object that contains the sliders to be verified for their position. 
         /// </param> 
         /// <param name="reg"> 
-        /// 3rd-party library that contains various configuration options for the tab, and is 
-        /// used to retrieve the matching registry keys for each target. 
+        /// registry helper object that provides methods for accessing and manipulating registry 
+        /// values. 
         /// </param> 
         /// <param name="expected"> 
-        /// expected position of each slider, which is used to verify whether the stored value 
-        /// of each slider is equal to its maximum or minimum value. 
+        /// expected position of the slider, which is used to compare the stored value with 
+        /// the expected value for each slider in the verification process. 
         /// </param> 
         /// <param name="target"> 
-        /// target OpenTarget for which the sliders should be verified, and determines whether 
-        /// specific or default settings are checked. 
+        /// specific or default target for which the sliders are being verified, and is used 
+        /// to determine whether to look up the value in the registry or use the default value. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// 32-bit console version that the function is running under, which determines whether 
-        /// to use V1 or V2 property validation for each slider value. 
+        /// 1/x or 2.x version of the console being used, and it affects how certain slider 
+        /// properties are validated. 
         /// </param> 
         private void VerifySliders(TabBase tab, RegistryHelper reg, SliderMeta.ExpectedPosition expected, OpenTarget target, Tabs.GlobalState consoleVersion)
         {
@@ -601,25 +627,23 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// verifies the expected position of sliders based on their properties and the current 
-        /// console version. It retrieves data for each slider's property key, enumerates 
-        /// through each slider, and compares its value to the expected value after rescaling 
-        /// for transparency. 
+        /// iterates over a list of sliders in a tab and validates that their values match 
+        /// expected positions. It uses a global state variable to determine which version of 
+        /// the console is being used, and switches between v1 and v2 validation accordingly. 
         /// </summary> 
         /// <param name="tab"> 
-        /// tab component for which the sliders need to be verified. 
+        /// TabBase object that contains the sliders to be verified for their position. 
         /// </param> 
         /// <param name="shortcut"> 
-        /// object that provides access to the data for the sliders being verified, allowing 
-        /// the function to retrieve the necessary property keys and values from it. 
+        /// shortcut object that contains the data to be validated for each slider. 
         /// </param> 
         /// <param name="expected"> 
-        /// expected position of the slider, which determines the validation logic for each 
-        /// slider in the function. 
+        /// ExpectedPosition of the slider, which determines the range of values to be validated 
+        /// for each slider. 
         /// </param> 
         /// <param name="consoleVersion"> 
-        /// version of the console being used and determines whether to validate v2 properties 
-        /// or not. 
+        /// version of the console application being used, and is used to determine whether 
+        /// to validate v2 properties or not. 
         /// </param> 
         private void VerifySliders(TabBase tab, ShortcutHelper shortcut, SliderMeta.ExpectedPosition expected, Tabs.GlobalState consoleVersion)
         {
@@ -667,14 +691,15 @@ namespace Conhost.UIA.Tests
         }
 
         /// <summary> 
-        /// rescales an input value within a range of 0x4D to 0xFF using a scale factor 
-        /// calculated as the input value divided by 100, then returns the resulting short value. 
+        /// rescales an input value within a range of 0x4D to 0xFF, returning a short value 
+        /// with the same scale as the original input value. 
         /// </summary> 
         /// <param name="inputValue"> 
-        /// 0-100 range value that will be rescaled to a value between 0x4D and 0xFF. 
+        /// 0-based integer value that will be rescaled within the specified range of 0x4D to 
+        /// 0xFF. 
         /// </param> 
         /// <returns> 
-        /// a short value between 0x4D and 0xFF, inclusive. 
+        /// a short value between 0x4D and 0xFF, scaled based on an input value. 
         /// </returns> 
         private short RescaleSlider(int inputValue)
         {
