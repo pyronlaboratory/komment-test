@@ -2,11 +2,17 @@ using System;
 
 class Program
 {
+    /// <summary> 
+    /// does nothing and does not modify any external state or variables. 
+    /// </summary> 
     static void empty()
     {
       ;
     }
 
+    /// <summary> 
+    /// empties its expression. 
+    /// </summary> 
     void Foo() => Expression.Empty();
 
     Func<int, int, int> f = (x, y) => x + y;
