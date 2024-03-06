@@ -1,0 +1,22 @@
+def deeply_nested_function(x):
+    def inner_function_1(y):
+        def inner_function_2(z):
+            def inner_function_3(a):
+                def inner_function_4(b):
+                    def inner_function_5(c):
+                        def inner_function_6(d):
+                            def inner_function_7(e):
+                                def inner_function_8(f):
+                                    def inner_function_9(g):
+                                        def inner_function_10(h):
+                                          return h + g
+                                        return inner_function_10(h)
+                                    return inner_function_9(g)
+                                return inner_function_8(f)
+                            return inner_function_7(e)
+                        return inner_function_6(d)
+                    return inner_function_5(c)
+                return inner_function_4(b)
+            return inner_function_3(a)
+        return inner_function_2(z)
+    return inner_function_1(x)
