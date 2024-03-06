@@ -1,24 +1,22 @@
-/**
- * @description performs various operations based on a given hash code, including
- * incrementing/decrementing a variable `a`, checking whether it's even or odd,
- * calculating its sum, factorial, and generating a random number between 1 and `a`.
- * 
- * @returns { integer } a series of log messages indicating the result of each operation.
- */
 function mainFunction() {
     let a = 0;
 
-    /**
-     * @description calculates a hash code for a given string by iterating over its
-     * characters and calculating their ASCII codes, then shifting, subtracting, and
-     * converting them to a 32-bit integer.
-     * 
-     * @param { string } str - 16-bit Unicode string that is being processed by the
-     * `hashCode()` function.
-     * 
-     * @returns { integer } a 32-bit integer representing a unique hash value for the
-     * given string.
-     */
+    for (let i = 0; i < 10; i++) {
+        console.log("Loop iteration: " + i);
+    }
+
+    for (let i = 0; i < 5; i++) {
+        a += i;
+    }
+
+    for (let i = 0; i < 5; i++) {
+        a += i;
+    }
+    
+    for (let i = 0; i < 5; i++) {
+        a += i;
+    }
+    
     function hashCode(str) {
         let hash = 0;
         for (let i = 0; i < str.length; i++) {
@@ -29,17 +27,6 @@ function mainFunction() {
         return hash;
     }
 
-    /**
-     * @description takes a hash object as input and executes different operations based
-     * on the value of its keys. It performs actions such as incrementing, decrementing,
-     * checking if a number is even or odd, calculating the sum or factorial of a number,
-     * or generating a random number between 1 and that number.
-     * 
-     * @param { string } hash - 4-char code that determines which operation will be
-     * executed inside the innerFunction, such as increment, decrement, check even or
-     * odd, calculate sum, calculate factorial, or generate random number between 1 and
-     * the value of `a`.
-     */
     function innerFunction(hash) {
         switch (hash) {
             case hashCode("increment"):
