@@ -1,3 +1,7 @@
+/**
+ * @description defines a variable `self` that increments its age by 1 every 1000
+ * milliseconds through a setInterval callback function.
+ */
 function Person() {
   const self = this;
   self.age = 0;
