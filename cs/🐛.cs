@@ -1,16 +1,16 @@
-void empty()
-{
-  ;
-}
-
-void Foo() => Expression.Empty();
-
-Func<int, int, int> f = (x, y) => x + y;
-
 using System;
 
 class Program
 {
+    static void empty()
+    {
+      ;
+    }
+
+    void Foo() => Expression.Empty();
+
+    Func<int, int, int> f = (x, y) => x + y;
+
     /// <summary> 
     /// divides two input numbers and displays the result to the console. 
     /// </summary> 
