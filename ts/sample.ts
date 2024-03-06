@@ -46,6 +46,32 @@ type TokensForRefresh = Partial<
 let clearScheduledRefresh: ReturnType<typeof setTimeoutWallClock> | undefined =
   undefined;
 
+/**
+ * @description schedules a refresh of tokens at a time determined by their expiration
+ * date, adding random jitter to spread scheduled refreshes across multiple components.
+ * 
+ * @param { AbortSignal } .abort - abort signal, which can be used to stop the scheduled
+ * refresh of tokens by calling `clearScheduledRefresh`.
+ * 
+ * @param { (res: TokensFromRefresh) => void | Promise<void> } .tokensCb - callback
+ * function that is triggered when the tokens are successfully retrieved from the API.
+ * 
+ * @param { (isRefreshing: boolean) => unknown } .isRefreshingCb - callback function
+ * that is called whenever the `isRefreshing` state of the tokens changes, providing
+ * the new value to the caller.
+ * 
+ * @returns { ` unknown`. } a timer ID that will be used to schedule a refresh of
+ * tokens after a certain delay.
+ * 
+ * 		- `clearScheduledRefresh`: The clear schedule refresh callback, which is a
+ * reference to a function that clears the scheduled refresh timer.
+ * 		- `abort`: The abort signal, which is an optional parameter that can be used to
+ * cancel the scheduled refresh.
+ * 		- `tokensCb`: The tokens callback, which is an optional parameter that can be
+ * used to handle the response of the token retrieval operation.
+ * 		- `isRefreshingCb`: The is refreshing callback, which is an optional parameter
+ * that can be used to handle the state of the refresh operation.
+ */
 async function _scheduleRefresh({
   abort,
   tokensCb,
