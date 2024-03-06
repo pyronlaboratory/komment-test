@@ -46,28 +46,6 @@ type TokensForRefresh = Partial<
 let clearScheduledRefresh: ReturnType<typeof setTimeoutWallClock> | undefined =
   undefined;
 
-/**
- * @description This function schedules a refresh of tokens based on their expiration
- * time. It takes an object with three callback functions and schedules the refresh
- * up to 30 seconds before expiry. If the refresh is cancelled (aborted), it clears
- * the scheduled refresh.
- * 
- * @param { string } abort,tokensCb,isRefreshingCb - The input parameters `abort`,
- * `tokensCb`, and `isRefreshingCb` serve as options to control the behavior of the
- * scheduled token refresh process.
- * 
- * - `abort` is an abort signal that can be used to cancel the token refresh process
- * if needed
- * - `tokensCb` is a callback function that will be called when tokens are successfully
- * retrieved and should be processed.
- * - `isRefreshingCb` is a callback function that will be notified every time there
- * is an active token refresh schedule
- * 
- * @returns { object } This function schedules a refresh of tokens to be performed
- * after a certain amount of time. The output returned by the function is a clear
- * function that can be used to cancel the scheduled refresh. The function takes three
- * optional arguments: `abort`, `tokensCb`, and `isRefreshingCb` .
- */
 async function _scheduleRefresh({
   abort,
   tokensCb,
@@ -96,11 +74,6 @@ async function _scheduleRefresh({
       `Scheduling refresh of tokens in ${(refreshIn / 1000).toFixed(1)} seconds`
     );
 
-/**
- * @description This function schedules a callback to refresh Tokens after a specified
- * time(refreshIn), using the abort callback , isRefreshingCb and tokens CB for error
- * handling.
- */
     clearScheduledRefresh = setTimeoutWallClock(
       () =>
         refreshTokens({ abort, tokensCb, isRefreshingCb, tokens }).catch(
