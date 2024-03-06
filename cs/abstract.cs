@@ -4,7 +4,8 @@ public class A
     {  
         return a + b;  
     }  
-}  
+}
+
 public class B: A  
 {  
     public override int Calculate(int a, int b)  
