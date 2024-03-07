@@ -11,14 +11,7 @@ void Main()
   var a = foo();
   bar(a);
 }
-/// <summary> 
-/// <c>foo</c> creates an instance of an anonymous class, sets an integer variable `i` 
-/// to 100, and then returns the result of calling an instance method on that anonymous 
-/// class. 
-/// </summary> 
-/// <returns> 
-/// an instance of type `Action`. 
-/// </returns> 
+
 public Action foo()
 {
   int i = 100;
@@ -50,26 +43,6 @@ public void DoProcessing()
     TraceMessage("Something happened.");
 }
 
-/// <summary> 
-/// <c>TraceMessage</c> logs information to the trace log. It takes a message string 
-/// and additional metadata (member name, file path, and line number) from the caller 
-/// as arguments. 
-/// </summary> 
-/// <param name="message"> 
-/// message that is being traced and is passed as a string to the `Trace.WriteLine()` 
-/// method for logging purposes. 
-/// </param> 
-/// <param name="string"> 
-/// message to be traced and is passed directly to the `Trace.WriteLine()` method for 
-/// logging. 
-/// </param> 
-/// <param name="string"> 
-/// message to be traced and is passed directly to the `Trace.WriteLine()` method for 
-/// logging. 
-/// </param> 
-/// <param name="int"> 
-/// 0-based line number of the source code file where the `TraceMessage` method was called. 
-/// </param> 
 public void TraceMessage(string message,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string sourceFilePath = "",
@@ -81,11 +54,6 @@ public void TraceMessage(string message,
     Trace.WriteLine("source line number: " + sourceLineNumber);
 }
 
-/// <summary> 
-/// <c>DrawGraph</c> creates a graph by plotting a given function using pixels. It 
-/// first calculates the world coordinates for each pixel and then plots the function 
-/// at those points using lines. 
-/// </summary> 
 private void DrawGraph()
 {
     const float wxmin = -2;
