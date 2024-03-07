@@ -1,17 +1,33 @@
 class @AnonymousClass001
 {
   internal int i;
+  /// <summary> 
+  /// <c>@AnonymousMethod001</c> writes the value `i` to the console. 
+  /// </summary> 
   internal void @AnonymousMethod001()
   {
     Console.Write($"{i}");
   }
 }
+/// <summary> 
+/// <c>Main</c> calls `foo()` to generate some value and then passes it as an argument 
+/// to `bar()`. 
+/// </summary> 
 void Main()
 {
   var a = foo();
   bar(a);
 }
 
+/// <summary> 
+/// <c>foo</c> creates a new instance of an anonymous class, assigns the value of `i` 
+/// to a field within that class, and then returns the result of calling an instance 
+/// method on that class. 
+/// </summary> 
+/// <returns> 
+/// an `Action` instance that references the result of calling the `AnonymousMethod001` 
+/// method on an anonymous class instance. 
+/// </returns> 
 public Action foo()
 {
   int i = 100;
@@ -20,6 +36,12 @@ public Action foo()
   Action a = r.AnonymousMethod001;
   return a;
 }
+/// <summary> 
+/// <c>bar</c> calls the provided `Action` object's `act()` method, passing it no arguments. 
+/// </summary> 
+/// <param name="a"> 
+/// action to be performed and is invoked by calling the corresponding method. 
+/// </param> 
 public void bar(Action a)
 {
   a();
@@ -38,11 +60,31 @@ public static IEnumerable<T> Sample<T>(this IEnumerable<T> sequence, int frequen
     }
 }
 
+/// <summary> 
+/// <c>DoProcessing</c> tracesthe message "Something happened." 
+/// </summary> 
 public void DoProcessing()
 {
     TraceMessage("Something happened.");
 }
 
+/// <summary> 
+/// <c>TraceMessage</c> logs a message, member name, source file path and line number 
+/// to the trace log. 
+/// </summary> 
+/// <param name="message"> 
+/// message to be traced and is passed as a string into the `Trace.WriteLine` methods 
+/// to log it in the trace output. 
+/// </param> 
+/// <param name="string"> 
+/// message to be traced. 
+/// </param> 
+/// <param name="string"> 
+/// message to be traced and is written to the Trace output. 
+/// </param> 
+/// <param name="int"> 
+/// 0-based line number of the source file where the called member was defined. 
+/// </param> 
 public void TraceMessage(string message,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string sourceFilePath = "",
@@ -54,6 +96,10 @@ public void TraceMessage(string message,
     Trace.WriteLine("source line number: " + sourceLineNumber);
 }
 
+/// <summary> 
+/// <c>DrawGraph</c> generates high-quality documentation for code given to it by 
+/// plotting a function on a graph using world coordinates and Anti-Alias smoothing mode. 
+/// </summary> 
 private void DrawGraph()
 {
     const float wxmin = -2;
