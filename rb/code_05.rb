@@ -1,3 +1,10 @@
+# takes any number of arguments, including integers, ranges, and pairs of integers,
+# and prints a message based on the type of input provided.
+# 
+# @param args [Array] 1-5 inputs passed to the `slice` function, allowing it to
+# handle different types of input values and provide appropriate output messages accordingly.
+# 
+# @returns [Integer] a message indicating the type of input provided.
 def slice(*args)
   case args
   in [Integer => index]
