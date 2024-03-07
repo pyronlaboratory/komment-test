@@ -18,43 +18,29 @@ class Compare
     end
   end
 
-  # sets instance variables `compare`, `project`, `base_sha`, and `straight`.
+  # sets instance variables `@compare`, `@project`, `@base_sha`, and `@straight` based
+  # on input parameters.
   # 
-  # @param compare [Object] comparison object that contains the information required
-  # to compare files and determine whether they have changed.
+  # @param compare [String] object to be compared with the project's current state,
+  # which is stored in the `@project` attribute.
   # 
-  # @param project [`Project`.] project being analyzed for compatibility checking in
-  # the `initialize` method of the code snippet provided.
+  # @param project [`Project`.] Git repository being analyzed for code changes.
   # 
-  # 		- `@project`: The project object contains information about the project, including
-  # its name and path.
-  # 		- `@base_sha`: The base SHA of the project, which can be used for comparing
-  # changes in subsequent updates.
-  # 		- `@straight`: A boolean flag indicating whether the update should be performed
-  # directly or not.
+  # 		- `@project`: The project object contains information about a software development
+  # project, including its name and a reference to its repository.
+  # 		- `name`: A string attribute representing the name of the project.
+  # 		- `repository`: A reference to a `Repository` object representing the central
+  # location for the project's codebase.
   # 
   # 
-  # @param base_sha [Symbol] base commit hash of the project when it was created, which
-  # is used to compare with the latest commit hash to determine if changes have been
-  # made since the project was initialized.
+  # @param base_sha [Symbol] initial base commit SHA for the project when the compare
+  # method is called, providing a reference point for tracking changes made to the project.
   # 
-  # @param straight [Symbol] whether the initialization should proceed directly to the
-  # `project` or if additional setup is needed before doing so.
+  # @param straight [Symbol] whether to use the original project commit hash or a base
+  # commit hash as the reference for comparison.
   # 
-  # @returns [instance of `Project`.] an instance of the `Comparison` class with the
-  # specified parameters.
-  # 
-  # 		- `@compare`: The compare parameter is an instance of the `Compare` class, which
-  # represents the comparison object used to determine whether the project has changed
-  # since the last scan.
-  # 		- `@project`: The project parameter is an instance of the `Project` class, which
-  # contains information about the project being scanned.
-  # 		- `@base_sha`: The base_sha parameter is a string representing the commit hash
-  # of the base commit for the project, which is used to determine if the project has
-  # changed.
-  # 		- `@straight`: The straight parameter is a boolean value indicating whether the
-  # compare operation should be performed directly without any additional filtering
-  # or transformation.
+  # @returns [Class] an instance of the `Comparison` class, initialized with the given
+  # parameters.
   def initialize(compare, project, base_sha: nil, straight: false)
     @compare = compare
     @project = project
@@ -72,30 +58,24 @@ class Compare
     }
   end
 
-  # generates a unique key for caching purposes by combining project name, compare
-  # mode, and reference differences using a custom hash algorithm.
-  # 
-  # @returns [Hash] a hash of three elements: `@project`, `:compare`, and `diff_refs`.
   def cache_key
     [@project, :compare, diff_refs.hash]
   end
 
-  # creates a collection of decorated commits from a given set of raw commits and a
-  # project object.
+  # generates high-quality documentation for code by returning a `CcommitCollection`
+  # object containing decorated commits based on the input `Commits` collection and
+  # project information.
   # 
-  # @returns [`CommitCollection`.] a `CandidateCollection` containing decorated `Commit`
-  # objects.
+  # @returns [`CommitCollection`.] a `CommitCollection` object containing the decorated
+  # commits for the specified project.
   # 
-  # 		- `@commits`: This variable contains an instance of `Commits`, which is a subclass
-  # of `Sequel::Model`.
-  # 		- `decorated_commits`: This is an array of `DecoratedCommit` objects, which are
-  # instances of `Class.new do |c| c.extend(Gitlab::Extensions::Commit)`. Each object
-  # in this array has been decorated with additional information about the commit,
-  # such as the author and committer.
-  # 		- `Commits`: This is an instance of `Commits`, which represents a collection of
-  # commits for a given project.
-  # 		- `Project`: This variable contains the project object that was passed into the
-  # function.
+  # 		- `@commits`: A nested array containing the commits, each with its own set of
+  # attributes, including the commit hash, author, and messages.
+  # 		- `DecoratedCommits`: An array of `DecoratedCommit` objects, which contain
+  # additional information about each commit, such as the repository name and the
+  # commit date.
+  # 		- `Project`: A reference to the project object, which contains metadata about
+  # the project, including its name and path.
   def commits
     @commits ||= begin
       decorated_commits = Commit.decorate(@compare.commits, project)
@@ -103,15 +83,10 @@ class Compare
     end
   end
 
-  # creates a new `Commit` instance based on the provided `commit` value and the
-  # associated `project`.
+  # creates a new `Commit` object based on the given `commit` value, which is either
+  # the base commit or a new commit created with the provided `project`.
   # 
-  # @returns [`::Commit`.] a `Commit` object representing the initial commit of the project.
-  # 
-  # 		- `commit`: The commit object itself, representing the state of the project's
-  # files at the time of the commit.
-  # 		- `@compare.base`: The base commit for the comparison, which is used to determine
-  # the changes between the current and previous states of the project.
+  # @returns [Object] a `Commit` object representing the initial commit of the project."
   def start_commit
     strong_memoize(:start_commit) do
       commit = @compare.base
@@ -120,11 +95,16 @@ class Compare
     end
   end
 
-  # retrieves and memoizes the current head commit for a given repository based on the
-  # `@compare` instance variable. If the `commit` is not already tracked, it creates
-  # a new `Commit` object representing the head commit.
+  # retrieves and memoizes the current head commit of a Git repository using the
+  # `@compare` object. If the commit is not already known, it creates a new `Commit`
+  # object representing the head commit and returns it.
   # 
-  # @returns [Object] a `Commit` object representing the current head of the Git repository.
+  # @returns [`::Commit`.] a `Commit` object representing the current head of the repository.
+  # 
+  # 		- `commit`: A `Commit` object representing the current head commit of the repository.
+  # 		- `@compare`: An instance variable representing the `Commit` object comparing
+  # the current head commit to a specified reference.
+  # 		- `project`: The project associated with the repository.
   def head_commit
     strong_memoize(:head_commit) do
       commit = @compare.head
@@ -134,17 +114,14 @@ class Compare
   end
   alias_method :commit, :head_commit
 
-  # generates the SHA of the current commit.
-  # 
-  # @returns [String] the SHA of the current commit.
   def start_commit_sha
     start_commit&.sha
   end
 
-  # calculates and caches the base commit SHA for a Git repository based on the
-  # `start_commit` and `head_commit`.
+  # retrieves the base commit SHA for a Git repository given the start and head commits,
+  # computing it only if necessary to avoid redundant work.
   # 
-  # @returns [String] the SHA of the base commit for a given Git repository.
+  # @returns [String] the SHA of the base commit for the given `start_commit` and `head_commit`.
   def base_commit_sha
     strong_memoize(:base_commit) do
       next unless start_commit && head_commit
@@ -153,68 +130,30 @@ class Compare
     end
   end
 
-  # retrieves the current commit SHA of the Git repository.
-  # 
-  # @returns [Hash] the SHA of the current commit.
   def head_commit_sha
     commit&.sha
   end
 
-  # passes an argument to the `@compare.diffs` method, which computes and returns a
-  # list of differences between two sequences of values.
-  # 
-  # @returns [instance of `Diff`.] an array of differences between the input and the
-  # compare object's representation of the original code."
-  # 
-  # 		- The `@compare` attribute is referenced, indicating that the diffs are generated
-  # using a comparison with another object.
-  # 		- The `diffs` method is called on the `@compare` object, which generates the
-  # actual diffs.
-  # 		- No explicit mention is made of the input arguments to the `raw_diffs` function,
-  # suggesting that they may be optional or variable.
   def raw_diffs(...)
     @compare.diffs(...)
   end
 
-  # creates a new instance of `Gitlab::Diff::FileCollection::Compare` and passes the
-  # current object as the first argument, followed by the project, diff options, and
-  # diff refs as arguments.
+  # creates a `Gitlab::Diff::FileCollection::Compare` object to compare files between
+  # two states, providing project, diff options, and diff refs as input.
   # 
-  # @param diff_options [`Gitlab::Diff::FileCollection::Compare::Options`.] configuration
-  # for the diff tool, allowing for customization of the diff output format and other
-  # settings.
+  # @param diff_options [`Gitlab::Diff::FileCollection::Compare`.] configuration options
+  # for the GitLab Diff API call, which can include settings such as the type of diff
+  # to generate (e.g., line-by-line or side-by-side), the branch or commit to compare,
+  # and the desired level of granularity.
   # 
-  # 		- `project`: The Project object representing the GitLab repository being analyzed.
-  # 		- `diff_options`: An optional hash containing various properties to customize
-  # the diff generation process. Its attributes include:
-  # 		+ `:maximum_lines`: (Integer, default: 100) - The maximum number of lines to
-  # display in each file's diff output.
-  # 		+ `:full_diff`: (Boolean, default: false) - Whether to generate a full diff or
-  # just a summary of changes.
+  # 		- `project`: The project object representing the repository where the files to
+  # be diffed exist.
+  # 		- `diff_options`: An optional hash containing various configuration options for
+  # the diff algorithm, such as `include_stats`, `only`, `max_diffs`, and `path`.
   # 
   # 
-  # @returns [instance of `Gitlab::Diff::FileCollection`.] a `Gitlab::Diff::FileCollection`
-  # object containing the differences between the specified revisions.
-  # 
-  # 		- `project`: The project that the diff is being generated for.
-  # 		- `diff_options`: An optional parameter that specifies the diff options to use
-  # when generating the diff.
-  # 		- `diff_refs`: An array of reference names that define which branches or tags
-  # to include in the diff.
-  # 
-  # 	The output of the `diffs` function is an instance of `Gitlab::Diff::FileCollection`,
-  # which represents a collection of files and their differences. This object has
-  # several attributes, including:
-  # 
-  # 		- `files`: An array of `Gitlab::Diff::File` objects, each representing a file
-  # in the diff.
-  # 		- `total_files`: The total number of files in the diff.
-  # 		- `added_files`: An array of `Gitlab::Diff::File` objects, representing files
-  # that have been added to the diff.
-  # 		- `deleted_files`: An array of `Gitlab::Diff::File` objects, representing files
-  # that have been deleted from the diff.
-  # 		- `modified_files`: An array of `Gitlab::Diff::File` objects, representing files
-  # that have been modified in the diff.
+  # @returns [Class] a `Gitlab::Diff::FileCollection` object, which represents the
+  # differences between two versions of a codebase.
   def diffs(diff_options = nil)
     Gitlab::Diff::FileCollection::Compare.new(self,
       project: project,
@@ -222,17 +161,11 @@ class Compare
       diff_refs: diff_refs)
   end
 
-  # creates a new instance of `Gitlab::Diff::DiffRefs`, using the specified base and
-  # start commit shas, and the head commit sha as input.
+  # creates a new instance of `Gitlab::Diff::DiffRefs`, which is used to compute the
+  # difference between two commits based on their SHA values.
   # 
-  # @returns [instance of `Gitlab::Diff::DiffRefs`.] a `Gitlab::Diff::DiffRefs` object
-  # containing information about the differences between the base and start commits
-  # and the head commit.
-  # 
-  # 		- `base_sha`: The base commit SHA, which is either `@straight` or the value
-  # passed as an argument if `@straight` is false.
-  # 		- `start_sha`: The start commit SHA.
-  # 		- `head_sha`: The head commit SHA.
+  # @returns [Object] a `Gitlab::Diff::DiffRefs` object representing the differences
+  # between the base and start commits and the head commit.
   def diff_refs
     Gitlab::Diff::DiffRefs.new(
       base_sha: @straight ? start_commit_sha : base_commit_sha,
@@ -241,11 +174,10 @@ class Compare
     )
   end
 
-  # 1) retrieves a set of paths from a `diffs` object's `diff_files` array and 2)
-  # returns the set as an array.
+  # retrieves and stores all new or modified file paths from a list of difference files.
   # 
-  # @returns [Array] an array of path pairs, where each pair represents a file that
-  # has been modified between two revisions.
+  # @returns [String] an array of tuples containing the old and new path of each file
+  # that has been modified.
   def modified_paths
     paths = Set.new
     diffs.diff_files.each do |diff|
