@@ -1,11 +1,18 @@
 class @AnonymousClass001
 {
   internal int i;
+  /// <summary> 
+  /// <c>@AnonymousMethod001</c> writes the value `i` to the console. 
+  /// </summary> 
   internal void @AnonymousMethod001()
   {
     Console.Write($"{i}");
   }
 }
+/// <summary> 
+/// <c>Main</c> calls the `foo()` function and passes its return value to the `bar()` 
+/// function. 
+/// </summary> 
 void Main()
 {
   var a = foo();
@@ -13,12 +20,12 @@ void Main()
 }
 
 /// <summary> 
-/// <c>foo</c> creates an anonymous class and assigns an integer value to a field, 
-/// then returns a Action object representing a method from that class. 
+/// <c>foo</c> creates an anonymous class, assigns the value of `i` to a property `i` 
+/// in that class, and then returns the result of calling the `AnonymousMethod001` 
+/// method on that class. 
 /// </summary> 
 /// <returns> 
-/// an instance of the anonymous class `@AnonymousClass001`, with the field `i` set 
-/// to 100. 
+/// an instance of the `Action` type with an initialized value of `i`. 
 /// </returns> 
 public Action foo()
 {
@@ -28,6 +35,13 @@ public Action foo()
   Action a = r.AnonymousMethod001;
   return a;
 }
+/// <summary> 
+/// <c>bar</c> executes the provided action, `a`. 
+/// </summary> 
+/// <param name="a"> 
+/// action to be performed by the `bar` function and its execution is initiated by 
+/// calling the function followed by invoking the `a()` method. 
+/// </param> 
 public void bar(Action a)
 {
   a();
@@ -46,27 +60,30 @@ public static IEnumerable<T> Sample<T>(this IEnumerable<T> sequence, int frequen
     }
 }
 
+/// <summary> 
+/// <c>DoProcessing</c> writes "Something happened" to the system log. 
+/// </summary> 
 public void DoProcessing()
 {
     TraceMessage("Something happened.");
 }
 
 /// <summary> 
-/// <c>TraceMessage</c> writes a message and various contextual information to the 
-/// trace log, including the name of the calling member, file path, and line number. 
+/// <c>TraceMessage</c> logs messages to the trace writer with specified parameters. 
 /// </summary> 
 /// <param name="message"> 
-/// message to be traced and is written to the Trace output along with additional 
-/// information such as the member name, source file path, and source line number. 
+/// message to be traced, which is written to the output stream of the Trace class 
+/// using the Trace.WriteLine method. 
 /// </param> 
 /// <param name="string"> 
-/// message to be traced and is passed to the `Trace.WriteLine()` method for logging. 
+/// message to be traced and is written to the Trace output followed by a space and 
+/// then the message. 
 /// </param> 
 /// <param name="string"> 
-/// message to be traced and is passed to the `Trace.WriteLine()` method for logging. 
+/// message to be traced and is passed to the `Trace.WriteLine` method for output. 
 /// </param> 
 /// <param name="int"> 
-/// 0-based line number of the source code file where the `TraceMessage` method was called. 
+/// 0-based line number of the source code file where the called method was executed. 
 /// </param> 
 public void TraceMessage(string message,
         [CallerMemberName] string memberName = "",
@@ -80,9 +97,8 @@ public void TraceMessage(string message,
 }
 
 /// <summary> 
-/// <c>DrawGraph</c> generates a graph based on a given function, by first plotting 
-/// the axes and then plotting the function's values at each pixel location using world 
-/// coordinates. 
+/// <c>DrawGraph</c> takes a rectangle representing the graph's coordinates and plots 
+/// the function using a pen. 
 /// </summary> 
 private void DrawGraph()
 {
