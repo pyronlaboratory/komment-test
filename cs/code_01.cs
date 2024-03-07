@@ -1,3 +1,29 @@
+class @AnonymousClass001
+{
+  internal int i;
+  internal void @AnonymousMethod001()
+  {
+    Console.Write($"{i}");
+  }
+}
+void Main()
+{
+  var a = foo();
+  bar(a);
+}
+public Action foo()
+{
+  int i = 100;
+  var r = new @AnonymousClass001();
+  r.i = i;
+  Action a = r.AnonymousMethod001;
+  return a;
+}
+public void bar(Action a)
+{
+  a();
+}
+
 public static IEnumerable<T> Sample<T>(this IEnumerable<T> sequence, int frequency, 
     [CallerArgumentExpression(nameof(sequence))] string? message = null)
 {
