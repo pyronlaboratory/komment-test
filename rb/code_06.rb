@@ -58,6 +58,7 @@ class Compare
     }
   end
 
+  
   def cache_key
     [@project, :compare, diff_refs.hash]
   end
