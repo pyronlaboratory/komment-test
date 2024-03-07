@@ -55,6 +55,18 @@ namespace OpenRA
 			{ typeof(Target), ((Func<Target, int>)HashTarget).Method },
 		};
 
+		/// <summary> 
+		/// <c>EmitSyncOpcodes</c> emits IL code to synchronize execution of a delegate based 
+		/// on the type of the delegate. It checks if the delegate's type is hashable and emits 
+		/// an opcode call to a specified hash function if it is, or throws an exception otherwise. 
+		/// </summary> 
+		/// <param name="type"> 
+		/// type of the object being processed, which is used to determine whether to call a 
+		/// custom hash function or to perform a simple comparison operation. 
+		/// </param> 
+		/// <param name="il"> 
+		/// IL generator to which the sync opcodes will be emitted. 
+		/// </param> 
 		static void EmitSyncOpcodes(Type type, ILGenerator il)
 		{
 			if (CustomHashFunctions.TryGetValue(type, out var hashFunction))
@@ -74,6 +86,18 @@ namespace OpenRA
 			il.Emit(OpCodes.Xor);
 		}
 
+		/// <summary> 
+		/// <c>GenerateHashFunc</c> takes a type parameter `t`, generates a dynamic method 
+		/// that creates a hash code for any instance of `t`, and returns a delegate to this 
+		/// method as a `Func<object, int>`. 
+		/// </summary> 
+		/// <param name="t"> 
+		/// type of object for which a hash value is to be generated. 
+		/// </param> 
+		/// <returns> 
+		/// a delegate that computes the hash code of an object based on its type and fields 
+		/// or properties. 
+		/// </returns> 
 		static Func<object, int> GenerateHashFunc(Type t)
 		{
 			var d = new DynamicMethod($"hash_{t.Name}", typeof(int), new Type[] { typeof(object) }, t);
@@ -120,6 +144,17 @@ namespace OpenRA
 			return ((i2.X * 5) ^ (i2.Y * 3)) / 4;
 		}
 
+		/// <summary> 
+		/// <c>HashActor</c> takes an `Actor` object as input and returns its unique hash value 
+		/// as an integer, calculated by shifting the actor's ID by 16 bits. 
+		/// </summary> 
+		/// <param name="a"> 
+		/// 32-bit actor ID of the actor being processed, which is used to generate the hash 
+		/// value through a bitwise left shift by 16 bits. 
+		/// </param> 
+		/// <returns> 
+		/// an integer value representing the hash of the input `Actor` object. 
+		/// </returns> 
 		public static int HashActor(Actor a)
 		{
 			if (a != null)
@@ -127,6 +162,17 @@ namespace OpenRA
 			return 0;
 		}
 
+		/// <summary> 
+		/// <c>HashPlayer</c> calculates a hash value for a given player by multiplying their 
+		/// actor ID by 0x567 and then shifting it left by 16 bits. 
+		/// </summary> 
+		/// <param name="p"> 
+		/// Player object and its ActorID is used to compute the output value of the function, 
+		/// which is a hash code derived from the ActorID multiplied by a constant factor. 
+		/// </param> 
+		/// <returns> 
+		/// an integer value that represents a hash of a Player object. 
+		/// </returns> 
 		public static int HashPlayer(Player p)
 		{
 			if (p != null)
@@ -134,6 +180,17 @@ namespace OpenRA
 			return 0;
 		}
 
+		/// <summary> 
+		/// <c>HashTarget</c> calculates a hash code for a target based on its type and subtype, 
+		/// using a combination of bit shifts and multiplication. 
+		/// </summary> 
+		/// <param name="t"> 
+		/// Target object that is being hashed, and its type determines the calculation used 
+		/// to generate the hash code. 
+		/// </param> 
+		/// <returns> 
+		/// an integer value based on the type of the target. 
+		/// </returns> 
 		public static int HashTarget(Target t)
 		{
 			switch (t.Type)
