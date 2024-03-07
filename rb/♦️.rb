@@ -1,4 +1,4 @@
-// @komment ignore all
+// @komment write all
 
 class X
 
