@@ -1,3 +1,5 @@
+Func<SomeClass, bool> isActiveSelector = it => it.IsActive;
+
 class @AnonymousClass001
 {
   internal int i;
