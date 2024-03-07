@@ -1,16 +1,30 @@
 class @AnonymousClass001
 {
   internal int i;
+  /// <summary> 
+  /// <c>@AnonymousMethod001</c> writes the value of `i` to the console. 
+  /// </summary> 
   internal void @AnonymousMethod001()
   {
     Console.Write($"{i}");
   }
 }
+/// <summary> 
+/// <c>Main</c> calls the `foo()` function and passes its result to the `bar()` function. 
+/// </summary> 
 void Main()
 {
   var a = foo();
   bar(a);
 }
+/// <summary> 
+/// <c>foo</c> creates an instance of an anonymous class, sets a field on it, and then 
+/// calls an method on that object to return an action. 
+/// </summary> 
+/// <returns> 
+/// an instance of the `AnonymousClass001` class with an initial value of `i` set to 
+/// `100`. 
+/// </returns> 
 public Action foo()
 {
   int i = 100;
@@ -19,6 +33,14 @@ public Action foo()
   Action a = r.AnonymousMethod001;
   return a;
 }
+/// <summary> 
+/// <c>bar</c> performs the action passed as its argument, which is executed immediately 
+/// after invocation. 
+/// </summary> 
+/// <param name="a"> 
+/// action to be executed in the `bar()` function, and its value is passed as an 
+/// argument to the corresponding method or block of code. 
+/// </param> 
 public void bar(Action a)
 {
   a();
@@ -37,11 +59,30 @@ public static IEnumerable<T> Sample<T>(this IEnumerable<T> sequence, int frequen
     }
 }
 
+/// <summary> 
+/// <c>DoProcessing</c> outputs the message "Something happened." 
+/// </summary> 
 public void DoProcessing()
 {
     TraceMessage("Something happened.");
 }
 
+/// <summary> 
+/// <c>TraceMessage</c> writes a message and additional information about its origin 
+/// to the trace log. 
+/// </summary> 
+/// <param name="message"> 
+/// message to be traced and is passed to the `Trace.WriteLine()` method to log it. 
+/// </param> 
+/// <param name="string"> 
+/// message to be traced and is passed into the `Trace.WriteLine()` method for logging. 
+/// </param> 
+/// <param name="string"> 
+/// message to be traced and is passed into the `Trace.WriteLine()` method for output. 
+/// </param> 
+/// <param name="int"> 
+/// 0-based line number of the source file where the call to `TraceMessage` occurred. 
+/// </param> 
 public void TraceMessage(string message,
         [CallerMemberName] string memberName = "",
         [CallerFilePath] string sourceFilePath = "",
@@ -53,6 +94,12 @@ public void TraceMessage(string message,
     Trace.WriteLine("source line number: " + sourceLineNumber);
 }
 
+/// <summary> 
+/// <c>DrawGraph</c> generates a graph of a given function using the pixels of an image 
+/// as the x and y coordinates. It plots the function by converting the x-coordinates 
+/// into world coordinates, generating y values for each x coordinate using the function, 
+/// and plotting the points using lines. 
+/// </summary> 
 private void DrawGraph()
 {
     const float wxmin = -2;
