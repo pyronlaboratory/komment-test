@@ -59,6 +59,11 @@ class Compare
   end
 
   
+  # combines project and compare instance variables with the hash value of the `diff_refs`
+  # variable to generate a cache key for storing or retrieving data.
+  # 
+  # @returns [Hash] a hash representing the project ID and comparison criteria for
+  # efficient caching.
   def cache_key
     [@project, :compare, diff_refs.hash]
   end
@@ -115,6 +120,9 @@ class Compare
   end
   alias_method :commit, :head_commit
 
+  # evaluates to the SHA of the current commit.
+  # 
+  # @returns [Object] the SHA of the starting commit.
   def start_commit_sha
     start_commit&.sha
   end
@@ -131,10 +139,16 @@ class Compare
     end
   end
 
+  # retrieves the current commit SHA of the Git repository.
+  # 
+  # @returns [String] the current commit SHA of the Git repository.
   def head_commit_sha
     commit&.sha
   end
 
+  # performs a diff operation on input arguments and returns the result.
+  # 
+  # @returns [Object] an array of differences between the input arrays."
   def raw_diffs(...)
     @compare.diffs(...)
   end
