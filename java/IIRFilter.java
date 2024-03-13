@@ -26,6 +26,16 @@ public class IIRFilter {
     }
 
     
+    /**
+     * sets the coefficients of a polynomial given by `aCoeffs` and `bCoeffs`. It checks
+     * for valid input lengths, zero coefficients, and sets the corresponding elements
+     * in the internal arrays `coeffsA` and `coeffsB`.
+     * 
+     * @param aCoeffs coefficients of the transfer function's poles.
+     * 
+     * @param bCoeffs 2nd polynomial's coefficients, which must be of size `order`, just
+     * like `aCoeffs`.
+     */
     public void setCoeffs(double[] aCoeffs, double[] bCoeffs) throws IllegalArgumentException {
         if (aCoeffs.length != order) {
             throw new IllegalArgumentException("aCoeffs must be of size " + order + ", got " + aCoeffs.length);
