@@ -30,12 +30,32 @@ namespace OpenRA
 		static readonly ConcurrentCache<Type, Func<object, int>> HashFunctions =
 			new(GenerateHashFunc);
 
+		/// <summary> 
+		/// <c>GetHashFunction</c> generates a hash function for an object of type `ISync`. 
+		/// </summary> 
+		/// <param name="sync"> 
+		/// type of object to be hashed. 
+		/// </param> 
+		/// <returns> 
+		/// an integer value representing the hash code for the specified object based on the 
+		/// type of the object. 
+		/// </returns> 
 		internal static Func<object, int> GetHashFunction(ISync sync)
 		{
 			return HashFunctions[sync.GetType()];
 		}
 
 
+		/// <summary> 
+		/// <c>Hash</c> computes the hash value of a `Sync` object using a provided hash function. 
+		/// </summary> 
+		/// <param name="sync"> 
+		/// sync object for which the hash value is to be calculated and is used as an argument 
+		/// for the `GetHashFunction()` method. 
+		/// </param> 
+		/// <returns> 
+		/// an integer representing the hash value of the input `ISync` object. 
+		/// </returns> 
 		internal static int Hash(ISync sync)
 		{
 			return GetHashFunction(sync)(sync);
@@ -56,6 +76,18 @@ namespace OpenRA
 			{ typeof(Target), ((Func<Target, int>)HashTarget).Method },
 		};
 
+		/// <summary> 
+		/// <c>EmitSyncOpcodes</c> emits opcodes for synchronization instructions based on the 
+		/// type of a member. It checks if the type has a custom hash function and emits a 
+		/// call to that function if present, or branches to a label if the type is boolean 
+		/// and the value of a constant is true. If the type is not integer, it throws an exception. 
+		/// </summary> 
+		/// <param name="type"> 
+		/// type of the member for which the `SyncAttribute` should be emitted opcodes. 
+		/// </param> 
+		/// <param name="il"> 
+		/// IL generator, which is used to emit the appropriate opcodes for the given type. 
+		/// </param> 
 		static void EmitSyncOpcodes(Type type, ILGenerator il)
 		{
 			if (CustomHashFunctions.TryGetValue(type, out var hashFunction))
@@ -75,6 +107,19 @@ namespace OpenRA
 			il.Emit(OpCodes.Xor);
 		}
 
+		/// <summary> 
+		/// <c>GenerateHashFunc</c> generates a delegate for a hash function that takes an 
+		/// object of type `t` and returns an integer value. It uses reflection to iterate 
+		/// over the fields and properties of `t` and emits opcodes to syncronously call the 
+		/// getters and invoke the hash function on each one, returning the result. 
+		/// </summary> 
+		/// <param name="t"> 
+		/// type of the object for which the hash value is to be generated. 
+		/// </param> 
+		/// <returns> 
+		/// a delegate that computes the hash code of an object based on its type and fields 
+		/// and properties. 
+		/// </returns> 
 		static Func<object, int> GenerateHashFunc(Type t)
 		{
 			var d = new DynamicMethod($"hash_{t.Name}", typeof(int), new Type[] { typeof(object) }, t);
