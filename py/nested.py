@@ -1,17 +1,5 @@
 def deeply_nested_function(x):
-    """
-    recursively defines multiple inner functions, each returning a value based on
-    the input passed to it. The outer function returns the final result of these
-    inner functions.
 
-    Args:
-        x (float): 0-based index of the nested function call stack, determining
-            the function to be executed at each level.
-
-    Returns:
-        int: a value computed as the sum of two integers.
-
-    """
     def inner_function_1(y):
         """
         is a recursive function that takes an argument `y` and recursively calls
