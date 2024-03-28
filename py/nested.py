@@ -1,5 +1,19 @@
 def deeply_nested_function(x):
 
+    """
+    10 layers of nested functions, each returning another function or value. The
+    final output is a function that takes a single argument and returns its sum
+    with a previously defined inner function.
+
+    Args:
+        x (int): 1st inner function, which is defined as returning another function
+            that takes a single argument `h` and computes `h + g`.
+
+    Returns:
+        int: a sequence of 10 inner functions, each of which takes a different
+        argument and returns a modified version of the input.
+
+    """
     def inner_function_1(y):
         """
         is a recursive function that takes an argument `y` and recursively calls
