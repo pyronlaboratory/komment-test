@@ -1,4 +1,19 @@
 def deeply_nested_function(x):
+    """
+    recursively defines a sequence of inner functions, each returning a new inner
+    function, until a final inner function is returned. The entire function is
+    defined within itself, creating a deeply nested structure.
+
+    Args:
+        x (int): 1st inner function in the sequence of nested functions, which
+            takes an integer value and is used as the input for the next inner
+            function in the sequence.
+
+    Returns:
+        int: a sequence of 10 inner functions, each of which computes and returns
+        a value.
+
+    """
     def inner_function_1(y):
         """
         is a recursive function that takes an argument `y` and recursively calls
